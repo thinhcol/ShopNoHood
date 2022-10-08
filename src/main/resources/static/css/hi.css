@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Reem+Kufi+Ink&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Reem Kufi Ink', sans-serif;
+}
+
+.block_none {
+    display: none !important;
+}
+
+.block {
+    display: block !important;
+}
+
+.navall {
+    position: relative;
+    width: 100%;
+    min-height: 150vh;
+}
+
+.menustanding {
+    box-shadow: 0 0 1px #181616;
+    position: fixed;
+    width: 50px;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    z-index: 1;
+    transition: linear 0.5s;
+}
+
+.menustanding:hover {
+    width: 250px;
+}
+
+.menustanding:hover span {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menustanding ul {
+    width: 100%;
+    list-style: none;
+    overflow: hidden;
+    /* position: absolute; */
+}
+
+.menustanding ul li a {
+    color: #717fe0;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: linear 0.3s;
+}
+
+.menustanding ul li a {
+    padding: 15px;
+    width: 100%;
+}
+
+.menustanding ul li a i {
+    margin-right: 8px;
+    font-size: 22px;
+}
+
+.menustanding .sub_menu a {
+    padding: 10px 10px 10px 43px;
+    font-size: 14px;
+}
+
+.menustanding .sub_menu {
+    display: none;
+}
+
+.menustanding .sub_menu a:hover {
+    color: #fff;
+    background-color: #1835f351;
+}
+
+.menustanding .vertical_menu:hover>.sub_menu {
+    display: block;
+}
+
+.menustanding ul li a span {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.menustanding ul li .tab-item:hover {
+    color: #fff;
+    background-color: #1835f351;
+}
+
+.menustanding ul li a.active {
+    background-color: #717fe0;
+    color: #fff;
+}
+
+.menustanding .toggle_menu {
+    border: 1px solid #e6e6e6;
+    position: absolute;
+    top: 10px;
+    right: -46px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    transition: linear 0.2s;
+}
+
+.content {
+    top: 0;
+    left: 250px;
+}

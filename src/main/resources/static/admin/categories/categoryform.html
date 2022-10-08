@@ -1,0 +1,70 @@
+<div class="container">
+	<div class="col-10 m-auto">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button"
+					role="tab" aria-controls="home" aria-selected="true">Thông tin</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
+					role="tab" aria-controls="profile" aria-selected="false">Danh sách</button>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<form>
+					<h4 class="mtext-105 cl2 txt-center p-b-30">Loại sản phẩm</h4>
+					<div class="bor8 m-b-20 how-pos4-parent">
+						<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" ng-model="form.cateid"
+							placeholder="Nhập mã thể loại">
+						<img class="how-pos4 pointer-none" src="/images/icons/account_24px.png" alt="ICON">
+					</div>
+
+					<div class="bor8 m-b-20 how-pos4-parent">
+						<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text"
+							ng-model="form.catename" placeholder="Nhập tên thể loại"> <img class="how-pos4 pointer-none"
+							src="/images/icons/password_24px.png" alt="ICON">
+					</div>
+
+					<div class="flex-w flex-r p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+						<button ng-click="create()"
+							class="flex-c-m m-r-8 mtext-105 cl0 size-40 bg3 bor1 hov-btn3 p-lr-20 trans-04 pointer">
+							<i class="fa fa-plus m-r-5" aria-hidden="true"></i>Thêm
+						</button>
+						<button ng-click="update()"
+							class="flex-c-m m-r-8 mtext-105 cl0 size-40 bg3 bor1 hov-btn3 p-lr-20 trans-04 pointer">
+							<i class="fa fa-pencil m-r-5" aria-hidden="true"></i>Cập nhật
+						</button>
+						<button ng-click="reset()"
+							class="flex-c-m mtext-105 cl0 size-40 bg3 bor1 hov-btn3 p-lr-20 trans-04 pointer">
+							<i class="fa fa-refresh m-r-5" aria-hidden="true"></i>Bỏ qua
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+				<h4 class="mtext-105 cl2 txt-center p-b-30">Tài khoản</h4>
+				<table class="table-shopping-cart">
+					<tr class="table_head">
+						<th class="column-1">Mã thể loại</th>
+						<th class="column-2">Tên thể loại</th>
+						<th class="column-8"></th>
+					</tr>
+
+					<tr class="table_row" ng-repeat="item in pager.items">
+						<td class="column-1">{{item.cateid}}</td>
+						<td class="column-2">{{item.catename}}</td>
+						<td class="column-8">
+							<div class="btn-group btn-group-xs">
+								<button ng-click="edit(item)"
+									class="btn btn-warning glyphicon glyphocon-edit">Sửa</button>
+								<button ng-click="delete(item)"
+									class="btn btn-danger glyphicon glyphocon-trash">Xóa</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -45,7 +45,6 @@ public class UserDetail  implements UserDetailsService {
 		UserDetails user = User.withUsername(email).password(pe.encode(password)).roles("CUST").build();
 		Authentication auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		
 	}
 
 }

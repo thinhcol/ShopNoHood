@@ -79,47 +79,40 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     }
     
     
-    
-    
-    
+    // Bắt đầu điều khiển phần yêu thích trong chi tiết sản phẩm ///////////////////////////////////////////////////////////////////
     $scope.favorite = {
-    	user:'thinh',
-    	proid: 3,
-    	check = [],
+    	user: $("#username").text(),
+    	proid: $("#productid").text(),
+    	isLike: false,
     	checkLike(){
-    		$http.get(`/rest/favorite/checkexist?p=3&u=thinh`).then(resp =>{
-    			check = resp.data;
-    			}
-    		)
+    		$http.get(`/rest/favorite/checkexist?p=${this.proid}&u=${this.user}`).then(resp => {
+    			this.isLike = resp.data;
+    		})
     	},
-    	isLike = check[0],
-   		triggle(productid, username) {
-   			 $http.get(`/rest/favorite?p=${productid}&u=${username}`).then(resp =>{
-   				 if(resp.data!=""){
+   		triggle() {
+   			 $http.get(`/rest/favorite?p=${this.proid}&u=${this.user}`).then(resp =>{ 
+   				 if(resp.data != ""){
    					$http.delete(`/rest/favorite/${resp.data.favid}`)
-   					isLike = true;
-//   					location.href = "/product/detail/" + productid;
+   					this.isLike = false;
    				 }else{
-   					console.log("Chạy rồi");
-   					isLike = false;
+   					this.isLike = true;
    					var f = {
    						favdate: new Date(),
-   						product: {productid: productid},
-   						account: {username: username}
+   						product: {productid: this.proid},
+   						account: {username: this.user}
    					}
-   					$http.post('/rest/favorite', f)
+   					$http.post(`/rest/favorite`, f)
    				 }
    			 });
    	     }
    	 }
-    $scope.favorite.checkLike();
-   
+	$scope.favorite.checkLike()
+   // Kết thúc điều khiển phần yêu thích trong chi tiết sản phẩm ///////////////////////////////////////////////////////////////////
     
     
     
     $scope.comment = {
     	add(productid, username){
-    		console.log("OKOKOK")
     		cmt = {
 				content : $scope.content,
 		    	cmtdate : new Date(),
@@ -132,6 +125,66 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     	clear() {
     		$scope.content = "";
         }
-    	
     }
+    
+    
+    $scope.account = {
+    	update(username){
+    		info = {
+    			username : username,
+    			password : $scope.password,
+    			email : $scope.email,
+    			phone : $scope.phone,
+    			gender : $scope.gender,
+    			address : $scope.address,
+    			photo : $scope.photo
+    		}
+    	}
+    }
+    
+//    Điều khiển account.address  /////////////////////////////////////////////////////////////////////////////////
+    // Tỉnh/Thành Phố
+    $scope.province = {
+		urlRequest : 'https://online-gateway.ghn.vn/shiip/public-api/master-data/province',
+		headers : {token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7'},
+		listProvince : [],
+		show(){
+			$http.get(this.urlRequest,{headers:this.headers}).then(resp =>{
+				this.listProvince = resp.data.data;
+			})
+		}
+	}
+    // Quận/huyện
+	$scope.district = {
+		urlRequest : 'https://online-gateway.ghn.vn/shiip/public-api/master-data/district',
+		headers : {token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7'},
+		listDistrict : [],
+		show(){
+			$http.get(this.urlRequest,{headers:this.headers}).then(resp =>{
+				this.listDistrict = resp.data.data;
+			})
+		}
+	}
+    // Phường, Xã
+	$scope.ward = {
+		urlRequest : 'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward',
+		headers : {token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7'},
+		params : {district_id : 3695},
+		listWard : [],
+		show(d){
+			console.log(d);
+			$http.get(this.urlRequest,{headers:this.headers, params : this.params}).then(resp =>{
+				this.listWard = resp.data.data;
+			})
+		}
+	}
+    //Thực thi khi truy cập trang web
+	$scope.province.show();
+	$scope.district.show();
+	$scope.ward.show();
+	// Hàm filter dữ liệu khi thay đổi Tỉnh thành phố
+	$scope.exactFilter = function(value) {
+		return value.ProvinceID === $scope.provinces;
+	};
+//	Kết thúc phần điều khiển account.address /////////////////////////////////////////////////////////////////////////////////
 });

@@ -199,6 +199,8 @@
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
 							[[*{PRODUCTNAME}]]
 						</h4>
+						<div style="display: none" id="productid" >[[*{PRODUCTID}]] </div>
+						<div style="display: none" id="username">[[${#request.remoteUser}]]</div>
 
 						<span class="mtext-106 cl2">
 							$58.79
@@ -272,15 +274,13 @@
 						<!--  -->
 						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
 							<div class="flex-m bor9 p-r-10 m-r-11">
-							
-								
-								<a th:attr="ng-click=@{|favorite.triggle(${item.PRODUCTID}, '${#request.remoteUser}')|}" ng-if=!favorite.isLike href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Thêm vào yêu thích">
-									<i class="zmdi zmdi-favorite"></i>
-								</a>
-								<a th:attr="ng-click=@{|favorite.triggle(${item.PRODUCTID}, '${#request.remoteUser}')|}" ng-if=favorite.isLike href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100 js-addedwish-detail" data-tooltip="Xóa khỏi yêu thích">
+								<a th:attr="ng-click=@{|favorite.triggle()|}" ng-if=!favorite.isLike href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Thêm vào yêu thích">
 									<i class="zmdi zmdi-favorite"></i>
 								</a>
 								
+								<a th:attr="ng-click=@{|favorite.triggle()|}" ng-if=favorite.isLike href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100 js-addedwish-detail" data-tooltip="Xóa khỏi yêu thích">
+									<i class="zmdi zmdi-favorite"></i>
+								</a>
 								<!--
 								 <div th:attr="ng-click=@{|favorite.triggle(${item.PRODUCTID}, '${#request.remoteUser}')|}" style="" id="nguoidung" th:if=${isLike} >Thích</div>
 								 <div th:attr="ng-click=@{|favorite.triggle(${item.PRODUCTID}, '${#request.remoteUser}')|}" style="" id="nguoidung" th:if=${!isLike} >Không thích</div>

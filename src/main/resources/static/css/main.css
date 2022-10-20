@@ -249,7 +249,7 @@ a{
 
 .wrap-menu-desktop {
     position: fixed;
-    z-index: 1100;
+    z-index: 10;
     background-color: transparent;
     width: 100%;
     height: 84px;
@@ -2781,7 +2781,44 @@ input.num-product::-webkit-inner-spin-button {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
+.bg-gradient-start {
+    background: linear-gradient(to right, #f1b721 0%, #fde89b 100%);
+}
 
+.bg-gradient-end {
+    background: linear-gradient(to right, #fde89b 0%, #f1b721 100%);
+}
+
+.bg-gradient-center {
+    background: radial-gradient(circle at center, #fde89b, #f1b721);
+}
+
+.text-gradient-center {
+    background: radial-gradient(circle at center, #fde89b, #f1b721);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.text-gradient-end {
+    background: linear-gradient(to right, #fde89b 0%, #f1b721 100%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.text-gradient-start {
+    background: linear-gradient(to right, #f1b721 0%, #fde89b 100%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
 /*---------------------------------------------*/
 
 .bg-overlay1::before {
@@ -2908,6 +2945,10 @@ input.num-product::-webkit-inner-spin-button {
 .bor19 {
     border: 1px solid #d9d9d9;
     border-radius: 2px;
+}
+
+.bor20 {
+    border: 1px solid #000;
 }
 
 

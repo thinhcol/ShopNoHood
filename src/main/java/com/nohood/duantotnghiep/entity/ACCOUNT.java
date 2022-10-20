@@ -20,13 +20,16 @@ import java.util.List;
 public class ACCOUNT {
     @Id
     private String USERNAME;
+    private String FULLNAME;
     private String PASSWORD;
     private String EMAIL;
     private String PHONE;
     private boolean GENDER;
-    private String ADDRESS;
     private String PHOTO;
-
+   
+    @JsonIgnore
+    @OneToMany(mappedBy = "account")
+    private List<ADDRESS> addresses;
     @JsonIgnore
     @OneToMany(mappedBy = "account")
     private List<COMMENT> comments;
@@ -44,6 +47,5 @@ public class ACCOUNT {
 		USERNAME = uSERNAME;
 		PASSWORD = pASSWORD;
 	}
-    
      
 }

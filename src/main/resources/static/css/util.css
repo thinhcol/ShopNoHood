@@ -25,7 +25,9 @@ body, html {
 /*---------------------------------------------*/
 a:focus {outline: none;}
 a:hover {text-decoration: none;}
-
+a {
+    cursor: pointer;
+}
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6,p {margin: 0px;}
 
@@ -54,6 +56,10 @@ button:focus {outline: none;}
 
 iframe {border: none;}
 
+
+.btn:focus{
+	box-shadow: none;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT SIZE ]*/

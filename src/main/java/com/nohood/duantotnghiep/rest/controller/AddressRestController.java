@@ -4,37 +4,35 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nohood.duantotnghiep.entity.CATEGORY;
-import com.nohood.duantotnghiep.entity.DISTRICT;
-import com.nohood.duantotnghiep.entity.PROVINCE;
+import com.nohood.duantotnghiep.entity.ADDRESS;
 import com.nohood.duantotnghiep.service.ADDRESSSERVICE;
-import com.nohood.duantotnghiep.service.DISTRICTSERVICE;
-import com.nohood.duantotnghiep.service.PROVINCESERVICE;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/rest/address")
 public class AddressRestController {
 	@Autowired
-    PROVINCESERVICE proviceservice;
-	@Autowired
-    DISTRICTSERVICE districtservice;
+	ADDRESSSERVICE addressService;
 	
-	@PostMapping("/province")
-    public void postprovince(@RequestBody List<PROVINCE> provinces){
-		proviceservice.createProvinces(provinces);
+	@GetMapping("")
+    public List<ADDRESS> getAll(){
+		return addressService.findall();
     }
 	
-	@PostMapping("/district")
-    public void postdistrict(@RequestBody List<DISTRICT> districts){
-//		districts.forEach(a -> {
-//			System.out.println(a);
-//		});
-		districtservice.createDistricts(districts);
+	@GetMapping("{addressId}")
+    public ADDRESS getOne(@PathVariable int addressId){
+		return addressService.findOne(addressId);
+    }
+	
+	@PostMapping("")
+    public void postaddress(@RequestBody ADDRESS address){
+		addressService.create(address);
     }
 }

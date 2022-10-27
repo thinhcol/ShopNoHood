@@ -25,6 +25,10 @@ app.config(function($routeProvider) {
 			templateUrl: "../admin/categories/categoryform.html",
 			controller: "category-ctrl"
 		})
+		.when("/system/address", {
+			templateUrl: "../admin/system/address/address.html",
+			controller: "address-ctrl"
+		})
 		.when("/home",{
 			template: "Đây là admin"
 			

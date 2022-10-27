@@ -25,24 +25,24 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/css/util.css">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <link rel="stylesheet" href="//css/editinfo.css">
-	<script src="/https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js" type="text/javascript"></script>
-	<script src="/https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"
+    <link rel="stylesheet" href="/css/editinfo/editinfo.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"
 		type="text/javascript"></script>
-	<script src="/https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
-<body class="animsition" ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
-	<header class="header_area">
+<body class="animsition" ng-app="shopping-cart-app"  ng-controller="address-ctrl">
+	<header class="header_area" ng-controller="shopping-cart-ctrl">
         <!-- Top menu -->
         <div th:replace="/layout/header.html">
 
         </div>
     </header>
 
-	<section class="bg0 p-t-120 p-b-60">
+	<section  class="bg0 p-t-120 p-b-60">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-lg-3 p-b-80">
@@ -52,8 +52,10 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="mtext-112 cl2">
                             Địa chỉ của tôi
+                            <input ng-model="ok">
                         </h4>
-	                     <button type="submit" class="flex-c-m m-r-8 mtext-101 cl0 size-102 bg3 hov-btn3 p-lr-12  trans-04 pointer">
+	                     <button type="submit" data-toggle="modal" data-target="#staticBackdrop"
+	                     class="flex-c-m m-r-8 mtext-101 cl0 size-102 bg3 hov-btn3 p-lr-12 trans-04 pointer">
 	                          <i class="fa fa-plus m-r-5" aria-hidden="true"></i>Thêm địa chỉ mới
 	                     </button>
                 	</div>
@@ -64,29 +66,32 @@
                         <h4 class="mtext-112 cl2">
                             Địa chỉ
                         </h4>
-                        <div class="d-flex justify-content-between m-tb-20 align-items-end">
-                            <div class="">
-                                <h5 class="m-b-6 cl5">Nguyễn Huỳnh Khuyết Hùng</h5>
-                                <p>221/5b Phan Huy Ích Phường 14, Quận Gò Vấp, TP. Hồ Chí Minh</p>
-                            </div>
-                            <div class="d-flex flex-column align-items-end">
-                                <div class="">
-                                    <a class="m-r-6" href="/" data-toggle="modal" data-target="#staticBackdrop">Cập nhật</a>
-                                    <a href="/">Xóa</a>
-                                </div>
-                                <button class="bor20 m-t-10 p-all-3 bg-none">Thiết lặp mặc định</button>
-                            </div>
+                        <div ng-repeat="address in Addresses">
+	                        <div class="d-flex justify-content-between m-tb-20 align-items-end">
+	                            <div class="">
+	                                <h5 class="m-b-6 cl5">{{address.fullname}}</h5>
+	                                <p>{{address.streetname}}, {{address.ward.wardname}}, {{address.district.districtname}}, {{address.province.provincename}}</p>
+	                            </div>
+	                            <div class="d-flex flex-column align-items-end">
+	                                <div class="">
+	                                    <a class="m-r-6" href="#" data-toggle="modal" data-target="#staticBackdrop" ng-click="eidtAddress(address.addressid)">Cập nhật</a>
+	                                    <a href="/">Xóa</a>
+	                                </div>
+	                                <button ng-if="!address.isdefault" class="bor20 m-t-10 p-all-3 bg-none">Thiết lặp mặc định</button>
+	                                <button ng-if="address.isdefault" class="bor20 op-06 select m-t-10 p-all-3 bg-none">Đang mặc định</button>
+	                            </div>
+	                        </div>
+	                        <hr>
                         </div>
-                        <hr>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <div th:replace="/layout/footer.html"></div>
+    <div th:replace="/layout/footer.html" ></div>
     <!--  -->
-	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal fade " id="staticBackdrop">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -95,13 +100,15 @@
                         <div class="col-6">
                             <div class="m-b-20 how-pos4-parent">
                                 <p class="stext-113" style="padding: 10px 10px 0px 0px"><strong>Họ và tên người nhận: </strong></p>
-                                <input style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111" type="text" placeholder="Nhập tên người nhận">
+                                <input style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111" type="text" 
+                                ng-model="fullname" placeholder="Nhập tên người nhận">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="m-b-20 how-pos4-parent">
                                 <p class="stext-113" style="padding: 10px 10px 0px 0px"><strong>Số điện thoại: </strong></p>
-                                <input style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111" type="text" placeholder="Nhập số điện thoại">
+                                <input style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111" type="text" 
+                                ng-model="numberphone" placeholder="Nhập số điện thoại">
                             </div>
                         </div>
                     </div>
@@ -109,30 +116,30 @@
                         <div class="col-4">
                             <div class=" m-b-20 how-pos4-parent">
                                 <p class="stext-113" style="padding: 10px 10px 0px 0px"><strong>Tỉnh / Thành phố: </strong></p>
-                                <select ng-model="provinces" id="" style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111">
-                                    <option value="">Chọn tỉnh</option>
-                                    <option ng-repeat="p in province.listProvince" ng-value="{{p.ProvinceID}}" >{{p.ProvinceName}}</option>
-                                </select>
+                                <select style="height: 34px;" id="" class="stext-111 cl2 " ng-change="viewDistrict.selectProvince()"
+                                		ng-options="p as p.provincename for p in Provinces | orderBy : 'provincename'" ng-model="selectedProvince">
+									<option value="">Chọn tỉnh / thành phố</option>
+								</select>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class=" m-b-20 how-pos4-parent">
                                 <p class="stext-113" style="padding: 10px 10px 0px 0px"><strong>Quận / Huyện: </strong></p>
-                                <select  ng-model="districts" id=""
-                                		 style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111">
-                                    <option value="">Chọn Quận/Huyện</option>
-									<option ng-change="ward.show(d)" ng-repeat="d in district.listDistrict" ng-value="{{d.DistrictID}}" >{{d.DistrictName}}</option>
-                                </select>
+                                <select style="height: 34px;" id="" class="stext-111 cl2 " ng-change="viewWard.selectDistrict()"
+                                		ng-options="d as d.districtname for d in Districts | orderBy : 'districtname'" ng-model="selectedDistrict">
+									<option value="">Chọn quận / huyện</option>
+									<option>{{d.districtname}}</option>
+								</select>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class=" m-b-20 how-pos4-parent">
                                 <p class="stext-113" style="padding: 10px 10px 0px 0px"><strong>Phường / Xã: </strong></p>
-                                <select ng-model="wards" id="" ng-options="w.WardName for w in ward.listWard"
-                                		 style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111">
-                                    <option value="">Chọn Phường/Xã</option>
-									<!-- <option ng-repeat="w in ward.listWard" ng-value="{{w.WardID}}" >{{w.WardName}}</option>  -->
-                                </select>
+                                <select style="height: 34px;" id="" class="stext-111 cl2 "
+                                		ng-options="w as w.wardname for w in Wards | orderBy : 'wardname'" ng-model="selectedWard">
+									<option value="">Chọn phường / xã</option>
+									<option>{{w.wardname}}</option>
+								</select>
                             </div>
                         </div>
                     </div>
@@ -140,7 +147,8 @@
                         <div class="col-12">
                             <div class="m-b-20 how-pos4-parent">
                                 <p class="stext-113" style="padding: 10px 10px 0px 0px"><strong>Địa chỉ: </strong></p>
-                                <input style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111" type="text" placeholder="Nhập số nhà tên đường">
+                                <input style=" height: 26px; border-bottom: 1px solid;" class="stext-113 cl2 plh3 size-111" type="text"
+                                ng-model="streetname" placeholder="Nhập số nhà và tên đường">
                             </div>
                         </div>
                     </div>
@@ -153,11 +161,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" style="border-radius: 0;" class=" btn hov3 bg-none" data-dismiss="modal">Trở lại</button>
-                    <button type="button" style="border-radius: 0;" class=" btn bg1 text-white">Hoàn thành</button>
+                    <button ng-click="createAddress()" type="button" style="border-radius: 0;" class=" btn bg1 text-white" data-dismiss="modal">Hoàn thành</button>
                 </div>
             </div>
         </div>
     </div>
+
 	<script src="/../js/shopping-cart-app.js"></script>
 	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->

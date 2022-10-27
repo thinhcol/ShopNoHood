@@ -14,87 +14,88 @@
     display: block !important;
 }
 
-.navall {
+
+/* .navall {
     position: relative;
     width: 100%;
     min-height: 150vh;
-}
+} */
 
 .menustanding {
     box-shadow: 0 0 1px #181616;
     position: fixed;
-    width: 50px;
+    width: fit-content;
     height: 100%;
     background: #fff;
-    display: flex;
+    /* display: flex; */
     z-index: 1;
-    transition: linear 0.5s;
 }
 
-.menustanding:hover {
-    width: 250px;
+.menustanding.open {}
+
+
+/* .menustanding:hover .tab-item span {
+    display: block;
 }
 
-.menustanding:hover span {
-    opacity: 1;
-    visibility: visible;
+.menustanding:hover .icon {
+    display: block;
+} */
+
+.menustanding .tab-item span {
+    margin-left: 8px;
 }
 
-.menustanding ul {
-    width: 100%;
-    list-style: none;
-    overflow: hidden;
-    /* position: absolute; */
+.menustanding .tab-item span {
+    display: none;
 }
+
 
 .menustanding ul li a {
-    color: #717fe0;
-    font-size: 1.2rem;
+    /* Tùy chỉnh cho thẻ a trong menu */
+    padding: 15px;
+    width: 100%;
+    color: #181616;
+    /* font-size: 1.2rem; */
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    transition: linear 0.3s;
-}
-
-.menustanding ul li a {
-    padding: 15px;
-    width: 100%;
 }
 
 .menustanding ul li a i {
-    margin-right: 8px;
+    /* Tùy chỉnh icon trongm menu */
     font-size: 22px;
 }
 
 .menustanding .sub_menu a {
+    /* Tùy chỉnh kích thước cho submenu */
     padding: 10px 10px 10px 43px;
     font-size: 14px;
 }
 
 .menustanding .sub_menu {
-    display: none;
-}
-
-.menustanding .sub_menu a:hover {
-    color: #fff;
-    background-color: #1835f351;
+    /* Ẩn submenu */
+    /* display: none; */
 }
 
 .menustanding .vertical_menu:hover>.sub_menu {
-    display: block;
+    /* Hiển thị menu con khi hover */
+    /* display: block; */
 }
 
-.menustanding ul li a span {
+
+/* .menustanding ul li a span {
     opacity: 0;
     visibility: hidden;
-}
+} */
 
 .menustanding ul li .tab-item:hover {
-    color: #fff;
-    background-color: #1835f351;
+    /* Thay đổi màu khi hover */
+    color: #717fe0;
 }
 
 .menustanding ul li a.active {
+    /* Thay đổi màu của menu được chọn */
     background-color: #717fe0;
     color: #fff;
 }
@@ -115,7 +116,8 @@
     transition: linear 0.2s;
 }
 
-.content {
+
+/* .content {
     top: 0;
     left: 250px;
-}
+} */

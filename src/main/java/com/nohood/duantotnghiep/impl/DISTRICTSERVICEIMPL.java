@@ -34,9 +34,17 @@ public class DISTRICTSERVICEIMPL implements DISTRICTSERVICE{
 	@Override
 	public void createDistricts(List<DISTRICT> districts) {
 		districts.forEach(item -> {
-			System.out.println(item);
-			dao.save(item);
+			try {
+				dao.save(item);
+			} catch (Exception e) {
+				System.out.println("Lỗi: " + e);
+			}
 		});
+	}
+
+	@Override
+	public List<DISTRICT> findByProvinceid(int provinceid) {
+		return dao.findByProvinceid(provinceid);
 	}
 
 }

@@ -31,4 +31,20 @@ public class WARDSERVICEIMPL implements WARDSERVICE{
 		dao.delete(ward);
 	}
 
+	@Override
+	public void createWards(List<WARD> wards) {
+		wards.forEach(item -> {
+			try {
+				dao.save(item);
+			} catch (Exception e) {
+				System.out.println("Lỗi: " + e);
+			}
+		});
+	}
+
+	@Override
+	public List<WARD> findByProvinceid(int districtid) {
+		return dao.findByDistrictid(districtid);
+	}
+
 }

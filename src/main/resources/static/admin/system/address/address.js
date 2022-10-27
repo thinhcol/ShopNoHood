@@ -1,5 +1,4 @@
-var app = angular.module("test-app", []);
-app.controller("test-ctrl", function($scope, $http){
+app.controller("address-ctrl", function($scope, $http) {
 	$scope.listProvince = [];
 	$scope.listDistrict = [];
 	$scope.listWard = [];
@@ -21,8 +20,7 @@ app.controller("test-ctrl", function($scope, $http){
 					}
 					$scope.listProvince.push(provice);
 				})
-				$http.post('/rest/address/province', $scope.listProvince);
-				console.log("Lưu tỉnh thành phố thành công");
+				$http.post('/rest/system/address/province', $scope.listProvince);
 			})
 		}
 	}
@@ -40,8 +38,7 @@ app.controller("test-ctrl", function($scope, $http){
 						}
 						$scope.listDistrict.push(district);
 					})
-					$http.post('/rest/address/district', $scope.listDistrict);
-					console.log("Lưu quận huyện thành công");
+					$http.post('/rest/system/address/district', $scope.listDistrict);
 					$scope.ward.updateWard();
 				})
 			}
@@ -76,8 +73,7 @@ app.controller("test-ctrl", function($scope, $http){
 						}
 						if(i > districts.length){
 							console.log($scope.listWard);
-							$http.post('/rest/address/ward', $scope.listWard);
-							console.log("Lưu phường xã thành công");
+							$http.post('/rest/system/address/ward', $scope.listWard);
 							clearInterval(timerId);
 							break;
 						}
@@ -87,4 +83,73 @@ app.controller("test-ctrl", function($scope, $http){
 			}
 			
 		}
+	
+	
+	
+	$scope.Provinces = [];
+	$scope.Districts = [];
+	$scope.Wards = [];
+	
+	$scope.initialize = function() {
+		$http.get("/rest/system/address/province").then(resp => {
+			$scope.Provinces = resp.data;
+		});
+	}
+	$scope.initialize();
+	
+	$scope.viewProvince = {
+		limitNumber : 10,
+		isHide : true,
+		hideOrView(){
+			let ele = document.getElementById('hideOrView');
+			if(this.isHide){
+				this.limitNumber = $scope.Provinces.length;
+				this.isHide = false;
+				ele.innerHTML = 'Thu gọn';
+			}else{
+				this.limitNumber = 10;
+				this.isHide = true;
+				ele.innerHTML = 'Xem tất cả';
+			}
+		}
+	}
+	
+	$scope.viewDistrict = {
+			view(){
+				var province = $scope.selectedItem;
+				if(province !== null){
+					$http.get(`/rest/system/address/district/${province.provinceid}`).then(resp => {
+						$scope.Districts = resp.data;
+					});
+				}else{
+					$scope.Districts = [];
+				}
+			}
+		}
+	
+	$scope.viewWard = {
+			districts : [],
+			selectProvice(){
+				var province = $scope.selectedProvice;
+				if(province !== null){
+					$http.get(`/rest/system/address/district/${province.provinceid}`).then(resp => {
+						this.districts = resp.data;
+					});
+				}else{
+					this.districts = [];
+				}
+			},
+			selectDistrict(){
+				console.log(1);
+				var district = $scope.selectedDistrict;
+				if(district !== null){
+					$http.get(`/rest/system/address/ward/${district.districtid}`).then(resp => {
+						$scope.Wards = resp.data;
+					});
+				}else{
+					$scope.Wards = [];
+				}
+			}
+		}
+	
 })

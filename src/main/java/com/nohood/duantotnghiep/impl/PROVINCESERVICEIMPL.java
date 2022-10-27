@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nohood.duantotnghiep.dao.ACCOUNTDAO;
 import com.nohood.duantotnghiep.dao.PROVINCEDAO;
+import com.nohood.duantotnghiep.entity.DISTRICT;
 import com.nohood.duantotnghiep.entity.PRODUCT;
 import com.nohood.duantotnghiep.entity.PROVINCE;
 import com.nohood.duantotnghiep.service.PROVINCESERVICE;
@@ -36,6 +37,5 @@ public class PROVINCESERVICEIMPL implements PROVINCESERVICE{
 			dao.save(item);
 		});
 	}
-	
 
 }

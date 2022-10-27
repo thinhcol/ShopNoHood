@@ -8,4 +8,5 @@ public interface ADDRESSSERVICE {
     List<ADDRESS> findall();
     ADDRESS create(ADDRESS address);
     void delete(ADDRESS address);
+	ADDRESS findOne(int addressId);
 }

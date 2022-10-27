@@ -3188,6 +3188,7 @@ iframe {border: none;}
 
 
 /*---------------------------------------------*/
+.select {cursor: default;}
 .pointer {cursor: pointer;}
 .of-hidden {overflow: hidden;}
 .visible-false {visibility: hidden;}

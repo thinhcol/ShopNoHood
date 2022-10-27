@@ -26,7 +26,7 @@ public class WARD {
 	private String WARDNAME;
 	
 	
-	@JoinColumn(name = "DISTRICT")
+	@JoinColumn(name = "DISTRICTID")
     @ManyToOne
 	private DISTRICT district;
 	

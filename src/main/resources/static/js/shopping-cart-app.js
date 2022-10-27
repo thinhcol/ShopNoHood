@@ -77,9 +77,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             })
         }
     }
-    
-    
-    // Bắt đầu điều khiển phần yêu thích trong chi tiết sản phẩm ///////////////////////////////////////////////////////////////////
+});
+// Điều khiển trang chi tiết sản phẩm////////////////////////////////////////////////////////////////
+app.controller("detail-ctrl", function ($scope, $http) {    
     $scope.favorite = {
     	user: $("#username").text(),
     	proid: $("#productid").text(),
@@ -107,9 +107,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
    	     }
    	 }
 	$scope.favorite.checkLike()
-   // Kết thúc điều khiển phần yêu thích trong chi tiết sản phẩm ///////////////////////////////////////////////////////////////////
-    
-    
     
     $scope.comment = {
     	add(productid, username){
@@ -141,50 +138,78 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     		}
     	}
     }
-    
-//    Điều khiển account.address  /////////////////////////////////////////////////////////////////////////////////
-    // Tỉnh/Thành Phố
-    $scope.province = {
-		urlRequest : 'https://online-gateway.ghn.vn/shiip/public-api/master-data/province',
-		headers : {token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7'},
-		listProvince : [],
-		show(){
-			$http.get(this.urlRequest,{headers:this.headers}).then(resp =>{
-				this.listProvince = resp.data.data;
-			})
-		}
+});
+
+//Điều khiển trang danh sách địa chỉ của người dùng////////////////////////////////////////////////////////////////
+app.controller("address-ctrl", function ($scope, $http) {
+    $scope.Provinces = [];
+	$scope.Districts = [];
+	$scope.Wards = [];
+	$scope.Addresses = [];
+	
+	$scope.initialize = function() {
+		$http.get("/rest/system/address/province").then(resp => {
+			$scope.Provinces = resp.data;
+		});
+		$scope.loadAddress();
 	}
-    // Quận/huyện
-	$scope.district = {
-		urlRequest : 'https://online-gateway.ghn.vn/shiip/public-api/master-data/district',
-		headers : {token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7'},
-		listDistrict : [],
-		show(){
-			$http.get(this.urlRequest,{headers:this.headers}).then(resp =>{
-				this.listDistrict = resp.data.data;
-			})
-		}
+	
+	$scope.loadAddress = function(){
+		$http.get("/rest/address").then(resp => {
+			$scope.Addresses = resp.data;
+		});
 	}
-    // Phường, Xã
-	$scope.ward = {
-		urlRequest : 'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward',
-		headers : {token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7'},
-		params : {district_id : 3695},
-		listWard : [],
-		show(d){
-			console.log(d);
-			$http.get(this.urlRequest,{headers:this.headers, params : this.params}).then(resp =>{
-				this.listWard = resp.data.data;
-			})
+	
+	$scope.initialize();
+	
+	$scope.viewDistrict = {
+			selectProvince(){
+				var province = $scope.selectedProvince;
+				if(province !== null){
+					$http.get(`/rest/system/address/district/${province.provinceid}`).then(resp => {
+						$scope.Districts = resp.data;
+					});
+				}else{
+					$scope.Districts = [];
+				}
+			}
 		}
+	
+	$scope.viewWard = {
+			selectDistrict(){
+				var district = $scope.selectedDistrict;
+				if(district !== null){
+					$http.get(`/rest/system/address/ward/${district.districtid}`).then(resp => {
+						$scope.Wards = resp.data;
+					});
+				}else{
+					$scope.Wards = [];
+				}
+			}
+		}
+	
+	$scope.createAddress = function(){
+		form = {
+			streetname : $scope.streetname,
+			fullname : $scope.fullname,
+			phonenumber : $scope.numberphone,
+			isdefault : $scope.Addresses.length > 0 ? false : true,
+			province : {provinceid : $scope.selectedProvince.provinceid},
+			district : {districtid : $scope.selectedDistrict.districtid},
+			ward : {wardid : $scope.selectedWard.wardid},
+			account: {username: $("#userremost").text()}
+		}
+		$http.post(`/rest/address/`, form).then(resp => {
+			$scope.loadAddress();
+		});
 	}
-    //Thực thi khi truy cập trang web
-	$scope.province.show();
-	$scope.district.show();
-	$scope.ward.show();
-	// Hàm filter dữ liệu khi thay đổi Tỉnh thành phố
-	$scope.exactFilter = function(value) {
-		return value.ProvinceID === $scope.provinces;
-	};
-//	Kết thúc phần điều khiển account.address /////////////////////////////////////////////////////////////////////////////////
+	$scope.eidtAddress = function(addressId){
+		var form = {};
+		$http.get(`/rest/address/${addressId}`).then(resp =>{
+			$scope.fullname = resp.data.fullname;
+			$scope.streetname = resp.data.streetname;
+			$scope.numberphone = resp.data.phonenumber;
+			console.log($scope.selectedProvince);
+		});
+	}
 });

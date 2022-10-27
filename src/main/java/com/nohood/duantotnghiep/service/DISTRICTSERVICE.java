@@ -10,4 +10,5 @@ public interface DISTRICTSERVICE {
     DISTRICT create(DISTRICT district);
     void delete(DISTRICT district);
 	void createDistricts(List<DISTRICT> districts);
+	List<DISTRICT> findByProvinceid(int provinceid);
 }

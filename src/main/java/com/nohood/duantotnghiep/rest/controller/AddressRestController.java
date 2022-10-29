@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,5 +35,9 @@ public class AddressRestController {
 	@PostMapping("")
     public void postaddress(@RequestBody ADDRESS address){
 		addressService.create(address);
+    }
+	@DeleteMapping("{addressid}")
+    public void deleteAddress(@PathVariable int addressid){
+		addressService.deleteById(addressid);
     }
 }

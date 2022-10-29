@@ -9,4 +9,5 @@ public interface ADDRESSSERVICE {
     ADDRESS create(ADDRESS address);
     void delete(ADDRESS address);
 	ADDRESS findOne(int addressId);
+	void deleteById(int addressid);
 }

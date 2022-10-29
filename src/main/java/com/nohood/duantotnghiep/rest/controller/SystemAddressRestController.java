@@ -54,6 +54,10 @@ public class SystemAddressRestController {
     public List<WARD> getByDistrict(@PathVariable int districtid){
 		return wardservice.findByProvinceid(districtid);
     }
+	@GetMapping("/ward/getone/{wardid}")
+    public WARD getOne(@PathVariable int wardid){
+		return wardservice.findById(wardid);
+    }
 	@PostMapping("/ward")
     public void postward(@RequestBody List<WARD> wards){
 		wardservice.createWards(wards);

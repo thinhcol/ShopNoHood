@@ -35,6 +35,11 @@ public class ADDRESSSERVICEIMPL implements ADDRESSSERVICE{
 	public ADDRESS findOne(int addressId) {
 		return dao.findById(addressId).get();
 	}
+
+	@Override
+	public void deleteById(int addressid) {
+		dao.deleteById(addressid);
+	}
 	
 	
 }

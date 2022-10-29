@@ -148,8 +148,15 @@ app.controller("address-ctrl", function ($scope, $http) {
 	$scope.Addresses = [];
 	
 	$scope.initialize = function() {
-		$http.get("/rest/system/address/province").then(resp => {
-			$scope.Provinces = resp.data;
+		$http.get("https://online-gateway.ghn.vn/shiip/public-api/master-data/province",
+				 {headers:{token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7'}}).then(resp => {
+			resp.data.data.forEach(item => {
+				var province = {
+					provinceid : item.ProvinceID,
+					provincename : item.ProvinceName
+				}
+				$scope.Provinces.push(province);
+			})
 		});
 		$scope.loadAddress();
 	}
@@ -162,12 +169,25 @@ app.controller("address-ctrl", function ($scope, $http) {
 	
 	$scope.initialize();
 	
+	
 	$scope.viewDistrict = {
 			selectProvince(){
-				var province = $scope.selectedProvince;
-				if(province !== null){
-					$http.get(`/rest/system/address/district/${province.provinceid}`).then(resp => {
-						$scope.Districts = resp.data;
+				$scope.address.district.districtid = 0;
+				$scope.address.ward.wardid = 0;
+				$scope.Districts = [];
+				$scope.Wards = [];
+				var provinceid = $scope.address.province.provinceid;
+				if(provinceid != 0){
+					$http.get("https://online-gateway.ghn.vn/shiip/public-api/master-data/district",
+								{headers:{token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7' }, params: {"province_id": provinceid} }).then(resp => {
+						resp.data.data.forEach(item => {
+							var district = {
+								districtid : item.DistrictID,
+								districtname : item.DistrictName,
+								province : {provinceid : item.ProvinceID}
+							}
+							$scope.Districts.push(district);
+						})
 					});
 				}else{
 					$scope.Districts = [];
@@ -177,10 +197,21 @@ app.controller("address-ctrl", function ($scope, $http) {
 	
 	$scope.viewWard = {
 			selectDistrict(){
-				var district = $scope.selectedDistrict;
-				if(district !== null){
-					$http.get(`/rest/system/address/ward/${district.districtid}`).then(resp => {
-						$scope.Wards = resp.data;
+				$scope.address.ward.wardid = 0;
+				$scope.Wards = [];
+				var districtid = $scope.address.district.districtid;
+				if(districtid != 0){
+					$http.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${districtid}`, 
+							{headers:{token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7' }}).then(resp => {
+						
+						resp.data.data.forEach(item => {
+							var ward = {
+								wardid : parseInt(item.WardCode),
+								wardname : item.WardName,
+								district : {districtid : item.DistrictID}
+							}
+							$scope.Wards.push(ward);
+						})
 					});
 				}else{
 					$scope.Wards = [];
@@ -188,28 +219,71 @@ app.controller("address-ctrl", function ($scope, $http) {
 			}
 		}
 	
+	$scope.address = {
+		province : {provinceid : 0},
+		district : {districtid : 0},
+		ward : {wardid : 0}
+	};
+	
+	
+//  Show form đăng kí address
+	$scope.addAddress = function(){
+		$scope.address = {
+			province : {provinceid : 0},
+			district : {districtid : 0},
+			ward : {wardid : 0}
+		};
+	}
+// Show form để sửa address
+	$scope.editAddress = function(addr){
+		$scope.address = angular.copy(addr);
+		$scope.showDistrict(addr.province.provinceid);
+		$scope.showWard(addr.district.districtid);
+	}
+	
+	
+	$scope.showDistrict = function(provinceid){
+		$http.get("https://online-gateway.ghn.vn/shiip/public-api/master-data/district",
+				{headers:{token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7' }, params: {"province_id": provinceid} }).then(resp => {
+			resp.data.data.forEach(item => {
+			var district = {
+				districtid : item.DistrictID,
+				districtname : item.DistrictName,
+				province : {provinceid : item.ProvinceID}
+			}
+			$scope.Districts.push(district)
+			})
+		});
+	}
+	
+	$scope.showWard = function(districtid){
+		$http.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${districtid}`, 
+				{headers:{token:'ebb9ad14-3d84-11ed-b824-262f869eb1a7' }}).then(resp => {
+						
+			resp.data.data.forEach(item => {
+			var ward = {
+				wardid : parseInt(item.WardCode),
+				wardname : item.WardName,
+				district : {districtid : item.DistrictID}
+			}
+			$scope.Wards.push(ward);
+			})
+		});
+	}
+	
+	
 	$scope.createAddress = function(){
-		form = {
-			streetname : $scope.streetname,
-			fullname : $scope.fullname,
-			phonenumber : $scope.numberphone,
-			isdefault : $scope.Addresses.length > 0 ? false : true,
-			province : {provinceid : $scope.selectedProvince.provinceid},
-			district : {districtid : $scope.selectedDistrict.districtid},
-			ward : {wardid : $scope.selectedWard.wardid},
-			account: {username: $("#userremost").text()}
-		}
-		$http.post(`/rest/address/`, form).then(resp => {
+		$scope.checkAddress($scope.address);
+		
+		$scope.address.account = {username : $("#userremost").text()};
+		$scope.address.isdefault = $scope.Addresses.length == 0 || $scope.address.isdefault ? true : false;
+		$http.post(`/rest/address/`, $scope.address).then(resp => {
 			$scope.loadAddress();
 		});
 	}
-	$scope.eidtAddress = function(addressId){
-		var form = {};
-		$http.get(`/rest/address/${addressId}`).then(resp =>{
-			$scope.fullname = resp.data.fullname;
-			$scope.streetname = resp.data.streetname;
-			$scope.numberphone = resp.data.phonenumber;
-			console.log($scope.selectedProvince);
-		});
+	$scope.deleteAddress = function(addressid){
+		$http.delete(`/rest/address/${addressid}`).then(resp => {
+			$scope.loadAddress();
+		})
 	}
 });

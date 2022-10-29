@@ -47,4 +47,9 @@ public class WARDSERVICEIMPL implements WARDSERVICE{
 		return dao.findByDistrictid(districtid);
 	}
 
+	@Override
+	public WARD findById(int wardid) {
+		return dao.findById(wardid).get();
+	}
+
 }

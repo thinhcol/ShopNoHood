@@ -11,4 +11,5 @@ public interface WARDSERVICE {
     void delete(WARD ward);
 	void createWards(List<WARD> wards);
 	List<WARD> findByProvinceid(int districtid);
+	WARD findById(int wardid);
 }

@@ -1,6 +1,8 @@
 package com.nohood.duantotnghiep.rest.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,10 @@ import com.nohood.duantotnghiep.service.FAVORITESERVICE;
 public class FavoriteRestController {
 	@Autowired
     FAVORITESERVICE service;
-	
+	@GetMapping("all")
+	public List<FAVORITE> index(){
+		return service.findall();
+	}
 	@GetMapping()
 	public FAVORITE getOne(@RequestParam long p, @RequestParam String u) {
 		System.out.println("Tên người dùng là : "+ u);

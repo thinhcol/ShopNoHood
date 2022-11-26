@@ -4,6 +4,8 @@ import com.nohood.duantotnghiep.entity.ACCOUNT;
 import com.nohood.duantotnghiep.service.ACCOUNTSERVICE;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,17 @@ public class AccountRestController {
             return dao.getAdministrators();
         }
         return dao.findall();
+    }
+    @GetMapping("getone")
+    public ACCOUNT getOne(){
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if(auth.getName() != null) {
+    		return dao.findone(auth.getName());
+    	}else {
+    		return null;
+    	}
+    	
+    	
     }
 
 

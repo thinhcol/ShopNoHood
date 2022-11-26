@@ -13,4 +13,5 @@ public interface CARTSERVICE {
     CART findone(long CARTID);
     List<CART> findByUsername(String username);
     CART create(JsonNode data);
+    int UpdateSl(String PHONE, String ADDRESS, long CARTID);
 }

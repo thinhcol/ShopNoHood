@@ -16,11 +16,15 @@ public class BILL {
     private long BILLID;
     private int QUANTITY;
     private float SUMPRICE;
-    private String STATUS;
 
     @JoinColumn(name = "PRODUCTID")
     @ManyToOne
     private PRODUCT product;
+    
+    @JoinColumn(name = "IDST")
+    @ManyToOne
+    private STATUSPR status;
+    
     @JoinColumn(name = "CARTID")
     @ManyToOne
     private CART cart;

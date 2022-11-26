@@ -1,127 +1,499 @@
-<div class="container">
-	<div class="col-10 m-auto">
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
-			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button"
-					role="tab" aria-controls="home" aria-selected="true">Edit</button>
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
-					role="tab" aria-controls="profile" aria-selected="false">List</button>
-			</li>
-		</ul>
-		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-				<form>
-					<h4 class="mtext-105 cl2 txt-center p-b-30">Người dùng</h4>
-					<div class="row">
-						<div class="col-4">
-							<img width="130px" src="/">
-						</div> 
-						<div class="col-8">
-							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text"
-									ng-model="form.username" placeholder="Nhập tài khoản">
-								<img class="how-pos4 pointer-none" src="/images/icons/account_24px.png" alt="ICON">
-							</div>
-	
-							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password"
-									ng-model="form.password" placeholder="Nhập mật khẩu"> <img class="how-pos4 pointer-none"
-									src="/images/icons/password_24px.png" alt="ICON">
-							</div>
-							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" ng-model="form.email"
-									placeholder="Nhập email">
-								<img class="how-pos4 pointer-none" src="/images/icons/Email Sign_24px.png" alt="ICON">
-							</div>
-						</div>
-						
-					</div>
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" ng-model="form.phone"
-								placeholder="Nhập số điện thoại"> <img class="how-pos4 pointer-none"
-								src="/images/icons/phone_24px.png" alt="ICON">
-						</div>
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<label class="form-check-label ml-4" for="flexRadioDefault1">
-								Giới tính </label>
-							<div class="form-check">
-								<input class="form-check-input ml-4 " type="radio" required ng-value="true"
-									ng-model="form.gender" name="gender" id="flexRadioDefault1"> <label
-									class="form-check-label ml-4" for="flexRadioDefault1">
-									Nam </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input ml-4" type="radio" required ng-value="false"
-									ng-model="form.gender" name="gender" id="flexRadioDefault2"> <label
-									class="form-check-label ml-4" for="flexRadioDefault2">
-									Nữ </label>
-							</div>
-						</div>
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<textarea class="stext-111 cl2 plh3 size-116 p-l-35 p-r-30 p-t-10" rows="7"
-								ng-model="form.address" placeholder="Nhập địa chỉ"></textarea>
-							<img class="how-pos1 pointer-none" src="/images/icons/pay_date_24px.png" alt="ICON">
-						</div>
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-10 p-t-10" type="file" id="image"
-								onchange="angular.element(this).scope().imageChanged(this.files)">
-							<img class="how-pos4 pointer-none" src="/images/icons/account_24px.png" alt="ICON">
-						</div>
-						<div class="flex-w flex-r p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-							<button ng-click="create()"
-								class="flex-c-m m-r-8 mtext-105 cl0 size-40 bg3 bor1 hov-btn3 p-lr-20 trans-04 pointer">
-								<i class="fa fa-plus m-r-5" aria-hidden="true"></i>Thêm
-							</button>
-							<button ng-click="update()"
-								class="flex-c-m m-r-8 mtext-105 cl0 size-40 bg3 bor1 hov-btn3 p-lr-20 trans-04 pointer">
-								<i class="fa fa-pencil m-r-5" aria-hidden="true"></i>Cập nhật
-							</button>
-							<button ng-click="reset()"
-								class="flex-c-m mtext-105 cl0 size-40 bg3 bor1 hov-btn3 p-lr-20 trans-04 pointer">
-								<i class="fa fa-refresh m-r-5" aria-hidden="true"></i>Bỏ qua
-							</button>
-						</div>
-				</form>
+<tbody ng-repeat="item in pager.files | filter: searchtext">
+	<tr ng-if="truefalse(item,account,4,5,1) == true">
+	</tr>
+	<tr ng-if="truefalse(item,account,4,5,1) == false">
+		<!--        <div >-->
+		<th><input type="checkbox" ng-checked="checkfile(item)"
+				   ng-click="checkbox(item)" class="child1">
+		</th>
+		<td class="col-2 text-truncate"><img src="/images/pdf%208.png"> {{item.name}}</td>
+		<td>{{item.datefile | date:'dd/MM/yyyy h:mma'}}</td>
+		<td>
+			<div ng-if="checksize(item) == true">{{item.size / (1024 * 1024) | number:0}} MB</div>
+			<div ng-if="checksize(item) == false">{{item.size / 1024 | number:0}} KB</div>
+		</td>
+		<td><a class="link-light" data-toggle="dropdown"><img src="/images/resize%201.png" alt=""></a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" data-toggle="modal" data-target="#phanquyen"><img
+						src="/images/user%201.png"
+						alt=""> Phân quyền truy
+					cập</a>
+				<a class="dropdown-item" href="/rest/files/readfile/{{item.idfile}}" disabled="true"><img
+						src="/images/visibility%20(1)%201.png" alt=""> Xem nhanh</a>
+				<div ng-if="truefalse(item,account,14,15,11) == true">
+					<a class="dropdown-item disabled" data-toggle="modal" data-target="#chiase"><img
+							src="/images/share%20(2)%201.png" alt=""> Chia sẻ</a>
+				</div>
+				<div ng-if="truefalse(item,account,14,15,11) == false">
+					<a class="dropdown-item" data-toggle="modal" data-target="#chiase"><img
+							src="/images/share%20(2)%201.png" alt=""> Chia sẻ</a>
+				</div>
+
+				<a class="dropdown-item" data-toggle="modal" data-target="#nhanduongdan"><img
+						src="/images/link%201%20(1).png" alt=""> Nhận đường dẫn</a>
+				<div ng-if="truefalse(item,account,9,10,6) == true">
+					<a class="dropdown-item disabled"><img
+							src="/images/download%201%20(1).png" alt=""> Tải xuống</a>
+				</div>
+
+				<div ng-if="truefalse(item,account,9,10,6) == false">
+					<a class="dropdown-item" href="/rest/files/downloadfile/{{item.idfile}}"><img
+							src="/images/download%201%20(1).png" alt=""> Tải xuống</a>
+				</div>
+
+				<div ng-if="checkfavorite(item,account) == true">
+					<a class="dropdown-item" ng-click="actionfav(item,account)"><img
+							src="/images/star%202.png" alt="">
+						Xoá khỏi danh sách tài liệu có đánh dấu
+						sao</a>
+				</div>
+				<div ng-if="checkfavorite(item,account) == false">
+					<a class="dropdown-item" ng-click="actionfav(item,account)"><img
+							src="/images/star%202.png" alt="">
+						Thêm vào danh sách tài liệu có đánh dấu
+						sao</a>
+				</div>
+
+				<a class="dropdown-item" data-toggle="modal" data-target="#exampleModal1"
+				   data-name="{{item.name}}" data-id="{{item.idfile}}"
+				   onclick="showconfig(this.getAttribute('data-id'),this.getAttribute('data-name'))"><img
+						src="/images/email%201.png" alt=""> Gửi
+					mail</a>
+
 			</div>
-			<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-				<h4 class="mtext-105 cl2 txt-center p-b-30">Tài khoản</h4>
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th scope="col">Tài khoản</th>
-							<th scope="col">Họ và tên</th>
-							<th scope="col">Mật khẩu</th>
-							<th scope="col">Email</th>
-							<th scope="col">Số điện thoại</th>
-							<th scope="col">Giới tính</th>
-							<th scope="col">Địa chỉ</th>
-							<th scope="col">Ảnh</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in pager.items">
-							<th scope="row">{{item.username}}</th>
-							<td></td>
-							<td>{{item.password}}</td>
-							<td>{{item.email}}</td>
-							<td>{{item.phone}}</td>
-							<td>{{item.gender?'Nam':'Nữ'}}</td>
-							<td>{{item.address}}</td>
-							<td>{{item.photo}}</td>
-							<td class="column-8">
-								<div class="btn-group btn-group-xs">
-									<button ng-click="edit(item)"
-										class="btn btn-warning glyphicon glyphocon-edit">Sửa</button>
-									<button ng-click="delete(item)"
-										class="btn btn-danger glyphicon glyphocon-trash">Xóa</button>
+			<div class="modal fade" id="nhanduongdan" tabindex="-1" role="dialog"
+				 aria-labelledby="exampleModalLabel"
+				 aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title" id="ipo">Nhận đường dẫn</h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row align-items-center">
+
+								<div class="col-auto">
+									<input type="text" class="form-control" value="" id="myInput">
 								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+								<div title="Login" class="col-auto">
+									<label class="col-form-label"> <a onclick="myFunction()">Sao chép liên
+										kết</a></label>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Hoàn thành
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="chiase" tabindex="-1"
+				 aria-labelledby="chiase"
+				 aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<form>
+							<div class="card card-Secondary card-outline">
+								<div class="card-header">
+									Chia sẻ
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<tags-input ng-model="lst" add-from-autocomplete-only="true"
+													text="text">
+											<auto-complete source="loadTags($query)"></auto-complete>
+										</tags-input>
+									</div>
+									<div class="wrapper">
+										Đề xuất:
+										<div class="card text-left">
+											<div class="card-body" ng-repeat="acc in accounts">
+												<input type="checkbox"
+													   class="checknguoi"
+													   name="inlineRadioOptions"
+													   ng-checked="kiemtra(acc.username)"
+													   ng-click="change(acc.username)">
+												<img src="/images/profile%20(1)%203.png"
+													 class="iconschiase">
+												<label class="form-check-label">
+													{{acc.fullname}}
+												</label>
+												<br><small class="text-muted">{{acc.email}}</small>
+												<hr>
+
+											</div>
+										</div>
+
+									</div>
+
+									<div class="form-group">
+								<textarea class="form-control" style="height: 100px" ng-model="notice.text"
+										  placeholder="Lời nhắn:"></textarea>
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy
+								</button>
+
+								<button ng-click="chiase(account)" type="submit" class="btn btn-success"
+										data-dismiss="modal" data-toggle="modal" data-target="#{{idclass}}">
+									<i
+											class="far fa-envelope"></i> Chia sẻ
+								</button>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="exampleModal1" tabindex="-1"
+				 aria-labelledby="exampleModalLabel1"
+				 aria-hidden="true">
+				<div class="modal-dialog" style="max-width: 1500px;">
+					<form method="post">
+						<div class="modal-content">
+							<div class="card card-outline">
+								<div class="card-header text-white mb-3" style="background-color: #4B4B4D">
+									Gửi mail
+								</div>
+								<div class="card-body">
+									<div class="row mb-3">
+										<label class="col-sm-2 text-black-50">To: </label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control form-control-sm"
+												   id="toshare"
+												   placeholder="To:">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label class="col-sm-2 text-black-50">CC: </label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control form-control-sm"
+												   id="ccshare"
+												   placeholder="CC:">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label class="col-sm-2 text-black-50">Subject: </label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control form-control-sm"
+												   id="subjectshare"
+												   placeholder="Subject:">
+										</div>
+									</div>
+									<div class="row mb-3 ml-1">
+										<label class="col-sm-2 text-black-50"><img
+												src="/images/attached%201.png">:
+										</label>
+										<div ng-repeat="item in idfile">
+											<div class="card mb-3"
+												 style="width: 140px; height: 50px;margin-left:10px">
+												<div class="row no-gutters">
+													<div class="col-md-2">
+														<img src="/images/pdf%208.png"
+															 style="width: 25px;height: 25px;margin-top: 10px;">
+													</div>
+													<div class="col-md-8 text-truncate">
+														<b style="margin-left: 10px; margin-top: 5px; font-size: 9px">{{item.name}}</b>
+
+														<p style="margin-left: 30px;font-size: 9px"
+														   ng-if="checksize(item) == true">
+															{{item.size / (1024 * 1024) | number:0}} MB</p>
+														<p style="margin-left: 30px;font-size: 9px"
+														   ng-if="checksize(item) == false">
+															{{item.size / 1024 | number:0}}
+															KB</p>
+													</div>
+													<div class="col-md-2">
+														<img src="/images/Polygon%205.png"
+															 style="margin: 20px 0 0 10px;">
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+
+
+									</div>
+
+
+								</div>
+								<div class="row mb-3">
+									<label class="col-sm-2 text-black-50">Nội dung: </label>
+
+								</div>
+								<div class="form-group">
+									<textarea ng-model="$parent.content" id="summernote"></textarea>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy
+								</button>
+								<button type="button" ng-click="sharemail()" class="btn btn-primary"
+										data-dismiss="modal" data-toggle="modal" data-target="#{{idclass}}">
+									Gửi mail
+								</button>
+							</div>
+
+						</div>
+
+
+					</form>
+
+				</div>
+			</div>
+			<div class="modal fade " id="phanquyen" tabindex="-1" aria-labelledby="exampleModalLabel"
+				 aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Phân quyền truy cập</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<i class="font-weight-bolder">Hiển thị</i>
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" ng-checked="" value="1" id="anuser" class="checkbox"
+									   name="inlineRadioOptions">
+								<label class="form-check-label">Ẩn tệp tin/thư mục này với người
+									dùng</label>
+							</div>
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="2" class="checkbox" name="inlineRadioOptions"
+									   onclick="test1()"
+									   id="seeCheck1">
+								<label class="form-check-label">Hiển thị tệp tin/thư mục này với
+									nhóm:</label>
+								<div id="testsgr">
+									<input type="text" id="hienthigr" class="form-control"
+										   placeholder="Tên nhóm 1,Tên nhóm 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="3" class="checkbox" name="inlineRadioOptions"
+									   onclick="teston()"
+									   id="seeCheckon">
+								<label class="form-check-label">Hiển thị tệp tin/thư mục này cho
+									các người dùng được chọn:</label>
+								<div id="testsonu">
+									<input type="text" id="hienthiuser" class="form-control"
+										   placeholder="Tên người dùng 1,Tên người dùng 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="4" class="checkbox" name="inlineRadioOptions"
+									   onclick="testoffgr()"
+									   id="seeCheckoff">
+								<label class="form-check-label">Ẩn tệp tin/thư mục này với
+									nhóm:</label>
+								<div id="testsofg">
+									<input type="text" id="khienthigr" class="form-control"
+										   placeholder="Tên nhóm 1,Tên nhóm 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="5" class="checkbox" name="inlineRadioOptions"
+									   onclick="test()"
+									   id="seeCheck">
+								<label class="form-check-label">Ẩn tệp tin/thư mục này cho các
+									người dùng được chọn:</label>
+								<div id="tests">
+									<input type="text" id="khienthouser" class="form-control"
+										   placeholder="Tên người dùng 1,Tên người dùng 2,...">
+								</div>
+							</div>
+
+
+							<i class="font-weight-bolder">Tải xuống</i>
+
+
+							<div class="form-group m-lg-4">
+
+								<input type="checkbox" value="6" id="undownuser" class="checkbox"
+									   name="inlineRadioOptions">
+								<label class="form-check-label">Không cho phép tải tệp tin/thư mục này
+									với người
+									dùng</label>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="7" class="checkbox" name="inlineRadioOptions"
+									   onclick="testdowngr()"
+									   id="seedowngr">
+								<label class="form-check-label">Cho phép tải tệp tin/thư mục này với
+									nhóm:</label>
+								<div id="downgr">
+									<input type="text" id="taigr" class="form-control"
+										   placeholder="Tên nhóm 1,Tên nhóm 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="8" class="checkbox" name="inlineRadioOptions"
+									   onclick="testdownu()"
+									   id="seedownu">
+								<label class="form-check-label">Cho phép tải tệp tin/thư mục này cho
+									các người dùng được chọn:</label>
+								<div id="downu">
+									<input type="text" id="taiuser" class="form-control"
+										   placeholder="Tên người dùng 1,Tên người dùng 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="9" class="checkbox" name="inlineRadioOptions"
+									   onclick="testdownungr()"
+									   id="seedownungr">
+								<label class="form-check-label">Không cho phép tải tệp tin/thư mục này
+									với
+									nhóm:</label>
+								<div id="downungr">
+									<input type="text" id="ktaigr" class="form-control"
+										   placeholder="Tên nhóm 1,Tên nhóm 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="10" class="checkbox" name="inlineRadioOptions"
+									   onclick="testdownunu()"
+									   id="seedownunu">
+								<label class="form-check-label">Không cho phép tải tệp tin/thư mục này
+									cho các
+									người dùng:</label>
+								<div id="downungu">
+									<input type="text" id="ktaiuser" class="form-control"
+										   placeholder="Tên người dùng 1,Tên người dùng 2,...">
+								</div>
+							</div>
+
+
+							<i class="font-weight-bolder">Chia sẻ</i>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="11" class="checkbox"
+									   name="inlineRadioOptions">
+								<label class="form-check-label">Không cho phép chia sẻ tệp tin/thư mục
+									này với người
+									dùng</label>
+
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="12" class="checkbox" name="inlineRadioOptions"
+									   onclick="testsharegr()"
+									   id="seesharegr">
+								<label class="form-check-label">Cho phép chia sẻ tệp tin/thư mục này với
+									nhóm:</label>
+								<div id="sharegr">
+									<input type="text" id="chiasegr" class="form-control"
+										   placeholder="Tên nhóm 1,Tên nhóm 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="13" class="checkbox" name="inlineRadioOptions"
+									   onclick="testshareu()"
+									   id="seeshareu">
+								<label class="form-check-label">Cho phép chia sẻ tệp tin/thư mục này cho
+									các người dùng được chọn:</label>
+								<div id="shareu">
+									<input type="text" id="chiaseuser" class="form-control"
+										   placeholder="Tên người dùng 1,Tên người dùng 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="14" class="checkbox" name="inlineRadioOptions"
+									   onclick="testshareungr()"
+									   id="seeshareugr">
+								<label class="form-check-label">Không cho phép chia sẻ tệp tin/thư mục
+									này với nhóm:</label>
+								<div id="shareungr">
+									<input type="text" id="kchiasegr" class="form-control"
+										   placeholder="Tên nhóm 1,Tên nhóm 2,...">
+								</div>
+							</div>
+
+
+							<div class="form-group m-lg-4">
+								<input type="checkbox" value="15" class="checkbox" name="inlineRadioOptions"
+									   onclick="testshareunu()"
+									   id="seeshareunu">
+								<label class="form-check-label">Không cho phép chia sẻ tệp tin/thư mục này
+									với
+									người dùng được chọn:</label>
+								<div id="shareunu">
+									<input type="text" id="kchiaseuser" class="form-control"
+										   placeholder="Tên người dùng 1,Tên người dùng 2,...">
+								</div>
+							</div>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button"
+									class="shadow p-1 bg-white rounded btn btn-light font-weight-bolder"
+									data-dismiss="modal">Hủy
+							</button>
+							<button type="button" class=" btn btn-success font-weight-bolder"
+									ng-click="phanquyen(item.idfile)"
+									style="background-color: #6EB43F;" data-dismiss="modal"
+									data-toggle="modal" data-target="#{{idclass}}">Lưu thay đổi
+							</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</td>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="{{idclass}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+			 aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="mx-auto mt-3 mb-5">
+						<img src="/images/{{image}}" style="width: 128px;height: 128px"/>
+						<h6 class="text-center">{{note}}</h6>
+						<button type="button" class="btn btn-outline-primary btn-lg" data-dismiss="modal"
+								style="margin-left: 20px">Đồng ý
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
+
+		<!--        </div>-->
+
+
+	</tr>
+
+	</tbody>

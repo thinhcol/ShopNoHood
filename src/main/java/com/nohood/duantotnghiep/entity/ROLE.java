@@ -20,6 +20,7 @@ public class ROLE {
     @Id 
     private String ROLEID;
     private String ROLENAME;
+    
     @JsonIgnore
     @OneToMany(mappedBy = "role")
     private List<ROLEACC> roleaccs;

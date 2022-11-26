@@ -28,6 +28,9 @@ public class CART {
     @JoinColumn(name = "USERNAME")
     @ManyToOne
     private ACCOUNT account;
+    
+    
+    
     @JsonIgnore
 	@OneToMany(mappedBy = "cart")
 	List<BILL> bill;

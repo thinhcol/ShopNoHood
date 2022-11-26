@@ -65,5 +65,10 @@ public class CARTSERVICEIMPL implements CARTSERVICE {
 		return order; 
 	}
 
+	@Override
+	public int UpdateSl(String PHONE, String ADDRESS, long CARTID) {
+		return dao.UpdateSl(PHONE, ADDRESS, CARTID);
+	}
+
 
 }

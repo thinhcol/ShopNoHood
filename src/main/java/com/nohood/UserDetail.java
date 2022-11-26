@@ -40,8 +40,13 @@ public class UserDetail  implements UserDetailsService {
 	}
 	 
 	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
+		ACCOUNT account = new ACCOUNT();
 		String email = oauth2.getPrincipal().getAttribute("email");
 		String password = Long.toHexString(System.currentTimeMillis());
+		account.setEMAIL(email);
+		account.setPASSWORD(password);
+		account.setUSERNAME(email);
+		service.create(account);
 		UserDetails user = User.withUsername(email).password(pe.encode(password)).roles("CUST").build();
 		Authentication auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);

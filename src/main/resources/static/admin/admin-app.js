@@ -13,10 +13,6 @@ app.config(function($routeProvider) {
 			templateUrl: "../admin/authority/unauthorized.html",
 			controller: "authority-ctrl"
 		})
-		.when("/category", {
-			templateUrl: "../admin/categories/index.html",
-			controller: "category-ctrl"
-		})
 		.when("/account", {
 			templateUrl: "../admin/account/accountform.html",
 			controller: "account-ctrl"
@@ -29,9 +25,13 @@ app.config(function($routeProvider) {
 			templateUrl: "../admin/system/address/address.html",
 			controller: "address-ctrl"
 		})
-		.when("/home",{
-			template: "Đây là admin"
-			
+		.when("/managerorder", {
+			templateUrl: "../admin/managerorder/donhang.html",
+			controller: "managerorder-ctrl"
+		})
+		.otherwise({
+			templateUrl: "../admin/chart/thongke.html",
+			controller: "thongke-ctrl"
 		});
 });
 // function generateColor() {

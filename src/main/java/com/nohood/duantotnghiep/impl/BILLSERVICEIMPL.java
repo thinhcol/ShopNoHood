@@ -2,7 +2,6 @@ package com.nohood.duantotnghiep.impl;
 
 import com.nohood.duantotnghiep.dao.BILLDAO;
 import com.nohood.duantotnghiep.entity.BILL;
-import com.nohood.duantotnghiep.entity.STATUSPR;
 import com.nohood.duantotnghiep.entity.TKDT;
 import com.nohood.duantotnghiep.entity.TKSP;
 import com.nohood.duantotnghiep.service.BILLSERVICE;
@@ -42,17 +41,17 @@ public class BILLSERVICEIMPL implements BILLSERVICE {
         return dao.findById(BILLID).get();
     }
 
-	@Override
-	public List<TKSP> sanphammuanhieu() {
-		// TODO Auto-generated method stub
-		return dao.sanphammuanhieu();
-	}
-
-	@Override
-	public List<TKDT> sanphamtien() {
-		
-		return dao.sanphamtien();
-	}
+//	@Override
+//	public List<TKSP> sanphammuanhieu() {
+//		// TODO Auto-generated method stub
+//		return dao.sanphammuanhieu();
+//	}
+//
+//	@Override
+//	public List<TKDT> sanphamtien() {
+//		
+//		return dao.sanphamtien();
+//	}
 //
 //	@Override
 //	public int UpdateSl(STATUSPR IDST, long BILLID) {
@@ -60,10 +59,8 @@ public class BILLSERVICEIMPL implements BILLSERVICE {
 //	}
 
 	@Override
-	public int UpdateSl(STATUSPR statuspr, long BILLID) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<BILL> findByUser(String username) {
+		return dao.findByUser(username);
 	}
-
 
 }

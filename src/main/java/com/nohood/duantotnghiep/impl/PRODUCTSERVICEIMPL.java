@@ -37,8 +37,8 @@ public class PRODUCTSERVICEIMPL implements PRODUCTSERVICE {
 
     @Override
     public PRODUCT findone(long PRODUCTID) {
-//        System.out.println("ID là:" + PRODUCTID);
-//        System.out.println("ID Sản phảm lag:" + dao.findById(PRODUCTID).get());
+//        System.out.println("ID lÃ :" + PRODUCTID);
+//        System.out.println("ID Sáº£n pháº£m lag:" + dao.findById(PRODUCTID).get());
         return dao.findById(PRODUCTID).get();
     }
 

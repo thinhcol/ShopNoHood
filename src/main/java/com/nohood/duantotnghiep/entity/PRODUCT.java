@@ -30,9 +30,6 @@ public class PRODUCT {
     private Date DATECREATE;
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    private List<BILL> bill;
-    @JsonIgnore
-    @OneToMany(mappedBy = "product")
     private List<COMMENT> comments;
     @JsonIgnore
     @OneToMany(mappedBy = "product")

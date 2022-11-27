@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org"  th:replace="~{/layout/index :: dynamic(~{::main})}">
 
 <head>
 	<title>Home 03</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" th:href="@{/images/icons/favicon.png}" />
-	<!--===============================================================================================-->
 </head>
 
 <body class="animsition" ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
-	<main>
-
+<main>
 	<!-- Sidebar -->
 	<aside class="wrap-sidebar js-sidebar">
 		<div class="s-full js-hide-sidebar"></div>
@@ -27,9 +23,9 @@
 			<div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
 				<ul class="sidebar-link w-full">
 					<li class="p-b-13" th:each="c:${cates}">
-					<a aria-current="true" th:href="@{|/product/list?cid=${c.CATEID}|}"
+					<a aria-current="true" href=""
 					   class="stext-102 cl2 hov-cl1 trans-04">
-						[[${c.CATENAME}]]
+						
 					</a>
 				</li>
 				</ul>
@@ -38,14 +34,6 @@
 					<span class="mtext-101 cl5">
 						@ CozaStore
 					</span>
-
-					<!-- <div class="flex-w flex-sb p-t-36 gallery-lb">
-						
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" th:href="images/gallery-01.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-01.jpg');"></a>
-						</div>
-					</div> -->
 				</div>
 
 				<div class="sidebar-gallery w-full">
@@ -65,64 +53,7 @@
 
 
 	<!-- Cart -->
-	<div class="wrap-header-cart js-panel-cart">
-		<div class="s-full js-hide-cart"></div>
-
-		<div class="header-cart flex-col-l p-l-65 p-r-25">
-			<div class="header-cart-title flex-w flex-sb-m p-b-8">
-				<span class="mtext-103 cl2">
-					Your Cart
-				</span>
-
-				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-					<i class="zmdi zmdi-close"></i>
-				</div>
-			</div>
-
-			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full" th:fragment="shopping_cart">
-				<li class="header-cart-item flex-w flex-t m-b-12" ng-repeat="item in cart.items">
-					<div class="header-cart-item-img">
-						<img alt="IMG">
-					</div>
-					<div class="header-cart-item-txt p-t-8">
-						<a class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-							{{item.productname}}
-							<button ng-click="cart.remove(item.productid)" class="btn btn-sm btn-danger">
-								Xóa
-							</button>
-						</a>
-						<input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1"
-							   style="max-width: 50px; max-height: 15px;">
-						<span class="header-cart-item-info">
-								${{item.qty*item.price | number: 2}}
-							</span>
-
-					</div>
-				</li>
-			</ul>
-
-				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40">
-						Total: ${{cart.amount|number:2}}
-					</div>
-
-					<div class="header-cart-buttons flex-w w-full">
-						<a th:href="shoping-cart.html"
-							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							View Cart
-						</a>
-
-						<a th:href="@{/order/checkout}"
-							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<div th:replace="/layout/cart.html"></div>	
 
 	<!-- @{|/images/*{image}|} -->
 	<!-- Slider -->
@@ -130,86 +61,238 @@
 		<div class="container">
 			<div class="p-b-10">
 				<h3 class="ltext-103 cl5">
-					Thông tin hóa đơn
+					Chi tiết giỏ hàng
 				</h3>
 			</div>
-			<div class="row" th:object="${order}">
-				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-					<div class="m-l-25 m-r--38 m-lr-0-xl">
+			<div class="row">
+				<div class="col-lg-10 col-xl-8 m-lr-auto m-b-50">
+					<div class="m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
 							<table class="table-shopping-cart">
 								<tr class="table_head">
-									<th class="column-1">Image</th>
-									<th class="column-2">Name</th>
-									<th class="column-3">Price</th>
-									<th class="column-4">Quantity</th>
-									<th class="column-5">Total</th>
+									<th style="width: 18%" class="p-l-20">Ảnh</th>
+									<th style="width: 32%" class="">Tên sản phẩm</th>
+									<th style="width: 12%" class="">Giá</th>
+									<th style="width: 12%" class="">Số lượng</th>
+									<th style="width: 18%" class="">Thành tiền</th>
+									<th class="p-r-20"></th>
 								</tr>
 
-								<tr class="table_row" th:each="detail: *{bill}" th:object="${detail}">
-									<td class="column-1">
+								<tr style="height: 100px" class="table_row" ng-repeat="item in cart.listCarts">
+									<td style="padding-bottom: 0" class="p-l-20">
 										<div class="how-itemcart1">
-											<img th:src="@{|/images/*{product.IMAGE}|}" alt="IMG">
+											<img src="item.product.image" alt="IMG">
 										</div>
 									</td>
-									<td class="column-2">[[*{product.PRODUCTNAME}]]</td>
-									<td class="column-3">$[[*{#numbers.formatDecimal(SUMPRICE,0,'COMMA',2,'POINT')}]]</td>
-									<td class="column-4">
-										[[*{QUANTITY}]]
+									<td style="padding-bottom: 0" class="">{{item.product.productname}}</td>
+									<td style="padding-bottom: 0" class="">{{item.product.price|number:3}}đ</td>
+									<td style="padding-bottom: 0" class="">
+										<input ng-change="cart.saveCart()" ng-model="item.quantity" type="number"
+											min="1" style="max-width: 50px; max-height: 15px;">
 									</td>
-									<td class="column-5">$[[*{#numbers.formatDecimal(SUMPRICE*QUANTITY,0,'COMMA',2,'POINT')}]]</td>
+									<td style="padding-bottom: 0" class="">{{item.quantity * item.product.price | number: 3}}đ</td>
+									<td style="padding-bottom: 0" class="p-r-20"><button ng-click="cart.deleteCart(item.cartid, item.product.productid)"
+											class="btn btn-sm btn-danger">
+											Xóa
+										</button></td>
 								</tr>
 							</table>
+						</div>
+
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5">
+								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+									name="coupon" placeholder="Coupon Code">
+
+								<div
+									class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+									Apply coupon
+								</div>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
 
-				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+				<div class="col-sm-10 col-lg-7 col-xl-4 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40  m-lr-0-xl p-lr-15-sm">
 						<h4 class="mtext-109 cl2 p-b-30">
-							Thông tin hóa đơn
+							Tổng đơn hàng
 						</h4>
-						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
-							<div class="size-208 w-full-ssm">
+
+						<div class="flex-w flex-t bor12 p-b-53">
+							<div class="size-208">
 								<span class="stext-110 cl2">
-									Shipping:
+									Tổng đơn:
 								</span>
 							</div>
 
-							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-								<p class="stext-111 cl6 p-t-2">
-									There are no shipping methods available. Please double check your address, or
-									contact us if you need any help.
-								</p>
-
-								<div class="p-t-15">
-									<span class="stext-112 cl8">
-										Thông tin hóa đơn
-									</span>
-
-									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-										<input class="stext-111 cl8 plh3 size-100 p-lr-15" th:field="*{CARTID}" readonly/>
-									</div>
-
-									<div class="bor8 bg0 m-b-12">
-										<input class="stext-111 cl8 plh3 size-100 p-lr-15" th:field="*{account.USERNAME}" readonly />	
-									</div>
-
-									<div class="bor8 bg0 m-b-22">
-										<input  readonly class="stext-111 cl8 plh3 size-111 p-lr-15" />
-									</div>
-
-									<div class="bor8 bg0 m-b-22">
-										<input  readonly class="stext-111 cl8 plh3 size-111 p-lr-15" />
-									</div>
-								</div>
+							<div class="size-209">
+								<span class="mtext-110 cl2">
+									{{cart.amount|number:3}}đ
+								</span>
 							</div>
 						</div>
+						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+							<a class="text-white" href="/order/purchase">Đến trang thanh toán</a> 
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
+
+	<!-- Footer -->
+	<footer class="bg3 p-t-75 p-b-32">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Categories
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								Women
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								Men
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								Shoes
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								Watches
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Help
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								Track Order
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								Returns
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								Shipping
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a class="stext-107 cl7 hov-cl1 trans-04">
+								FAQs
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						GET IN TOUCH
+					</h4>
+
+					<p class="stext-107 cl7 size-201">
+						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
+						on (+1) 96 716 6879
+					</p>
+
+					<div class="p-t-27">
+						<a class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-facebook"></i>
+						</a>
+
+						<a class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-instagram"></i>
+						</a>
+
+						<a class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-pinterest-p"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Newsletter
+					</h4>
+
+					<form>
+						<div class="wrap-input1 w-full p-b-4">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
+								placeholder="email@example.com">
+							<div class="focus-input1 trans-04"></div>
+						</div>
+
+						<div class="p-t-18">
+							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+								Subscribe
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="p-t-40">
+				<div class="flex-c-m flex-w p-b-18">
+					<a href="#" class="m-all-1">
+						<img src="/images/icons/icon-pay-01.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="/images/icons/icon-pay-02.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="/images/icons/icon-pay-03.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="/images/icons/icon-pay-04.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="/images/icons/icon-pay-05.png" alt="ICON-PAY">
+					</a>
+				</div>
+
+				<p class="stext-107 cl6 txt-center">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i
+						class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+						target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com"
+						target="_blank">ThemeWagon</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+				</p>
+			</div>
+		</div>
+	</footer>
 
 
 	<!-- Back to top -->

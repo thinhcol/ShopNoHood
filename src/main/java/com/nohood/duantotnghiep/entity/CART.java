@@ -1,12 +1,9 @@
 package com.nohood.duantotnghiep.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -19,19 +16,13 @@ public class CART {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long CARTID;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date DATECART;    
-    private String PHONE;  
-    private String ADDRESS;
-
+    private int QUANTITY;
+    private int SUMPRICE;
   
     @JoinColumn(name = "USERNAME")
     @ManyToOne
     private ACCOUNT account;
-    
-    
-    
-    @JsonIgnore
-	@OneToMany(mappedBy = "cart")
-	List<BILL> bill;
+    @JoinColumn(name = "PRODUCTID")
+    @ManyToOne
+    private PRODUCT product;
 }

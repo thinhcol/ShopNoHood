@@ -18,4 +18,10 @@ public interface CARTDAO extends JpaRepository<CART, Long> {
 	@Transactional
 	@Query(value = "UPDATE CART h set h.PHONE = ?1 and h.ADDRESS =?2 where h.CARTID = ?3", nativeQuery = true)
 	int UpdateSl(String PHONE, String ADDRESS, long CARTID);
+
+	@Transactional
+	@Modifying
+	@Query("delete from CART c where c.account.USERNAME like ?1")
+	void deleteByUser(String username);
+
 }

@@ -11,14 +11,14 @@ import com.nohood.duantotnghiep.service.BILLSERVICE;
 
 @Controller
 public class ChartController {
-	@Autowired
-	BILLSERVICE dao;
-	@RequestMapping("/admin/thongke/doanhthu") 
-	public String main(Model model) {
-		List<String> name = dao.sanphammuanhieu().stream().map(x -> x.getName()).collect(Collectors.toList());
-		List<Long> soluong = dao.sanphammuanhieu().stream().map(x -> x.getSoluong()).collect(Collectors.toList());
-		model.addAttribute("name",name); 
-		model.addAttribute("soluong",soluong);
-		return "home/chart"; 
-	}
+//	@Autowired
+//	BILLSERVICE dao;
+//	@RequestMapping("/admin/thongke/doanhthu") 
+//	public String main(Model model) {
+//		List<String> name = dao.sanphammuanhieu().stream().map(x -> x.getName()).collect(Collectors.toList());
+//		List<Long> soluong = dao.sanphammuanhieu().stream().map(x -> x.getSoluong()).collect(Collectors.toList());
+//		model.addAttribute("name",name); 
+//		model.addAttribute("soluong",soluong);
+//		return "home/chart"; 
+//	}
 }

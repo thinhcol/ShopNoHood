@@ -14,10 +14,10 @@ import com.nohood.duantotnghiep.service.BILLSERVICE;
 @RestController
 @RequestMapping("/rest/TKDT")
 public class TKDTRestController {
-	@Autowired
-	BILLSERVICE dao;
-	@GetMapping()
-	public List<TKDT> thongke(){
-		return dao.sanphamtien();
-	}
+//	@Autowired
+//	BILLSERVICE dao;
+//	@GetMapping()
+//	public List<TKDT> thongke(){
+//		return dao.sanphamtien();
+//	}
 }

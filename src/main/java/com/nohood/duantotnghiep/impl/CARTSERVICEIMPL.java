@@ -49,26 +49,12 @@ public class CARTSERVICEIMPL implements CARTSERVICE {
 
 	@Override
 	public List<CART> findByUsername(String username) {
-		// TODO Auto-generated method stub
 		return dao.findByUsername(username);
 	}
 
 	@Override
-	public CART create(JsonNode data) {
-		ObjectMapper mapper = new ObjectMapper();
-		CART order = mapper.convertValue(data, CART.class);
-		dao.save(order);
-		TypeReference<List<BILL>> type = new TypeReference<List<BILL>>() {};
-		List<BILL> details = mapper.convertValue(data.get("bill"), type)
-				.stream().peek(d -> d.setCart(order)).collect(Collectors.toList());
-		bdao.saveAll(details);
-		return order; 
+	public void deleteByUser(String username) {
+		dao.deleteByUser(username);
 	}
-
-	@Override
-	public int UpdateSl(String PHONE, String ADDRESS, long CARTID) {
-		return dao.UpdateSl(PHONE, ADDRESS, CARTID);
-	}
-
 
 }

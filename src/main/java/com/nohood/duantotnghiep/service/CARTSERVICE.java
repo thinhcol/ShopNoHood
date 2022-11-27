@@ -11,7 +11,6 @@ public interface CARTSERVICE {
     void deletebyid(long CARTID);
     void delete(CART CART);
     CART findone(long CARTID);
-    List<CART> findByUsername(String username);
-    CART create(JsonNode data);
-    int UpdateSl(String PHONE, String ADDRESS, long CARTID);
+	List<CART> findByUsername(String username);
+	void deleteByUser(String username);
 }

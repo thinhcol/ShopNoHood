@@ -11,21 +11,28 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/orders")
+@RequestMapping("/rest/cart")
 public class CartRestController {
     @Autowired
     CARTSERVICE service;
-    @GetMapping()
-    public List<CART> index() {
-        return service.findall();
-    } 
-    @PostMapping()
-    public CART create(@RequestBody JsonNode data) {
-        return service.create(data);
+  
+    @GetMapping("/getbyuser/{username}")
+    public List<CART> getCartsByUsername(@PathVariable String username) {
+        return service.findByUsername(username);
     }  
-    @PutMapping()
-    public int update(CART cart) {
-        return service.UpdateSl(cart.getPHONE(), cart.getADDRESS(), cart.getCARTID());
+    @PostMapping("/list")
+    public void createOrUpdateList(@RequestBody List<CART> Carts) {
+    	Carts.forEach(cart -> {
+    		service.create(cart);
+    	});
+    } 
+    @DeleteMapping("/{cartId}")
+    public void deleteCart(@PathVariable int cartId) {
+    	service.deletebyid(cartId);
+    } 
+    @DeleteMapping("delbyuser/{username}")
+    public void deleteByUser(@PathVariable String username) {
+    	service.deleteByUser(username);
     } 
 } 
  

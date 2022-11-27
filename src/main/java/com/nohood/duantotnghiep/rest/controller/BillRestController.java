@@ -13,15 +13,15 @@ import java.util.List;
 @RequestMapping("/rest/bill")
 public class BillRestController {
     @Autowired
-    BILLSERVICE dao;
+    BILLSERVICE service;
 
     @GetMapping 
     public List<BILL> getAll(){
-        return dao.findall();
+        return service.findall();
     }
     @PutMapping("{id}")
     public BILL update(@PathVariable("id") Integer id,@RequestBody BILL bill) {
-        return dao.create(bill);
+        return service.create(bill);
     }
 
 }

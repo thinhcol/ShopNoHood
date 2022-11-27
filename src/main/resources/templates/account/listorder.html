@@ -11,70 +11,98 @@
 <!--===============================================================================================-->
 </head>
 
-<body class="animsition" ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+<body class="animsition" ng-app="shopping-cart-app"
+	ng-controller="shopping-cart-ctrl">
 	<main>
 	<div th:replace="/layout/cart.html"></div>
-	<section class="bg0 p-t-120 p-b-60" ng-controller="profile-ctrl">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-lg-3 p-b-80">
-                    <div th:replace="/account/navsidebar.html"></div>
-                </div>
-                <div class="col-md-8 col-lg-9 p-b-80">
-                    <form class="bg0 ng-pristine ng-valid" method="post">
-                        <h4 class="mtext-105 cl2 txt-center p-b-30">Hồ sơ</h4>
-                        <div class="row">
-                            <div class="col-4">
-                                <label for="inuput_img">
-                                    <img style="height: 230px;object-fit: cover;" class="pointer w-100" ng-src="{{'../images/' + user.profile.photo}}">
-                                </label>                                
-                                <input hidden onchange="angular.element(this).scope().imageChanged(this.files)" style="width:60%;" type="file" accept="image/*" id="inuput_img">
-                            </div>
-                            <div class="col-8 p-l-0">
-                                <div class="bor8 how-pos4-parent d-flex m-b-20" >
-                                    <p style="padding: 10px"><strong>Tên đăng nhập: </strong>{{user.profile.username}}</p>
-                                </div>
-                                
-                                <div class="bor8 m-b-20 how-pos4-parent d-flex">
-                                    <p style="padding: 10px 10px 0px 10px"><strong>Họ và tên: </strong></p>
-                                    <input style="width:60%;" class="stext-115 cl2 plh3 size-111 p-l-11 p-r-30" ng-model="user.profile.fullname" type="text" placeholder="Nhập họ và tên">
-                                </div>
-                                <div class="bor8 m-b-20 how-pos4-parent d-flex">
-                                    <p style="padding: 10px 10px 0px 10px"><strong>Email: </strong></p>
-                                    <input style="width:60%;" class="stext-115 cl2 plh3 size-111 p-l-11 p-r-30" ng-model="user.profile.email"  type="email" placeholder="Nhập email">
-                                </div>
-                                <div class="bor8 m-b-20 how-pos4-parent d-flex">
-		                            <p style="padding: 10px 10px 0px 10px"><strong>Số điện thoại: </strong></p>
-		                            <input style="width:60%;" class="stext-115 cl2 plh3 size-111 p-l-11 p-r-30" ng-model="user.profile.phone" type="text" placeholder="Nhập số điện thoại">
-	                        	</div>	
-                            </div>
-                        </div>
+	<section class="bg0 p-t-120 p-b-60" ng-controller="list-order-ctrl">
+		<div class="container" >
+			<div class="row">
+				<div class="col-md-4 col-lg-3 p-b-80">
+					<div th:replace="/account/navsidebar.html"></div>
+				</div>
+				<div class="col-md-8 col-lg-9 p-b-80">
+					<form ng-if="!isViewOne" class="bg0 p-b-85">
+						<div class="container">
+							<div class="p-b-10">
+								<h3 class="ltext-103 cl5">
+									Danh sách hóa đơn
+								</h3>
+							</div>
+							<div class="row">
+								<div class="col-lg-10 col-xl-12 m-lr-auto m-b-50 p-r-0">
+									<div class=" m-lr-0-xl">
+										<div class="wrap-table-shopping-cart">
+											<table class="table-shopping-cart">
+												<tr class="table_head">
+													<th class="p-lr-20">Tên người nhận</th>
+													<th class="">Địa chỉ nhận</th>
+													<th class="">Ngày đặt</th>
+													<th class="">Trạng thái</th>
+													<th class=""></th>
 
-                        
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <p style="padding: 10px 10px 0px 10px"><strong>Giới tính: </strong></p>
-                            <div style="display: flex; padding:5px 30px 2px 11px">
-                                <input class="" type="radio" name="inlineRadioOptions" id="inlineRadio1" ng-value="true" ng-model="user.profile.gender">
-                                <label style="margin: 0 30px 0 12px" for="inlineRadio1">Nam</label>
-                            </div>
-                            <div style="display: flex; padding:5px 30px 12px 11px">
-                                <input class="" type="radio" name="inlineRadioOptions" id="inlineRadio2" ng-value="false" ng-model="user.profile.gender">
-                                <label style="margin: 0 30px 0 12px" for="inlineRadio2">Nữ</label>
-                            </div>
-                        </div>
-                        <div class="flex-w flex-r p-t-18 p-b-15 p-lr-15-sm">
-                            <button ng-click="user.update()" type="submit" class="flex-c-m m-r-8 mtext-108 cl0 size-40 bg3 bor1 hov-btn3 p-lr-20 p-tb-6 trans-04 pointer">
-					                    <i class="fa fa-pencil m-r-5" aria-hidden="true"></i>Cập nhật
-				            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    
-    <script src="/js/shopping-cart-app.js"></script>
+												</tr>
+
+												<tr style="height: 100px" class="table_row" ng-repeat = "ord in listOrder">
+													<td style="padding-bottom: 0" class="p-lr-20">{{ord.address.fullname}}</td>
+													<td style="padding-bottom: 0" class="">{{ord.address.streetname}}, {{ord.address.wardname}},
+																									{{ord.address.district.districtname}},
+																									{{ord.address.province.provincename}}</td>
+													<td style="padding-bottom: 0" class="">{{ord.billdate | date : 'dd-MM-yyyy'}}</td>
+													<td ng-if="ord.status == 1" style="padding-bottom: 0" class="">Chờ xác nhận</td>
+													<td style="padding-bottom: 0" class="">
+														<a ng-click="order.viewById(ord.billid)" class="btn btn-deafault"> Xem chi tiết </a>
+													</td>
+
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				
+					<form ng-if="isViewOne" class="bg0 p-b-85">
+						<div class="container">
+							<div class="p-b-10 d-flex align-items-center justify-content-between">
+								<h3 class="ltext-103 cl5">
+									Thông tin hóa đơn
+								</h3>
+								<h5> <a ng-click="setViewAll()"> Quay lại</a></h5>
+							</div>
+							<div class="row">
+								<div class="col-lg-10 col-xl-12 m-lr-auto m-b-50  p-r-0">
+									<div class="m-lr-0-xl">
+										<div class="wrap-table-shopping-cart">
+											<table class="table-shopping-cart">
+												<tr class="table_head">
+													<th class="p-lr-20">STT</th>
+													<th class="">Tên sản phẩm</th>
+													<th class="">Giá</th>
+													<th class="">Số lượng</th>
+
+												</tr>
+
+												<tr style="height: 100px" class="table_row" ng-repeat = "ord in order.orderView">
+													<td style="padding-bottom: 0" class="p-lr-20">{{$index + 1}}</td>
+													<td style="padding-bottom: 0" class="">{{ord.product.productname}}</td>
+													<td style="padding-bottom: 0" class="">{{ord.sumprice}}</td>
+													<td style="padding-bottom: 0" class="">{{ord.quantity}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<script src="/js/shopping-cart-app.js"></script>
 		<!--===============================================================================================-->
 		<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
 		<!--===============================================================================================-->
@@ -175,9 +203,8 @@
 		</script>
 		<!--===============================================================================================-->
 		<script src="/js/main.js"></script>
-    
-	</main>
 	
+	</main>
 </body>
 
 </html>

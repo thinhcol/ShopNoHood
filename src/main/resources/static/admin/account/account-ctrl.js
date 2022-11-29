@@ -95,11 +95,11 @@ app.controller("account-ctrl", function($scope, $http) {
 	$scope.imageChanged = function(files) {
 		var data = new FormData();
 		data.append('file', files[0]);
-		$http.post('/rest/upload/images', data, {
+		$http.post('/rest/upload/avatar', data, {
 			transformRequest: angular.identity,
 			headers: { 'Content-Type': undefined }
 		}).then(resp => {
-			$scope.form.image = resp.data.name;
+			$scope.form.photo = resp.data.name;
 		}).catch(error => {
 			alert("Lỗi upload hình ảnh");
 			console.log("Error", error);

@@ -13,7 +13,7 @@
 
 				<!-- Logo desktop -->
 				<a th:href="@{/}" class="logo"> <img
-					src="/images/icons/logo-01.png" alt="IMG-LOGO">
+					src="/images/Logo/nohood.jpg" alt="IMG-LOGO">
 				</a>
 
 				<!-- Menu desktop -->
@@ -57,7 +57,7 @@
 						
 						<label th:if="${#request.remoteUser}" for="img-avatar">
 							<div style="overflow: hidden;" class="img-avatar-item">
-								<img width="50px" th:src="@{../images/product-03.jpg}" alt="">
+								<img width="50px" src="/images/avatar/{{account.photo}}" alt="">
 							</div>
 						</label>
 						<input hidden type="checkbox" id="img-avatar">

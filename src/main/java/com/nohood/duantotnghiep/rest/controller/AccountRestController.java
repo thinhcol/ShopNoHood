@@ -28,7 +28,7 @@ public class AccountRestController {
     @GetMapping("getone")
     public ACCOUNT getOne(){
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	if(auth.getName() != null) {
+    	if(auth != null) {
     		return dao.findone(auth.getName());
     	}else {
     		return null;

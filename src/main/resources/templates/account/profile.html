@@ -26,9 +26,9 @@
                         <div class="row">
                             <div class="col-4">
                                 <label for="inuput_img">
-                                    <img style="height: 230px;object-fit: cover;" class="pointer w-100" ng-src="{{'../images/' + user.profile.photo}}">
+                                    <img style="height: 230px;object-fit: cover;" class="pointer w-100" ng-src="{{'../images/avatar/' + user.profile.photo}}">
                                 </label>                                
-                                <input hidden onchange="angular.element(this).scope().imageChanged(this.files)" style="width:60%;" type="file" accept="image/*" id="inuput_img">
+                                <input hidden onchange="angular.element(this).scope().imageChanged(this.files)" style="width:60%;" name="hinhanh" type="file" accept="image/*" id="inuput_img">
                             </div>
                             <div class="col-8 p-l-0">
                                 <div class="bor8 how-pos4-parent d-flex m-b-20" >

@@ -10,8 +10,8 @@
               <th>Mã hóa đơn</th>
               <th>Thời gian thanh toán</th>
               <th>Số điện thoại</th>
-              <th>Địa chỉ</th>
-              <th>Người mua</th>
+              <th>Người đặt</th>
+              <th>Người nhận</th>
               <th>Tổng tiền</th>
               <th>Trạng thái</th>
               <th></th>
@@ -20,53 +20,57 @@
           <tbody>
             <tr ng-repeat="item in items">
               <td>{{item.billid}}</td>
-              <td>{{item.cart.datecart | date:'dd/MM/yyyy'}}</td>
-              <td>{{item.cart.phone}}</td>
-              <td>{{item.cart.address}}</td>
-              <td>{{item.cart.account.username}}</td>
-              <td>{{item.quantity * item.sumprice}}</td>
-              <td ng-if="item.status.idst == 1"><label class="badge badge-warning">{{item.status.staname}}</label></td>
-              <td ng-if="item.status.idst == 2"><label class="badge badge-info">{{item.status.staname}}</label></td>
-              <td ng-if="item.status.idst == 3"><label class="badge badge-success">{{item.status.staname}}</label></td>
-              <td ng-if="item.status.idst == 4"><label class="badge badge-danger">{{item.status.staname}}</label></td>
-              <td><a class="btn btn-outline-secondary btn-fw" data-toggle="modal" ng-click="edit(item)" data-target="#exampleModal">Sửa</a>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
+              <td>{{item.billdate | date:'dd/MM/yyyy'}}</td>
+              <td>{{item.address.phonenumber}}</td>
+              <td>{{item.account.fullname}}</td>
+              <td>{{item.address.fullname}}</td>
+              <td>{{item.sumprice}}</td>
+              <td ng-if="item.status == 1"><label class="badge badge-warning">Chờ xác nhận đơn</label></td>
+              <td ng-if="item.status == 2"><label class="badge badge-info">Đang giao đơn hàng</label></td>
+              <td ng-if="item.status == 3"><label class="badge badge-success">Giao hàng thành công</label></td>
+              <td ng-if="item.status == 4"><label class="badge badge-danger">Hủy đơn hàng</label></td>
+              <td><a class="btn btn-outline-secondary btn-fw" data-toggle="modal" ng-click="edit(item)" data-target="#exampleModal">Sửa</a></td>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin giao hàng</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                      <div class="form-group">
-                          <input type="text" ng-model="form.billid" class="form-control" />
+                        <div class="form-group">
+                         <label for="recipient-name" class="col-form-label">Số điện thoại: </label>
+                          <input type="tel" ng-model="form.address.phonenumber" placeholder="Nhập số điện thoại" class="form-control" disabled />
                         </div>
                         <div class="form-group">
-                          <input type="tel" ng-model="form.cart.phone" placeholder="Nhập số điện thoại" class="form-control" />
+                          <label for="recipient-name" class="col-form-label">Địa chỉ: </label>
+                          <textarea class="form-control" placeholder="Địa chỉ" ng-model="form.diachi" disabled></textarea>
                         </div>
                         <div class="form-group">
-                          <input type="text" ng-model="form.cart.address" placeholder="Nhập địa chỉ" class="form-control" />
+                         <label for="recipient-name" class="col-form-label">Người đặt: </label>
+                          <input type="text" ng-model="form.account.fullname" placeholder="Tên người đặt" class="form-control" disabled/>
                         </div>
                         <div class="form-group">
-                          <input type="text" ng-model="item.cart.account.username" placeholder="Nhập người dùng" class="form-control" disabled/>
+                         <label for="recipient-name" class="col-form-label">Người nhận: </label>
+                          <input type="text" ng-model="form.address.fullname" placeholder="Tên người nhận" class="form-control" disabled/>
                         </div>
                         <div class="form-group">
-                          <select ng-model="form.status.idst" class="form-control">
-                            <option ng-repeat="c in status" ng-value="c.idst">{{c.staname}}
+                        <label for="recipient-name" class="col-form-label">Trạng thái: </label>
+                          <select ng-model="form.status" class="form-control">
+                            <option ng-repeat="c in status" ng-value="c.id">{{c.name}}
                             </option>
                           </select>
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">Lưu và thay đổi</button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </td>
              
               
             </tr>

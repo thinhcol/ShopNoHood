@@ -37,7 +37,7 @@ public class ACCOUNT {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private List<ROLEACC> roleaccs;
     @JsonIgnore
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account") 
     private List<FAVORITE> favorites;
     @JsonIgnore
     @OneToMany(mappedBy = "account")

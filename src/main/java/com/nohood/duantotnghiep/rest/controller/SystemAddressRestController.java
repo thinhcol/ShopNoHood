@@ -37,6 +37,10 @@ public class SystemAddressRestController {
     public void postprovince(@RequestBody List<PROVINCE> provinces){
 		proviceservice.createProvinces(provinces);
     }
+	@PostMapping("/postone/province")
+    public void postoneprovince(@RequestBody PROVINCE province){
+		proviceservice.create(province);
+    }
 	
 	
 	@GetMapping("/district/{provinceid}")
@@ -46,6 +50,10 @@ public class SystemAddressRestController {
 	@PostMapping("/district")
     public void postdistrict(@RequestBody List<DISTRICT> districts){
 		districtservice.createDistricts(districts);
+    }
+	@PostMapping("/postone/district")
+    public void postonedistrict(@RequestBody DISTRICT district){
+		districtservice.create(district);
     }
 	
 	
@@ -61,7 +69,10 @@ public class SystemAddressRestController {
 	@PostMapping("/ward")
     public void postward(@RequestBody List<WARD> wards){
 		wardservice.createWards(wards);
-		System.out.println("Hoàn thành lưu danh sách địa chỉ");
+    }
+	@PostMapping("/postone/ward")
+    public void postoneward(@RequestBody WARD ward){
+		wardservice.create(ward);
     }
 	
 }

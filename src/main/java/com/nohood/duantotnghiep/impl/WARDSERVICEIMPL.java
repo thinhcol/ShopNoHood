@@ -49,7 +49,10 @@ public class WARDSERVICEIMPL implements WARDSERVICE{
 
 	@Override
 	public WARD findById(int wardid) {
-		return dao.findById(wardid).get();
+		if(dao.findById(wardid).isPresent()) {
+			return dao.findById(wardid).get();
+		}
+		return null;
 	}
 
 }

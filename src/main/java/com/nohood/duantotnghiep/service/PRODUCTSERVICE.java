@@ -11,4 +11,5 @@ public interface PRODUCTSERVICE {
     void delete(PRODUCT PRODUCT);
     PRODUCT findone(long PRODUCTID);
     List<PRODUCT> findByCategoryId(String id);
+	List<String> getAllColor();
 }

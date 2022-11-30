@@ -37,8 +37,6 @@ public class PRODUCTSERVICEIMPL implements PRODUCTSERVICE {
 
     @Override
     public PRODUCT findone(long PRODUCTID) {
-//        System.out.println("ID lÃ :" + PRODUCTID);
-//        System.out.println("ID Sáº£n pháº£m lag:" + dao.findById(PRODUCTID).get());
         return dao.findById(PRODUCTID).get();
     }
 
@@ -46,6 +44,11 @@ public class PRODUCTSERVICEIMPL implements PRODUCTSERVICE {
     public List<PRODUCT> findByCategoryId(String id) {
         return dao.findByCategoryId(id);
     }
+
+	@Override
+	public List<String> getAllColor() {
+		return dao.getAllColor();
+	}
 
 
 }

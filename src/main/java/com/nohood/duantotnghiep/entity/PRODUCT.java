@@ -21,6 +21,8 @@ public class PRODUCT {
     private String PRODUCTNAME;
     private float PRICE;
     private int QUANTITY;
+    private String COLORID;
+    private String SIZE;
 
     @JoinColumn(name = "CATEID")
     @ManyToOne

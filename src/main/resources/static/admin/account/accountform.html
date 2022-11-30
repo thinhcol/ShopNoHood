@@ -20,7 +20,11 @@
 					<form class="forms-sample">
 						<div class="row"> 
 							<div class="col-3 form-group">
-								<img style="height: 300px;object-fit: cover;" class="pointer w-100" ng-src="{{'../images/avatar/' + form.photo}}">
+								<label for="id_img_account" style="display: block">
+									<img style="height: 300px;object-fit: cover;" class="pointer w-100" ng-src="{{'../images/avatar/' + form.photo}}">
+								</label>
+								<input id="id_img_account" hidden class="form-control file-upload-info" type="file" id="image"
+									onchange="angular.element(this).scope().imageChanged(this.files)" accept="image/*">
 							</div>
 							<div class="col-8 form-group">
 								<label for="exampleInputName1"><img class="how-pos4 pointer-none"
@@ -50,19 +54,6 @@
 							<label><img class="how-pos4 pointer-none" src="/images/icons/Email Sign_24px.png"
 									alt="ICON"> Số điện thoại</label>
 							<input type="tel" ng-model="form.phone" class="form-control" placeholder="Nhập email" />
-						</div>
-						<div class="form-group">
-							<label><img class="how-pos4 pointer-none" src="/images/icons/account_24px.png" alt="ICON">
-								Hình ảnh</label>
-							<input type="file" name="img[]" class="file-upload-default">
-							<div class="input-group col-xs-12">
-								<input class="form-control file-upload-info" type="file" id="image"
-									onchange="angular.element(this).scope().imageChanged(this.files)" accept="image/*">
-
-								<span class="input-group-append">
-									<button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-								</span>
-							</div>
 						</div>
 						<div class="form-group">
 							<label><img class="how-pos4 pointer-none" src="/images/icons/Email Sign_24px.png"

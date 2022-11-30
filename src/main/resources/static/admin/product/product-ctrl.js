@@ -2,6 +2,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	$scope.items = [];
 	$scope.cates = [];
 	$scope.form = {};
+	$scope.listColors = [];
 	$scope.initialize = function() {
 		$http.get("/rest/products").then(resp => {
 			$scope.items = resp.data;
@@ -13,6 +14,10 @@ app.controller("product-ctrl", function($scope, $http) {
 			$scope.cates = resp.data;
 			
 		});
+		$http.get("/rest/system/color").then(resp => {
+			$scope.listColors = resp.data;
+			console.log($scope.listColors);
+		})
 	}
 
 	$scope.initialize();
@@ -25,6 +30,7 @@ app.controller("product-ctrl", function($scope, $http) {
 
 	$scope.edit = function(item) {
 		$scope.form = angular.copy(item);
+		console.log($scope.form)
  		$(".nav-tabs button:eq(0)").tab('show')
 	}
 
@@ -103,9 +109,7 @@ app.controller("product-ctrl", function($scope, $http) {
 		var data = new FormData();
 		data.append('file', files[0]);
 		console.log("ok")
-		$http.post('/rest/upload/products', data, {
-			transformRequest: angular.identity,
-			headers: { 'Content-Type': undefined }
+		$http.post('/rest/upload/products', data, {transformRequest: angular.identity,headers: { 'Content-Type': undefined }
 		}).then(resp => {
 			$scope.form.image = resp.data.name;
 		}).catch(error => {
@@ -113,4 +117,9 @@ app.controller("product-ctrl", function($scope, $http) {
 			console.log("Error", error);
 		})
 	}
+	
+	$scope.changeColor = function(color){
+		$scope.form.colorid = color;
+	}
+	
 })

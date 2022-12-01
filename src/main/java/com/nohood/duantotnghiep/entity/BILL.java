@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +19,7 @@ public class BILL {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long BILLID;
     @Temporal(TemporalType.TIMESTAMP) 
-    private Date BILLDATE = new Date();
+    private Date BILLDATE;
     private int STATUS;
     private int PAYMENTMT; 
     private double SHIPFEE;

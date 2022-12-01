@@ -1,11 +1,11 @@
 var app = angular.module("shopping-cart-app", []);
-app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
+app.controller("shopping-cart-ctrl", function($scope, $rootScope, $http) {
 	$scope.pro = [];
 	$scope.view = {};
 	$scope.sanpham = {};
 	$scope.favorite = [];
 	$scope.account = {};
-	$scope.products = function () {
+	$scope.products = function() {
 		$http.get("/rest/products").then(resp => {
 			$scope.pro = resp.data;
 		});
@@ -13,13 +13,13 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 			$scope.account = resp.data;
 
 		}).catch(error => {
-            $scope.account = null;
-        });
+			$scope.account = null;
+		});
 		$http.get("/rest/favorite/all").then(resp => {
 			$scope.favorite = resp.data;
 		});
 	}
-	$scope.pros = function (item) {
+	$scope.pros = function(item) {
 		$scope.sanpham = item;
 	}
 	var username = $("#userremost").text();
@@ -30,6 +30,12 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 				var item = $rootScope.cart.listCarts.find(i => { return i.product.productid == id });
 				if (item) {
 					item.quantity++;
+					swal({
+						title: "Thành công!",
+						text: "Thêm vào giỏ hàng",
+						icon: "success",
+						button: "OK!",
+					});
 					callback();
 				} else {
 					$http.get(`/rest/products/${id}`).then(resp => {
@@ -39,7 +45,14 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 							quantity: 1,
 							sumprice: resp.data.price
 						};
+
 						$rootScope.cart.listCarts.push(newCart);
+						swal({
+							title: "Thành công!",
+							text: "Thêm vào giỏ hàng",
+							icon: "success",
+							button: "OK!",
+						});
 						callback();
 					})
 				}
@@ -121,7 +134,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 	$rootScope.cart.loadCart();
 
 
-	$scope.checkfav = function (pro, acc) {
+	$scope.checkfav = function(pro, acc) {
 		var chfav = $scope.favorite.find(ur => ur.account.username == acc.username && ur.product.productid == pro.productid);
 		if (chfav) {
 			return true;
@@ -130,7 +143,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 			return false;
 		}
 	}
-	$scope.actionfav = function (pro, acc) {
+	$scope.actionfav = function(pro, acc) {
 		var chfav = $scope.favorite.find(ur => ur.account.username == acc.username && ur.product.productid == pro.productid);
 		if (chfav) {
 			console.log(chfav);
@@ -154,7 +167,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 			})
 		}
 	}
-	$scope.register = function () {
+	$scope.register = function() {
 		var username = document.getElementById("username").value;
 		var email = document.getElementById("email").value;
 		var fullname = document.getElementById("fullname").value;
@@ -176,14 +189,14 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 			console.log("Error", error);
 		})
 	}
-	$scope.findone = function (item) {
+	$scope.findone = function(item) {
 		$scope.view = item;
 	}
 	$scope.products();
 });
 
 // Điều khiển trang chi tiết sản phẩm////////////////////////////////////////////////////////////////
-app.controller("detail-ctrl", function ($scope, $http) {
+app.controller("detail-ctrl", function($scope, $http) {
 	$scope.favorite = {
 		user: $("#username").text(),
 		proid: $("#productid").text(),
@@ -246,14 +259,14 @@ app.controller("detail-ctrl", function ($scope, $http) {
 
 
 //Điều khiển trang chỉnh mật khẩu của người dùng////////////////////////////////////////////////////////////////
-app.controller("change-pass-ctrl", function ($scope, $http) {
+app.controller("change-pass-ctrl", function($scope, $http) {
 	$scope.account = {};
-	$scope.initialize = function () {
+	$scope.initialize = function() {
 		$http.get(`/rest/users/${$("#userremost").text()}`).then(resp => {
 			$scope.account = resp.data
 		})
 	}
-	$scope.updatePass = function () {
+	$scope.updatePass = function() {
 		if ($scope.newPass == $scope.confirmPass) {
 			if ($scope.account.password == $scope.oldPass) {
 				$scope.account.password = $scope.newPass;
@@ -269,7 +282,7 @@ app.controller("change-pass-ctrl", function ($scope, $http) {
 		} else console.log("Nhập lại không chính xác")
 	}
 	$scope.initialize();
-	$scope.restForm = function () {
+	$scope.restForm = function() {
 		$scope.oldPass = '';
 		$scope.newPass = '';
 		$scope.confirmPass = '';
@@ -279,7 +292,7 @@ app.controller("change-pass-ctrl", function ($scope, $http) {
 
 
 //Điều khiển trang chỉnh sửa hồ sơ của người dùng////////////////////////////////////////////////////////////////
-app.controller("profile-ctrl", function ($scope, $http) {
+app.controller("profile-ctrl", function($scope, $http) {
 	$scope.user = {
 		profile: {},
 		getInfo(username) {
@@ -300,7 +313,7 @@ app.controller("profile-ctrl", function ($scope, $http) {
 	$scope.user.getInfo($("#userremost").text());
 
 	//Thay đổi hình ảnh
-	$scope.imageChanged = function (files) {
+	$scope.imageChanged = function(files) {
 		var data = new FormData();
 		data.append('file', files[0]);
 		console.log(angular.identity);
@@ -317,14 +330,14 @@ app.controller("profile-ctrl", function ($scope, $http) {
 
 
 //Điều khiển trang danh sách địa chỉ của người dùng////////////////////////////////////////////////////////////////
-app.controller("address-ctrl", function ($scope, $rootScope, $http) {
+app.controller("address-ctrl", function($scope, $rootScope, $http) {
 	$rootScope.Provinces = [];
 	$rootScope.Districts = [];
 	$rootScope.Wards = [];
 	$rootScope.Addresses = [];
 	$rootScope.addressIsSelect = {};
-
-	$rootScope.initialize = function () {
+	
+	$rootScope.initialize = function() {
 		$http.get("https://online-gateway.ghn.vn/shiip/public-api/master-data/province",
 			{ headers: { token: 'ebb9ad14-3d84-11ed-b824-262f869eb1a7' } }).then(resp => {
 				resp.data.data.forEach(item => {
@@ -337,11 +350,12 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 			});
 		$rootScope.loadAddress();
 	}
+	
 
-	$rootScope.loadAddress = function () {
+	$rootScope.loadAddress = function() {
 		$http.get("/rest/address").then(resp => {
 			$rootScope.Addresses = resp.data;
-			$rootScope.addressIsSelect = $rootScope.Addresses.find(function (address) {
+			$rootScope.addressIsSelect = $rootScope.Addresses.find(function(address) {
 				if (address.isdefault) {
 					if ($rootScope.ship) {
 						$rootScope.ship.getFee(address)
@@ -351,7 +365,28 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 			})
 		});
 	}
-
+    $scope.pager = {
+        page: 0, size: 5, get Addresses() {
+            var start = this.page * this.size;
+            return $scope.Addresses.slice(start, start + this.size);
+        }, get count() {
+            return Math.ceil(1.0 * $scope.Addresses.length / this.size);
+        }, first() {
+            this.page = 0;
+        }, prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        }, next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        }, last() {
+            this.page = this.count - 1;
+        }
+    }
 	$rootScope.initialize();
 
 
@@ -412,7 +447,7 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 
 
 	//  Show form đăng kí address
-	$rootScope.addAddress = function () {
+	$rootScope.addAddress = function() {
 		$rootScope.address = {
 			province: { provinceid: 0 },
 			district: { districtid: 0 },
@@ -420,14 +455,14 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 		};
 	}
 	// Show form để sửa address
-	$rootScope.editAddress = function (addr) {
+	$rootScope.editAddress = function(addr) {
 		$rootScope.address = angular.copy(addr);
 		$rootScope.showDistrict(addr.province.provinceid);
 		$rootScope.showWard(addr.district.districtid);
 	}
 
 
-	$rootScope.showDistrict = function (provinceid) {
+	$rootScope.showDistrict = function(provinceid) {
 		$http.get("https://online-gateway.ghn.vn/shiip/public-api/master-data/district",
 			{ headers: { token: 'ebb9ad14-3d84-11ed-b824-262f869eb1a7' }, params: { "province_id": provinceid } }).then(resp => {
 				resp.data.data.forEach(item => {
@@ -441,7 +476,7 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 			});
 	}
 
-	$rootScope.showWard = function (districtid) {
+	$rootScope.showWard = function(districtid) {
 		$http.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${districtid}`,
 			{ headers: { token: 'ebb9ad14-3d84-11ed-b824-262f869eb1a7' } }).then(resp => {
 
@@ -456,7 +491,7 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 			});
 	}
 
-	$rootScope.createAddress = function () {
+	$rootScope.createAddress = function() {
 		var address = $rootScope.address;
 		$http.get(`/rest/system/address/ward/getone/${address.ward.wardid}`).then(resp => {
 			if (resp.data == '') {
@@ -489,13 +524,13 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 		})
 
 	}
-	$rootScope.deleteAddress = function (addressid) {
+	$rootScope.deleteAddress = function(addressid) {
 		$http.delete(`/rest/address/${addressid}`).then(resp => {
 			$rootScope.loadAddress();
 		})
 	}
 
-	$rootScope.changeDefaultAddress = function (addr) {
+	$rootScope.changeDefaultAddress = function(addr) {
 		$rootScope.Addresses.map(address => {
 			if (address.isdefault) {
 				address.isdefault = false;
@@ -514,7 +549,7 @@ app.controller("address-ctrl", function ($scope, $rootScope, $http) {
 
 
 //Điều khiển trang đặt hàng của người dùng////////////////////////////////////////////////////////////////
-app.controller("order-ctrl", function ($scope, $rootScope, $http) {
+app.controller("order-ctrl", function($scope, $rootScope, $http) {
 	$rootScope.order = {
 		purchase() {
 			var order = {
@@ -643,14 +678,36 @@ app.controller("order-ctrl", function ($scope, $rootScope, $http) {
 
 
 //Điều khiển trang danh sách đặt hàng của người dùng////////////////////////////////////////////////////////////////
-app.controller("list-order-ctrl", function ($scope, $http) {
+app.controller("list-order-ctrl", function($scope, $http) {
 	$scope.isViewOne = false;
 
 	$scope.listOrder = [];
-	$scope.initialize = function () {
+	$scope.initialize = function() {
 		$http.get(`/rest/order/getbyuser/${$("#userremost").text()}`).then(resp => {
 			$scope.listOrder = resp.data;
 		})
+	}
+	$scope.pager = {
+		page: 0, size: 5, get listOrder() {
+			var start = this.page * this.size;
+			return $scope.listOrder.slice(start, start + this.size);
+		}, get count() {
+			return Math.ceil(1.0 * $scope.listOrder.length / this.size);
+		}, first() {
+			this.page = 0;
+		}, prev() {
+			this.page--;
+			if (this.page < 0) {
+				this.last();
+			}
+		}, next() {
+			this.page++;
+			if (this.page >= this.count) {
+				this.first();
+			}
+		}, last() {
+			this.page = this.count - 1;
+		}
 	}
 	$scope.initialize();
 
@@ -664,9 +721,37 @@ app.controller("list-order-ctrl", function ($scope, $http) {
 			})
 		}
 	}
-	$scope.setViewAll = function () {
+	$scope.setViewAll = function() {
 		$scope.isViewOne = false;
 		$scope.order.orderView = {};
+	}
+	$scope.preorder = function(ord) {
+		console.log(ord);
+		var item = {
+			status: 1
+		};
+		$http.put(`/rest/bill/pre/${ord.billid}`, item).then(resp => {
+			var index = $scope.listOrder.findIndex(p => p.billid == item.billid);
+			$scope.listOrder[index] = item;
+			$scope.initialize();
+		}).catch(error => {
+			alert("loi");
+			console.log(error);
+		})
+	}
+	$scope.cancelorder = function(ord) {
+		var item = {
+			status: 4
+		};
+		console.log(ord.billid);
+		$http.put(`/rest/bill/cancel/${ord.billid}`, item).then(resp => {
+			var index = $scope.listOrder.findIndex(p => p.billid == item.billid);
+			$scope.listOrder[index] = item;
+			$scope.initialize();
+		}).catch(error => {
+			alert("loi");
+			console.log(error);
+		})
 	}
 });
 

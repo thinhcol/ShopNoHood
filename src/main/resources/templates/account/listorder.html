@@ -42,7 +42,7 @@
 													</tr>
 
 													<tr style="height: 100px" class="table_row"
-														ng-repeat="ord in listOrder">
+														ng-repeat="ord in pager.listOrder">
 														<td style="padding-bottom: 0" class="p-lr-20">
 															{{ord.address.fullname}}</td>
 														<td style="padding-bottom: 0" class="">
@@ -66,10 +66,31 @@
 															<a ng-click="order.viewById(ord.billid)"
 																class="btn btn-deafault"> Xem chi tiết </a>
 														</td>
-
+														<td ng-if="ord.status == 1" style="padding-bottom: 0" class="">
+															<a ng-click="cancelorder(ord)" class="btn btn-deafault"> Hủy
+																đơn</a>
+														</td>
+														<td ng-if="ord.status == 3 || ord.status == 4"
+															style="padding-bottom: 0" class="">
+															<a ng-click="preorder(ord)" class="btn btn-deafault"> Đặt
+																lại đơn</a>
+														</td>
 													</tr>
 												</table>
+												
 											</div>
+											<br>
+											<p class="text-center"> <a class="btn btn-danger"
+														ng-click="pager.first()"> <i
+															class="fa fa-angle-double-left"></i></a>
+													<a class="btn btn-success" ng-click="pager.prev()"> <i
+															class="fa fa-angle-left"></i></a> {{pager.page + 1}} -
+													{{pager.count}} đến
+													{{pager.count}} <a class="btn btn-success" ng-click="pager.next()">
+														<i class="fa fa-angle-right"></i></a>
+													<a class="btn btn-danger" ng-click="pager.last()"> <i
+															class="fa fa-angle-double-right"></i></a>
+												</p>
 										</div>
 									</div>
 								</div>
@@ -108,6 +129,7 @@
 
 													</tr>
 												</table>
+												
 											</div>
 										</div>
 									</div>

@@ -24,7 +24,6 @@ app.controller("managerorder-ctrl", function($scope, $http) {
 	$scope.initialize = function() {
 		$http.get("/rest/bill").then(resp => {
 			$scope.items = resp.data;
-			console.log($scope.items);
 		});
 	
 	}

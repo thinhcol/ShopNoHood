@@ -34,8 +34,6 @@ public class FavoriteRestController {
 	}
 	@GetMapping()
 	public FAVORITE getOne(@RequestParam long p, @RequestParam String u) {
-		System.out.println("Tên người dùng là : "+ u);
-		System.out.println("Sản phẩm là : "+ p);
 		FAVORITE f = service.findByUserAndProduct(p, u);
 		if(f != null){
 			return service.findByUserAndProduct(p, u);

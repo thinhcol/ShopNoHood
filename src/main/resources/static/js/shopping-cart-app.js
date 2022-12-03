@@ -211,10 +211,21 @@ app.controller("shopping-cart-ctrl", function($scope, $rootScope, $http) {
 	}
 	$scope.products();
 });
-
-
 // Điều khiển trang chủ ////////////////////////////////////////////////////////////////
 app.controller("home-ctrl", function($scope, $http) {
+	$scope.listLikeMost = [];
+	$scope.get = function(){
+		$http.get(`/rest/favorite/all`).then(resp => {
+			resp.data.forEach(item => {
+				$scope.listLikeMost.push(item.product);
+			})
+			console.log($scope.listLikeMost)
+		})
+	}
+	$scope.get()
+})
+// Điều khiển danh sách sản phẩm ////////////////////////////////////////////////////////////////
+app.controller("productlist-ctrl", function($scope, $http) {
 	$scope.listCategory = [];
 	$scope.keySort = 'productname';
 	

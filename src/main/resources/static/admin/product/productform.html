@@ -28,6 +28,8 @@
 								<label style="display: block;" for="id_img_product">
 									<img ng-if="form.image" style="height: 300px;object-fit: cover;" class="pointer w-100" 
 										ng-src="{{'/images/products/'+ form.image}}">
+									<img ng-if="!form.image" style="height: 300px;object-fit: cover;" class="pointer w-100" 
+										ng-src="/images/products/default/default.png">
 								</label>
 							</div>
 							<div class="col-8 form-group">

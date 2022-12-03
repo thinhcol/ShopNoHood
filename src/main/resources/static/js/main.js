@@ -136,33 +136,50 @@
         });
 
     });
+    
+    var activeClick = function(item, active){
+    	const $ = document.querySelector.bind(document);
+    	const $$ = document.querySelectorAll.bind(document);
+    	
+    	const tabs = $$(item)
+    	
+    	tabs.forEach((tab, index) =>{
+    		tab.onclick = function(){
+    			console.log(tab)
+    			$(`${item}${active}`).classList.remove(active.replace('.', ''))
+    			this.classList.add(active.replace('.', ''))
+    		}
+    	})
+    }
+    
+    activeClick('.filter-keyword', '.filter-link-active');
+    activeClick('.filter-price', '.filter-link-active')
+    
+    // $(window).on('load', function() {
+    //     var $grid = $topeContainer.each(function() {
+    //         $(this).isotope({
+    //             itemSelector: '.isotope-item',
+    //             layoutMode: 'fitRows',
+    //             percentPosition: true,
+    //             animationEngine: 'best-available',
+    //             masonry: {
+    //                 columnWidth: '.isotope-item'
+    //             }
+    //         });
+    //     });
+    // });
 
-    // init Isotope
-    $(window).on('load', function() {
-        var $grid = $topeContainer.each(function() {
-            $(this).isotope({
-                itemSelector: '.isotope-item',
-                layoutMode: 'fitRows',
-                percentPosition: true,
-                animationEngine: 'best-available',
-                masonry: {
-                    columnWidth: '.isotope-item'
-                }
-            });
-        });
-    });
+    // var isotopeButton = $('.filter-tope-group button');
 
-    var isotopeButton = $('.filter-tope-group button');
+    // $(isotopeButton).each(function() {
+    //     $(this).on('click', function() {
+    //         for (var i = 0; i < isotopeButton.length; i++) {
+    //             $(isotopeButton[i]).removeClass('how-active1');
+    //         }
 
-    $(isotopeButton).each(function() {
-        $(this).on('click', function() {
-            for (var i = 0; i < isotopeButton.length; i++) {
-                $(isotopeButton[i]).removeClass('how-active1');
-            }
-
-            $(this).addClass('how-active1');
-        });
-    });
+    //         $(this).addClass('how-active1');
+    //     });
+    // });
 
     /*==================================================================
     [ Filter / Search product ]*/

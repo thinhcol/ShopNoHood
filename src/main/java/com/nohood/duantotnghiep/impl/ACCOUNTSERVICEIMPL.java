@@ -34,7 +34,10 @@ public class ACCOUNTSERVICEIMPL implements ACCOUNTSERVICE {
 
     @Override
     public ACCOUNT findone(String username) {
-        return dao.findById(username).get();
+    	if(dao.findById(username).isPresent()) {
+            return dao.findById(username).get();
+    	}
+    	return null;
     }
 
     @Override

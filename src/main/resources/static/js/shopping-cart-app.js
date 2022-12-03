@@ -1,4 +1,21 @@
 var app = angular.module("shopping-cart-app", []);
+app.filter('productHomeFilter',function(){
+	return function(input, searchKey, priceKey, colorKey){
+		var listResult = [];
+		input.forEach(i => {
+			if(i.productname.includes(`${searchKey}`) || searchKey == undefined){
+				if(priceKey == undefined){
+					listResult.push(i)
+				}else{
+					if(i.price >= priceKey[0] && i.price <= priceKey[1]){
+						listResult.push(i)
+					}
+				}
+			}
+		})
+		return listResult;
+	}
+})
 app.controller("shopping-cart-ctrl", function($scope, $rootScope, $http) {
 	$scope.pro = [];
 	$scope.view = {};
@@ -194,6 +211,32 @@ app.controller("shopping-cart-ctrl", function($scope, $rootScope, $http) {
 	}
 	$scope.products();
 });
+
+
+// Điều khiển trang chủ ////////////////////////////////////////////////////////////////
+app.controller("home-ctrl", function($scope, $http) {
+	$scope.listCategory = [];
+	$scope.keySort = 'productname';
+	
+	$scope.getCategoties = function(){
+		$http.get("/rest/categories").then(resp => {
+			$scope.listCategory = resp.data;
+		})
+	}
+	$scope.changeKeySort = function(keySort, opt){
+		$scope.keySort = keySort;
+		if(opt !== undefined){
+			$scope.optKeySort = opt;
+			console.log($scope.optKeySort )
+		}
+	}
+	$scope.getCategoties();
+	
+	$scope.changePriceKey = function(min, max){
+		$scope.priceKey = [min, max];
+	}
+});
+
 
 // Điều khiển trang chi tiết sản phẩm////////////////////////////////////////////////////////////////
 app.controller("detail-ctrl", function($scope, $http) {

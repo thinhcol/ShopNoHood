@@ -28,7 +28,7 @@ public class UPLOADSERVICEIMPL implements UPLOADSERVICE {
         String name = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
         try {
         	byte[] bytes = file.getBytes();
-            Path path = Paths.get("C:\\FPT\\JAVA6\\ShopQuanAoNam\\src\\main\\resources\\static\\images\\"+folder+"\\" + name);
+            Path path = Paths.get("..\\ShopNoHood\\src\\main\\resources\\static\\images\\"+folder+"\\" + name);
             Files.write(path, bytes);
             File savedFile = new File(dir,name);
             file.transferTo(savedFile);  

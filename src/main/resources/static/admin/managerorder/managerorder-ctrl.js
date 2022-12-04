@@ -40,9 +40,20 @@ app.controller("managerorder-ctrl", function($scope, $http) {
 		$http.put(`/rest/bill/${item.billid}`, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.billid == item.billid);
 			$scope.items[index] = item;
+			swal({
+				title: "Thao tác",
+				text: "Cập nhật thành công",
+				icon: "success",
+				button: "OK!",
+			});
 			$scope.initialize();
 		}).catch(error => {
-			alert("loi");
+			swal({
+				title: "Thao tác",
+				text: "Cập nhật thất bại",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log(error);
 		})
 

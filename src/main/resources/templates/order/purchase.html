@@ -91,8 +91,8 @@
 							<div class="wrap-table-shopping-cart ">
 								<table class="table-shopping-cart">
 									<tr class="table_head ">
-										<th class="column-1 ">Tên sản phẩm</th>
-										<th class="column-2 "></th>
+										<th class="column-1 "></th>
+										<th class="column-2 ">Tên sản phẩm</th>
 										<th class="column-3 ">Giá</th>
 										<th class="column-4 text-center ">Số lượng</th>
 										<th class="column-5 ">Tổng</th>
@@ -102,19 +102,14 @@
 										ng-repeat="item in cart.listCarts">
 										<td class="column-1 pb-0">
 											<div class="how-itemcart1 ">
-												<img src="images/item-cart-04.jpg " alt="IMG ">
+												<img src="/images/products/{{item.product.image}} " alt="IMG ">
 											</div>
 										</td>
-										<td class="column-2 p-0">{{item.product.productname}}</td>
-										<td class="column-3 p-0">{{item.product.price | number:
+										<td class="column-2 pb-0">{{item.product.productname}}</td>
+										<td class="column-3 pb-0">{{item.product.price | number:
 											2}}đ</td>
-										<td class="column-4 p-0">
-											<div style="border: none;"
-												class="wrap-num-product flex-w m-l-auto m-r-0 ">
-												<input class="mtext-104 cl3 txt-center m-auto num-product "
-													type="number " name="num-product1 "
-													value="{{item.quantity}}" disabled>
-											</div>
+										<td class="column-4 pb-0 flex-w m-l-auto m-r-0">
+											{{item.quantity}}
 										</td>
 										<td class="column-5 pb-0">{{item.sumprice | number: 2}}đ</td>
 									</tr>
@@ -160,14 +155,17 @@
 				<hr>
 
 				<div class="d-flex justify-content-end">
+					<div style="width: 70%;" class="">
+						<paypal-buttons props="opts"></paypal-buttons>
+					</div>
 					<div style="width: 26%;" class="">
 						<div class="d-flex justify-content-between m-t-10">
 							<div class="mtext-102">Tổng tiền hàng</div>
-							<div class="mtext-102">{{cart.amount|number:2}}đ</div>
+							<div class="mtext-102">{{cart.amount|number:0}}đ</div>
 						</div>
 						<div class="d-flex justify-content-between m-t-20">
 							<div class="mtext-102">Phí vận chuyển</div>
-							<div class="mtext-102">{{ship.fee}}</div>
+							<div class="mtext-102">{{ship.fee| number:0 }}đ</div>
 						</div>
 						<div class="d-flex justify-content-between m-t-20">
 							<div class="mtext-102">Voucher</div>
@@ -175,7 +173,7 @@
 						</div>
 						<div class="d-flex justify-content-between m-t-20">
 							<div class="mtext-102">Tổng thanh toán</div>
-							<div class="mtext-102">{{cart.amount + ship.fee}}đ</div>
+							<div class="mtext-102" id="sumprice">{{cart.amount + ship.fee | number:0 }}đ</div>
 						</div>
 					</div>
 				</div>
@@ -328,7 +326,86 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=ATJ3U6H90acqBlX14alwUaK7YX6yOvBQ8GvdjUud_divzaNS7D7oIhFRz39pGMNMqMkSNioASgPNO3Vm"></script>
+	<!-- <script>
+		
+		paypal.Buttons({
+		  // Sets up the transaction when a payment button is clicked
+		  createOrder: (data, actions) => {
+			return actions.order.create({
+			  purchase_units: [{
+				amount: {
+				  value: '77.44' // Can also reference a variable or function
+				}
+			  }]
+			});
+		  },
+		  // Finalize the transaction after payer approval
+		  onApprove: (data, actions) => {
+			return actions.order.capture().then(function(orderData) {
+			  // Successful capture! For dev/demo purposes:
+			  console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+			  const transaction = orderData.purchase_units[0].payments.captures[0];
+			  alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+			  // When ready to go live, remove the alert and show a success message within this page. For example:
+			  // const element = document.getElementById('paypal-button-container');
+			  // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+			  // Or go to another URL:  actions.redirect('thank_you.html');
+			});
+		  }
+		}).render('#paypal-button-container');
+	  </script> -->
+	<!-- <script>
+		paypal.Buttons({
+			createOrder: function(data,acctions){
+				return actions.order.create({
+					intent: 'Thanh toán',
+					// payer: {
+					// 	name: $scope.account.fullname,
 
+					// 	address: {
+					// 		address_line_1: "",
+					// 		address_line_2: "",
+					// 		admin_area_2:"",
+					// 		admin_area_1:"",
+					// 		postal_code: "",
+					// 		country_code: ""
+					// 	},
+
+					// 	email_address: "",
+
+					// 	phone: {
+					// 		phone_type: "MOBILE",
+					// 		phone_number: {
+					// 			national_number: ""
+					// 		}
+					// 	}
+					// },
+					purchase_units: [{
+						amount: {
+							value: '299.99',
+							currency_code: "VND"
+						}
+					}]
+
+				});
+			}
+			// onApprove: function(data,actions){
+			// 	return actions.order.capture().then(function(details){
+			// 		console.log(details);
+			// 		orderId = details.id;
+			// 		status = details.status;
+			// 		alert("Thành công")
+			// 	});
+			// },
+			// onCancel: function(data){
+			// 	alert("Giao dịch bị hủy");
+			// },
+			// onError: function(err){
+			// 	alert("Lỗi");
+			// }
+		}).render("#paypal-button-container");
+	</script> -->
 	<script src="/js/shopping-cart-app.js"></script> <!--===============================================================================================-->
 	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script> <!--===============================================================================================-->
 	<script src="/vendor/animsition/js/animsition.min.js"></script> <script

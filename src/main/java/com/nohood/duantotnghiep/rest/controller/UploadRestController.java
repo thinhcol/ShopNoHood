@@ -3,6 +3,7 @@ package com.nohood.duantotnghiep.rest.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nohood.duantotnghiep.service.PRODUCTSERVICE;
 import com.nohood.duantotnghiep.service.UPLOADSERVICE;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ import java.io.File;
 public class UploadRestController {
     @Autowired
     UPLOADSERVICE service;
-
+    @Autowired
+	PRODUCTSERVICE proservice;
     @PostMapping("/rest/upload/{folder}")
     public JsonNode upload(@PathVariable("file") MultipartFile file, @PathVariable("folder") String folder) {
         File savedFile = service.save(file,folder);
@@ -29,5 +31,15 @@ public class UploadRestController {
         node.put("size", savedFile.length());
         return node;
     }
+    @PostMapping("/rest/upload/product")
+	public void uploadproduct(@PathVariable("file") MultipartFile[] file) {
+		String folder = String.valueOf(proservice.getNotId().getId());
+		service.saveproduct(file, folder);
+	}
+	@PostMapping("/rest/upload/update/{productid}")
+	public void update(@PathVariable("file") MultipartFile[] file,@PathVariable("productid") long productid) {
+		String folder = String.valueOf(productid);
+		service.updateproduct(file, folder);
+	}
 }
 

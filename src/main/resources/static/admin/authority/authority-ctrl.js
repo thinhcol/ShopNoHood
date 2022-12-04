@@ -38,9 +38,19 @@ app.controller("authority-ctrl",function($scope,$http,$location){
     $scope.grant_authority = function(authority){
         $http.post(`/rest/authorities`,authority).then(resp => {
             $scope.authorities.push(resp.data);
-            alert("thanh cong");
+            swal({
+				title: "Thao tác",
+				text: "Thêm thành công",
+				icon: "success",
+				button: "OK!",
+			});
         }).catch(error =>{
-            alert("that bai");
+            swal({
+				title: "Thao tác",
+				text: "Thêm thất bại",
+				icon: "error",
+				button: "OK!",
+			});
             console.log("Error",error);
         })
     }
@@ -48,9 +58,19 @@ app.controller("authority-ctrl",function($scope,$http,$location){
         $http.delete(`/rest/authorities/${authority.roleaccid}`).then(resp => {
             var index = $scope.authorities.findIndex(a => a.roleaccid == authority.roleaccid);
             $scope.authorities.splice(index,1);
-            alert("xoa thanh cong");
+            swal({
+				title: "Thao tác",
+				text: "Xóa thành công",
+				icon: "success",
+				button: "OK!",
+			});
         }).catch(error =>{
-            alert("xoa that bai");
+            swal({
+				title: "Thao tác",
+				text: "Xóa thất bại",
+				icon: "error",
+				button: "OK!",
+			});
             console.log("Error",error);
         })
     }

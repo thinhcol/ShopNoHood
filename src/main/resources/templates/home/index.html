@@ -341,15 +341,15 @@
 													</ol>
 													<div class="carousel-inner">
 														<div class="carousel-item active">
-															<img src="/images/product-detail-01.jpg"
+															<img src="/images/products/{{view.productid}}/index1.png"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/product-detail-02.jpg"
+															<img src="/images/products/{{view.productid}}/index2.png"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/product-detail-03.jpg"
+															<img src="/images/products/{{view.productid}}/index3.png"
 																class="d-block w-100" alt="...">
 														</div>
 													</div>
@@ -579,15 +579,15 @@
 													</ol>
 													<div class="carousel-inner">
 														<div class="carousel-item active">
-															<img src="/images/product-detail-01.jpg"
+															<img src="/images/products/{{item.productid}}/index1.png"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/product-detail-02.jpg"
+															<img src="/images/products/{{item.productid}}/index2.png"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/product-detail-03.jpg"
+															<img src="/images/products/{{item.productid}}/index3.png"
 																class="d-block w-100" alt="...">
 														</div>
 													</div>
@@ -613,7 +613,7 @@
 													</h4>
 
 													<span class="mtext-106 cl2">
-														${{view.price}}
+														{{view.price}}đ
 													</span>
 
 													<p class="stext-102 cl3 p-t-23">
@@ -668,7 +668,7 @@
 
 																<button th:attr="ng-click=@{|cart.add(view.productid)|}"
 																	class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-																	Add to cart
+																	Thêm vào giỏ hàng
 																</button>
 															</div>
 														</div>

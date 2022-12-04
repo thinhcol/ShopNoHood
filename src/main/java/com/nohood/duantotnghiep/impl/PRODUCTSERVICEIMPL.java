@@ -2,6 +2,7 @@ package com.nohood.duantotnghiep.impl;
 
 import com.nohood.duantotnghiep.dao.COMMENTDAO;
 import com.nohood.duantotnghiep.dao.PRODUCTDAO;
+import com.nohood.duantotnghiep.entity.NOTID;
 import com.nohood.duantotnghiep.entity.PRODUCT;
 import com.nohood.duantotnghiep.service.COMMENTSERVICE;
 import com.nohood.duantotnghiep.service.PRODUCTSERVICE;
@@ -48,6 +49,12 @@ public class PRODUCTSERVICEIMPL implements PRODUCTSERVICE {
 	@Override
 	public List<String> getAllColor() {
 		return dao.getAllColor();
+	}
+
+	@Override
+	public NOTID getNotId() {
+		// TODO Auto-generated method stub
+		return dao.getNotId();
 	}
 
 

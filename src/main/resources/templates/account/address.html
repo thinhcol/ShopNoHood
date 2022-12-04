@@ -32,6 +32,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+		<script type="text/javascript"
+		src="https://www.paypal.com/sdk/js?client-id=ATJ3U6H90acqBlX14alwUaK7YX6yOvBQ8GvdjUud_divzaNS7D7oIhFRz39pGMNMqMkSNioASgPNO3Vm"></script>
 </head>
 
 <body class="animsition" ng-app="shopping-cart-app" ng-controller="address-ctrl">
@@ -90,14 +92,7 @@
 							<hr>
 						</div>
 
-						<p class="text-center"> <a class="btn btn-danger" ng-click="pager.first()"> <i
-									class="fa fa-angle-double-left"></i></a>
-							<a class="btn btn-success" ng-click="pager.prev()"> <i
-									class="fa fa-angle-left"></i></a> {{pager.page + 1}} - {{pager.count}} đến
-							{{pager.count}} <a class="btn btn-success" ng-click="pager.next()"> <i
-									class="fa fa-angle-right"></i></a>
-							<a class="btn btn-danger" ng-click="pager.last()"> <i class="fa fa-angle-double-right"></i></a>
-						</p>
+						
 
 					</div>
 				</div>

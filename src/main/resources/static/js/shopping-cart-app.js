@@ -1,4 +1,5 @@
-var app = angular.module("shopping-cart-app", []);
+paypal.Buttons.driver('angular', window.angular);
+var app = angular.module("shopping-cart-app", ['paypal-buttons']);
 app.filter('productHomeFilter',function(){
 	return function(input, searchKey, priceKey, colorKey){
 		var listResult = [];
@@ -604,6 +605,51 @@ app.controller("address-ctrl", function($scope, $rootScope, $http) {
 
 //Điều khiển trang đặt hàng của người dùng////////////////////////////////////////////////////////////////
 app.controller("order-ctrl", function($scope, $rootScope, $http) {
+	$scope.opts = {
+		createOrder: function (data, actions) {
+			$scope.value = $rootScope.cart.amount + $rootScope.ship.fee ;
+			let num =  $scope.value / 24365;
+			$scope.value1 = Math.round(num * 100) / 100
+			
+			console.log($scope.value1);
+			
+			return actions.order.create({
+				purchase_units: [{
+					amount: {
+						value: $scope.value1
+					}
+				}]
+			});
+		},
+
+		onApprove: function (data, actions) {
+			$rootScope.order.purchase();
+			return actions.order.capture().then(function(){
+				swal({
+					title: "Thanh toán",
+					text: "Thanh toán thành công",
+					icon: "success",
+					button: "Đồng ý",
+				});
+			});
+		},
+		onCancel: function(data){
+			swal({
+				title: "Thanh toán",
+				text: "Giao dịch hủy bỏ",
+				icon: "error",
+				button: "Đồng ý",
+			});
+		},
+		onError: function(err){
+			swal({
+				title: "Thanh toán",
+				text: "Trong quá trình giao dịch có xảy ra lỗi vui lòng kiểm tra lại thông tin",
+				icon: "error",
+				button: "Đồng ý",
+			});
+		}
+	};
 	$rootScope.order = {
 		purchase() {
 			var order = {
@@ -707,7 +753,7 @@ app.controller("order-ctrl", function($scope, $rootScope, $http) {
 				},
 				{
 					id: 2,
-					name: "Thanh toán qua ZaloPay"
+					name: "Thanh toán qua Paypal"
 				}
 			]
 			this.methodShip = this.listMethodShip[1]

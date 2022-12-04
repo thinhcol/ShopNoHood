@@ -25,10 +25,20 @@ app.controller("category-ctrl", function($scope, $http) {
 		$http.post('/rest/categories', item).then(resp => {
 			$scope.items.push(resp.data);
 			$scope.reset();
-			alert("Them thanh cong");
+			swal({
+				title: "Thao tác",
+				text: "Thêm thành công",
+				icon: "success",
+				button: "OK!",
+			});
 			$scope.initialize();
 		}).catch(error => {
-			alert("loi");
+			swal({
+				title: "Thao tác",
+				text: "Thêm thất bại",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log("Error", error);
 		})
 	}
@@ -38,10 +48,20 @@ app.controller("category-ctrl", function($scope, $http) {
 		$http.put(`/rest/categories/${item.cateid}`, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.cateid == item.cateid);
 			$scope.items[index] = item;
-			alert("cap nhat thanh cong");
+			swal({
+				title: "Thao tác",
+				text: "Cập nhật thành công",
+				icon: "success",
+				button: "OK!",
+			});
 			$scope.initialize();
 		}).catch(error => {
-			alert("loi");
+			swal({
+				title: "Thao tác",
+				text: "Cập nhật thất bại",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log("Error", error);
 		})
 
@@ -52,10 +72,20 @@ app.controller("category-ctrl", function($scope, $http) {
 			var index = $scope.items.findIndex(p => p.cateid == item.cateid);
 			$scope.items.splice(index, 1);
 			$scope.reset();
-			alert("Xoa thanh cong");
+			swal({
+				title: "Thao tác",
+				text: "Xóa thành công",
+				icon: "success",
+				button: "OK!",
+			});
 			$scope.initialize();
 		}).catch(error => {
-			alert("loi");
+			swal({
+				title: "Thao tác",
+				text: "Xóa thất bại",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log("Error", error);
 		})
 	}

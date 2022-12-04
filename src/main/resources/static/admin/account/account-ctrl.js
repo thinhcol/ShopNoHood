@@ -26,11 +26,21 @@ app.controller("account-ctrl", function($scope, $http) {
 		var item = angular.copy($scope.form);
 		$http.post('/rest/users', item).then(resp => {
 			$scope.items.push(resp.data);
-			alert("Them thanh cong");
+			swal({
+				title: "Thao tác",
+				text: "Thêm thành công",
+				icon: "success",
+				button: "OK!",
+			});
 			$scope.reset();
 			$scope.initialize();
 		}).catch(error => {
-			alert("loi");
+			swal({
+				title: "Thao tác",
+				text: "Thêm thất bại",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log("Error", error);
 		})
 	}
@@ -40,10 +50,20 @@ app.controller("account-ctrl", function($scope, $http) {
 		$http.put(`/rest/users/${item.username}`, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.username == item.username);
 			$scope.items[index] = item;
-			alert("cap nhat thanh cong");
+			swal({
+				title: "Thao tác",
+				text: "Cập nhật thành công",
+				icon: "success",
+				button: "OK!",
+			});
 			$scope.initialize();
 		}).catch(error => {
-			alert("loi");
+			swal({
+				title: "Thao tác",
+				text: "Cập nhật thất bại",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log("Error", error);
 		})
 
@@ -54,10 +74,20 @@ app.controller("account-ctrl", function($scope, $http) {
 			var index = $scope.items.findIndex(p => p.username == item.username);
 			$scope.items.splice(index, 1);
 			$scope.reset();
-			alert("Xoa thanh cong");
+			swal({
+				title: "Thao tác",
+				text: "Xóa thành công",
+				icon: "success",
+				button: "OK!",
+			});
 			$scope.initialize();
 		}).catch(error => {
-			alert("loi");
+			swal({
+				title: "Thao tác",
+				text: "Xóa thất bại",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log("Error", error);
 		})
 	}
@@ -101,7 +131,12 @@ app.controller("account-ctrl", function($scope, $http) {
 		}).then(resp => {
 			$scope.form.photo = resp.data.name;
 		}).catch(error => {
-			alert("Lỗi upload hình ảnh");
+			swal({
+				title: "Thao tác",
+				text: "Lỗi hình ảnh",
+				icon: "error",
+				button: "OK!",
+			});
 			console.log("Error", error);
 		})
 	}

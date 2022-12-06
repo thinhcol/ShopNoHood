@@ -45,4 +45,9 @@ public class SecurityController {
         model.addAttribute("message","Đăng xuất thành công");
         return "/login/login.html";
     }
+    
+    @RequestMapping("/security/forget-pass")
+    public String logoff() {
+        return "/forget-pass/forget-pass.html";
+    }
 }

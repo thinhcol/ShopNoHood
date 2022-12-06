@@ -264,17 +264,17 @@
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="/images/products/{{item.image}}" alt="IMG-PRODUCT">
+								<img src="/images/products/{{item.productid}}/index1.jpg" alt="IMG-PRODUCT">
 								<a href="#"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
 									data-toggle="modal" data-target="#exampleModal" ng-click="findone(item)">
-									Quick View
+									Xem nhanh
 								</a>
 							</div>
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
+									<a href="/product/detail/{{item.productid}}"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										{{item.productname}}
 									</a>
@@ -317,12 +317,11 @@
 						</div>
 						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 							aria-hidden="true">
-							<div class="modal-dialog modal-lg">
+							<div style="margin-top: 100px" class="modal-dialog modal-lg">
 
 								<div class="container">
 									<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 										<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-											<img src="images/icons/icon-close.png" alt="CLOSE">
 											<a href="/product/detail/{{view.productid}}"><img
 													src="images/icons/Full Screen_24px.png" alt="FULL"></a>
 										</button>
@@ -341,15 +340,15 @@
 													</ol>
 													<div class="carousel-inner">
 														<div class="carousel-item active">
-															<img src="/images/products/{{view.productid}}/index1.png"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index1.jpg"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/products/{{view.productid}}/index2.png"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index2.jpg"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/products/{{view.productid}}/index3.png"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index3.jpg"
 																class="d-block w-100" alt="...">
 														</div>
 													</div>
@@ -502,7 +501,7 @@
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="/images/products/{{item.image}}" alt="IMG-PRODUCT">
+								<img src="/images/products/{{item.productid}}/index1.jpg" alt="IMG-PRODUCT">
 								<a href="#"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
 									data-toggle="modal" data-target="#exampleModal" ng-click="findone(item)">
@@ -555,12 +554,11 @@
 						</div>
 						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 							aria-hidden="true">
-							<div class="modal-dialog modal-lg">
+							<div style="margin-top: 100px" class="modal-dialog modal-lg">
 
 								<div class="container">
 									<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 										<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-											<img src="images/icons/icon-close.png" alt="CLOSE">
 											<a href="/product/detail/{{view.productid}}"><img
 													src="images/icons/Full Screen_24px.png" alt="FULL"></a>
 										</button>
@@ -726,8 +724,6 @@
 						</div>
 					</div>
 				</div>
-				
-				
 			</div>
 		</section>
 

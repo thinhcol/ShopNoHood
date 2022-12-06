@@ -679,6 +679,7 @@ app.controller("order-ctrl", function($scope, $rootScope, $http) {
 				$http.post("/rest/orderdetail", orderDetails).then(resp => {
 					$rootScope.cart.clearCart($("#userremost").text())
 					$rootScope.cart.loadCart()
+					swal("Cảm ơn", "Đặt hàng thành công", "success");
 				})
 			})
 		}

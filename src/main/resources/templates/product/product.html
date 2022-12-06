@@ -62,14 +62,14 @@
 								class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 js-show-filter">
 								<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
 								<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-								Filter
+								Bộ lọc
 							</div>
 	
 							<div
 								class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
 								<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
 								<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-								Search
+								Tìm kiếm
 							</div>
 						</div>
 					</div>
@@ -222,17 +222,17 @@
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="/images/products/{{item.image}}" alt="IMG-PRODUCT">
+								<img src="/images/products/{{item.productid}}/index1.jpg" alt="IMG-PRODUCT">
 								<a href="#"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
 									data-toggle="modal" data-target="#exampleModal" ng-click="findone(item)">
-									Quick View
+									Xem nhanh
 								</a>
 							</div>
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
+									<a href="/product/detail/{{item.productid}}"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										{{item.productname}}
 									</a>
@@ -275,14 +275,13 @@
 						</div>
 						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 							aria-hidden="true">
-							<div class="modal-dialog modal-lg">
+							<div style="margin-top: 100px" class="modal-dialog modal-lg">
 
 								<div class="container">
 									<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 										<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-											<img src="images/icons/icon-close.png" alt="CLOSE">
 											<a href="/product/detail/{{view.productid}}"><img
-													src="images/icons/Full Screen_24px.png" alt="FULL"></a>
+													src="../images/icons/Full Screen_24px.png" alt="FULL"></a>
 										</button>
 
 										<div class="row">
@@ -299,15 +298,15 @@
 													</ol>
 													<div class="carousel-inner">
 														<div class="carousel-item active">
-															<img src="/images/products/{{view.productid}}/index1.png"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index1.jpg"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/products/{{view.productid}}/index2.png"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index2.jpg"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img src="/images/products/{{view.productid}}/index3.png"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index3.jpg"
 																class="d-block w-100" alt="...">
 														</div>
 													</div>
@@ -442,7 +441,6 @@
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -462,7 +460,7 @@
 				<div class="container">
 					<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 						<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-							<img src="images/icons/icon-close.png" alt="CLOSE">
+							<img src="../images/icons/icon-close.png" alt="CLOSE">
 						</button>
 
 						<div class="row">
@@ -475,7 +473,7 @@
 										<div class="slick3 gallery-lb">
 											<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
 												<div class="wrap-pic-w pos-relative">
-													<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+													<img src="/images/products/{{item.productid}}/index1.jpg" alt="IMG-PRODUCT">
 
 													<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
 														href="images/product-detail-01.jpg">
@@ -486,7 +484,7 @@
 
 											<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
 												<div class="wrap-pic-w pos-relative">
-													<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
+													<img src="/images/products/{{item.productid}}/index2.jpg" alt="IMG-PRODUCT">
 
 													<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
 														href="images/product-detail-02.jpg">
@@ -497,7 +495,7 @@
 
 											<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
 												<div class="wrap-pic-w pos-relative">
-													<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
+													<img src="/images/products/{{item.productid}}/index3.jpg" alt="IMG-PRODUCT">
 
 													<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
 														href="images/product-detail-03.jpg">

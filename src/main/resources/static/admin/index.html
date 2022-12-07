@@ -27,7 +27,7 @@
 </head>
 
 <body>
-	<div class="container-scroller" ng-app="admin-app">
+	<div class="container-scroller" ng-app="admin-app" ng-controller="admin-ctrl">
 		<!-- partial:partials/_navbar.html -->
 		<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 			<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -350,7 +350,7 @@
 							<i class="icon-columns menu-icon"></i>
 							<span class="menu-title">Tài khoản</span>
 							<i class="menu-arrow"></i>
-						</a>
+						</a> 
 						<div class="collapse" id="form-elements">
 							<ul class="nav flex-column sub-menu">
 								<li class="nav-item"><a class="nav-link" href="#!account">Quản lý tài khoản</a></li>
@@ -364,7 +364,6 @@
 							aria-expanded="false" aria-controls="charts">
 							<i class="icon-bar-graph menu-icon"></i>
 							<span class="menu-title">Đơn hàng</span>
-							<i class="menu-arrow"></i>
 						</a>
 
 					</li>
@@ -379,9 +378,10 @@
 								<div class="col-12 col-xl-8 mb-4 mb-xl-0">
 									<h3 class="font-weight-bold">Trang quản lý</h3>
 								</div>
-								<div class="col-12 col-xl-4">
+								<!-- <div class="col-12 col-xl-4">
 									<div class="justify-content-end d-flex">
-										<div class="dropdown flex-md-grow-1 flex-xl-grow-0">
+										<a href="#" class="text-info">Xem phân tích thống kê</a> -->
+										<!-- <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
 											<button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button"
 												id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true"
 												aria-expanded="true">
@@ -394,9 +394,9 @@
 												<a class="dropdown-item" href="/#">June - August</a>
 												<a class="dropdown-item" href="/#">August - November</a>
 											</div>
-										</div>
-									</div>
-								</div>
+										</div> -->
+									<!-- </div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -426,8 +426,8 @@
 									<div class="card card-tale">
 										<div class="card-body">
 											<p class="mb-4">Tổng số lượng bán ra</p>
-											<p class="fs-30 mb-2">4006</p>
-											<p>10.00% (30 days)</p>
+											<p class="fs-30 mb-2">{{slbanra}}</p>
+											
 										</div>
 									</div>
 								</div>
@@ -435,8 +435,8 @@
 									<div class="card card-dark-blue">
 										<div class="card-body">
 											<p class="mb-4">Tổng doanh thu</p>
-											<p class="fs-30 mb-2">61344</p>
-											<p>22.00% (30 days)</p>
+											<p class="fs-30 mb-2">{{sumdt | number: 0}} đ</p>
+											
 										</div>
 									</div>
 								</div>
@@ -446,8 +446,8 @@
 									<div class="card card-light-blue">
 										<div class="card-body">
 											<p class="mb-4">Số lượng người dùng</p>
-											<p class="fs-30 mb-2">150</p>
-											<p>2.00% (30 days)</p>
+											<p class="fs-30 mb-2">{{sluser}}</p>
+											
 										</div>
 									</div>
 								</div>
@@ -455,8 +455,8 @@
 									<div class="card card-light-danger">
 										<div class="card-body">
 											<p class="mb-4">Số lượng thể loại</p>
-											<p class="fs-30 mb-2">23</p>
-											<p>0.22% (30 days)</p>
+											<p class="fs-30 mb-2">{{slcate}}</p>
+											
 										</div>
 									</div>
 								</div>
@@ -474,13 +474,13 @@
 							<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Shop quần áo
 								nohood<a href="/https://www.bootstrapdash.com/" target="_blank"> truy cập đường link bên
 									dưới để biết thêm chi tiết</span>
-							<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
-								with <i class="ti-heart text-danger ml-1"></i></span>
+							<!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
+								with <i class="ti-heart text-danger ml-1"></i></span> -->
 						</div>
-						<div class="d-sm-flex justify-content-center justify-content-sm-between">
+						<!-- <div class="d-sm-flex justify-content-center justify-content-sm-between">
 							<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by
 								<a href="https://www.themewagon.com/" target="_blank">Themewagon</a></span>
-						</div>
+						</div> -->
 					</footer>
 					<!-- partial -->
 				</div>

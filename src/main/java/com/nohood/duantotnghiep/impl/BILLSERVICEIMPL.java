@@ -2,8 +2,7 @@ package com.nohood.duantotnghiep.impl;
 
 import com.nohood.duantotnghiep.dao.BILLDAO;
 import com.nohood.duantotnghiep.entity.BILL;
-import com.nohood.duantotnghiep.entity.TKDT;
-import com.nohood.duantotnghiep.entity.TKSP;
+import com.nohood.duantotnghiep.entity.chart.TIME;
 import com.nohood.duantotnghiep.service.BILLSERVICE;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +74,19 @@ public class BILLSERVICEIMPL implements BILLSERVICE {
 		// TODO Auto-generated method stub
 		return dao.Updatepre(status, billdate, BILLID);
 	}
+
+	@Override
+	public List<TIME> getYear() {
+		// TODO Auto-generated method stub
+		return dao.getYear();
+	}
+
+	@Override
+	public List<TIME> getMonth(int year) {
+		// TODO Auto-generated method stub
+		return dao.getMonth(year);
+	}
+
+
 
 }

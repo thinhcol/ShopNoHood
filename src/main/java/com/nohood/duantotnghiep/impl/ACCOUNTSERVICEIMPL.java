@@ -56,5 +56,17 @@ public class ACCOUNTSERVICEIMPL implements ACCOUNTSERVICE {
 		return dao.getUser();
 	}
 
+	@Override
+	public long sluser() {
+		// TODO Auto-generated method stub
+		return dao.sluser();
+	}
+
+	@Override
+	public int UpdatePW(String PASSWORD, String EMAIL) {
+		// TODO Auto-generated method stub
+		return dao.UpdatePW(PASSWORD, EMAIL);
+	}
+
 
 }

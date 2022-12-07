@@ -1,8 +1,7 @@
 package com.nohood.duantotnghiep.service;
 
 import com.nohood.duantotnghiep.entity.BILL;
-import com.nohood.duantotnghiep.entity.TKDT;
-import com.nohood.duantotnghiep.entity.TKSP;
+import com.nohood.duantotnghiep.entity.chart.TIME;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +15,7 @@ public interface BILLSERVICE {
 	List<BILL> findByUser(String username);
 	int UpdateSl(int status, long BILLID);
 	int Updatepre(int status,Date billdate, long BILLID);
-//	List<TKSP> sanphammuanhieu();
-//	List<TKDT> sanphamtien();
+	List<TIME> getYear();
+	List<TIME> getMonth(int year);
+
 }

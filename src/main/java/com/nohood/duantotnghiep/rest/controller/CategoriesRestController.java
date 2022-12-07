@@ -39,4 +39,8 @@ public class CategoriesRestController {
     public void delete(@PathVariable("names") String names){
         service.deletebyid(names);
     }
+    @GetMapping("soluong") 
+    public long getsoluong(){
+        return service.slcate();
+    }
 }

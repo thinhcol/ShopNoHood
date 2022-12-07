@@ -13,4 +13,6 @@ public interface ACCOUNTSERVICE {
     List<ACCOUNT> findName(String username);
     List<ACCOUNT> getAdministrators();
     List<ACCOUNT> getUser();
+    long sluser();
+    int UpdatePW(String PASSWORD, String EMAIL);
 }

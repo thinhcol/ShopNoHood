@@ -41,5 +41,11 @@ public class CATEGORYSERVICEIMPL implements CATEGORYSERVICE {
         return dao.findById(CATEID).get();
     }
 
+	@Override
+	public long slcate() {
+		// TODO Auto-generated method stub
+		return dao.slcate();
+	}
+
 
 }

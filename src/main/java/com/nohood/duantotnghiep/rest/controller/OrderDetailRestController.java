@@ -31,4 +31,12 @@ public class OrderDetailRestController {
 	         billdetailService.create(bill);
 		});
     }
+	@GetMapping("tongdt")
+	public double getdoanhthu() {
+		return billdetailService.dtspbr();
+	}
+	@GetMapping("tongsl")
+	public long getsoluong() {
+		return billdetailService.slspbr();
+	}
 }

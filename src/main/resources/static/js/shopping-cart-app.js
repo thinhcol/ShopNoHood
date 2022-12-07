@@ -652,14 +652,27 @@ app.controller("order-ctrl", function($scope, $rootScope, $http) {
 	};
 	$rootScope.order = {
 		purchase() {
-			var order = {
-				address: $rootScope.addressIsSelect,
-				account: { username: $("#userremost").text() },
-				status: 1,
-				paymentmt: 1,
-				shipfee: $rootScope.ship.fee,
-				sumprice: $rootScope.cart.amount + $rootScope.ship.fee
+			if($rootScope.shipMethod.methodShip.id == 1){
+				var order = {
+					address: $rootScope.addressIsSelect,
+					account: { username: $("#userremost").text() },
+					status: 1,
+					paymentmt: $rootScope.shipMethod.methodShip.id,
+					shipfee: $rootScope.ship.fee,
+					sumprice: $rootScope.cart.amount + $rootScope.ship.fee
+				}
 			}
+			if($rootScope.shipMethod.methodShip.id == 2){
+				var order = {
+					address: $rootScope.addressIsSelect,
+					account: { username: $("#userremost").text() },
+					status: 2,
+					paymentmt: $rootScope.shipMethod.methodShip.id,
+					shipfee: $rootScope.ship.fee,
+					sumprice: $rootScope.cart.amount + $rootScope.ship.fee
+				}
+			}
+			
 			$http.post("/rest/order", order).then(resp => {
 				var orderDetails = [];
 				$rootScope.cart.listCarts.forEach(cart => {
@@ -681,6 +694,12 @@ app.controller("order-ctrl", function($scope, $rootScope, $http) {
 					$rootScope.cart.loadCart()
 					swal("Cảm ơn", "Đặt hàng thành công", "success");
 				})
+				// swal({
+				// 	title: "Thanh toán",
+				// 	text: "Thanh toán thành công",
+				// 	icon: "success",
+				// 	button: "Đồng ý",
+				// });
 			})
 		}
 	}
@@ -764,9 +783,11 @@ app.controller("order-ctrl", function($scope, $rootScope, $http) {
 		changeMethodShip(methodship) {
 			if (methodship) {
 				this.methodShip = methodship;
+				
 			}
 			if (this.isViewMethodShip) {
 				this.isViewMethodShip = false;
+				
 			} else {
 				this.isViewMethodShip = true;
 			}
@@ -826,19 +847,27 @@ app.controller("list-order-ctrl", function($scope, $http) {
 		$scope.isViewOne = false;
 		$scope.order.orderView = {};
 	}
+	$scope.listcart = [];
 	$scope.preorder = function(ord) {
 		console.log(ord);
 		var item = {
 			status: 1
 		};
-		$http.put(`/rest/bill/pre/${ord.billid}`, item).then(resp => {
-			var index = $scope.listOrder.findIndex(p => p.billid == item.billid);
-			$scope.listOrder[index] = item;
-			$scope.initialize();
-		}).catch(error => {
-			alert("loi");
-			console.log(error);
+		$http.get(`/rest/orderdetail/getbybill/${ord.billid}`, item).then(resp => {
+			$scope.listcart = resp.data;
+			for(let i = 0;i < $scope.listcart.length;i++){
+				var item = {
+					account: {username: ord.account.username},
+					product: {productid: $scope.listcart[i].product.productid},
+					quantity: $scope.listcart[i].quantity,
+					sumprice: $scope.listcart[i].sumprice
+				}
+				$http.post(`/rest/cart`,item).then(resp => {
+					console.log(resp.data);
+				})
+			}
 		})
+		window.location.href = '/order/purchase';
 	}
 	$scope.cancelorder = function(ord) {
 		var item = {

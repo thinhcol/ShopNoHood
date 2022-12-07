@@ -19,7 +19,7 @@ public class BILL {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long BILLID;
     @Temporal(TemporalType.TIMESTAMP) 
-    private Date BILLDATE;
+    private Date BILLDATE = new Date();
     private int STATUS;
     private int PAYMENTMT; 
     private double SHIPFEE;

@@ -34,5 +34,9 @@ public class CartRestController {
     public void deleteByUser(@PathVariable String username) {
     	service.deleteByUser(username);
     } 
+    @PostMapping()
+    public void create(@RequestBody CART Carts) {
+    	service.create(Carts);
+    } 
 } 
  

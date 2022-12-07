@@ -10,4 +10,5 @@ public interface CATEGORYSERVICE {
     void deletebyid(String CATEID);
     void delete(CATEGORY CATEGORY);
     CATEGORY findone(String CATEID);
+    long slcate();
 }

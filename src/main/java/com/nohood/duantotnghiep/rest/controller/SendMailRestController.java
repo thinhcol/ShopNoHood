@@ -24,14 +24,14 @@ public class SendMailRestController {
 	JavaMailSender mailer;
 
 	@PostMapping("{email}")
-	public String getAll(@PathVariable("email") String email) {
-		String code = RandGeneratedStr(8);
+	public int getAll(@PathVariable("email") String email) {
+		int code = Integer.parseInt(RandGeneratedStr(8));
 		sendmail(email,code);
 		return code;
 	}
 	
 	
-	private void sendmail(String email, String code) {
+	private void sendmail(String email, int code) {
 		try {
 			MimeMessage mail = mailer.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mail, true, "utf-8");
@@ -48,7 +48,7 @@ public class SendMailRestController {
 	}
 
 	private String RandGeneratedStr(int l){
-		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz0123456789";
+		String AlphaNumericString = "0123456789";
 		StringBuilder s = new StringBuilder(l);
 		int i;
 		for (i = 0; i < l; i++) {

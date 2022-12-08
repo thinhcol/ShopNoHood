@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+<html xmlns="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
 
 <head>
 	<title>Đăng nhập</title>
@@ -9,7 +10,7 @@
 </head>
 
 <body class="animsition" ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
-	<main>
+	<main ng-controller="forget-pass-ctrl">
 		<!-- Sidebar -->
 		<aside class="wrap-sidebar js-sidebar">
 			<div class="s-full js-hide-sidebar"></div>
@@ -70,48 +71,49 @@
         <div class="container">
             <div class="">
                 <div class="size-210 bor10 m-auto p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    <form th:action="@{/security/login}" method="post">
+                    <form ng-if="!isDoneCheckCode" method="post">
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
                             Quên mật khẩu
                         </h4>
 
                         <div class="d-flex justify-content-between">
                             <div style="width: -webkit-fill-available;" class="bor8 m-b-20 how-pos4-parent">
-                                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" required placeholder="Nhập email">
+                                <input ng-model="password.emailSend" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" placeholder="Nhập email">
                                 <img class="how-pos4 pointer-none" src="/images/icons/icon-email.png" alt="ICON">
                             </div>
-                            <button hidden style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi mã xác nhận</button>
-                            <button style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi lại mã</button>
+                            <button ng-if="!isSended" ng-click="sendCode()" style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi mã xác nhận</button>
+                            <button ng-if="isSended" ng-click="sendCode()" style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi lại mã</button>
                         </div>
 
-                        <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Nhập mã xác nhận">
+                        <div ng-if="isSended" class="bor8 m-b-20 how-pos4-parent">
+                            <input ng-model="password.codeFromClient" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Nhập mã xác nhận">
                             <img class="how-pos4 pointer-none" src="/images/icons/favicon.png" alt="ICON">
                         </div>
-                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                        
+                        <button ng-if="isSended" ng-click="checkCode()" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                             Tiếp tục
                         </button>
                     </form>
-                    <!-- <form th:action="@{/security/login}" method="post">
+                    <form ng-if="isDoneCheckCode" method="post">
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
                             Nhập lại mật khẩu
                         </h4>
 
                         <div class="d-flex justify-content-between">
                             <div style="width: -webkit-fill-available;" class="bor8 m-b-20 how-pos4-parent">
-                                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" required placeholder="Nhập mật khẩu mới">
+                                <input ng-model="password.newPass" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" required placeholder="Nhập mật khẩu mới">
                                 <img class="how-pos4 pointer-none" src="/images/icons/icon-email.png" alt="ICON">
                             </div>
                         </div>
 
                         <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Nhập mã lại mật khẩu">
+                            <input ng-model="password.confirmPass" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" placeholder="Nhập mã lại mật khẩu">
                             <img class="how-pos4 pointer-none" src="/images/icons/favicon.png" alt="ICON">
                         </div>
-                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                        <button ng-click="checkNewPass()" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                             Hoàn thành
                         </button>
-                    </form> -->
+                    </form>
                 </div>
 
             </div>

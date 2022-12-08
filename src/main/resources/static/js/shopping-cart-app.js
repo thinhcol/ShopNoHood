@@ -885,4 +885,41 @@ app.controller("list-order-ctrl", function($scope, $http) {
 	}
 });
 
+//Điều khiển trang quên mật khẩu của người dùng////////////////////////////////////////////////////////////////
+app.controller("forget-pass-ctrl", function($scope, $http) {
+	$scope.isSended = false;
+	$scope.isDoneCheckCode = false;
+	$scope.password = {
+		emailSend : '',
+		codeFromClient : '',
+		
+	}
+	$scope.sendCode = function(){
+		$scope.isSended = true;
+		$http.post(`/rest/sendmail/${$scope.password.emailSend}`).then(resp => {
+			$scope.codeFromServer = resp.data;
+		})
+	}
+	$scope.checkCode = function(){
+		console.log($scope.codeFromServer, $scope.password.codeFromClient)
+		if($scope.codeFromServer === parseInt($scope.password.codeFromClient)){
+			$scope.isDoneCheckCode = true;
+		}else{
+			swal({
+				title: "Thất bại!",text: "Mã code sai",icon: "error",button: "OK!",
+			});
+		}
+	}
+	$scope.checkNewPass = function(){
+		if($scope.password.newPass === $scope.password.confirmPass){
+			$http.put(`/rest/accounts/changepassword/?email=${$scope.password.emailSend}&pass=${$scope.password.newPass}`).then(resp => {
+				window.location.pathname = '/security/login/form';
+			})
+		}else{
+			swal({
+				title: "Thất bại!",text: "Mật khẩu không giống nhau",icon: "error",button: "OK!",
+			});
+		}
+	}
+});
 

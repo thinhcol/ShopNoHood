@@ -40,6 +40,11 @@ public class ADDRESSSERVICEIMPL implements ADDRESSSERVICE{
 	public void deleteById(int addressid) {
 		dao.deleteById(addressid);
 	}
+
+	@Override
+	public List<ADDRESS> findByUserName(String username) {
+		return dao.findByUserName(username);
+	}
 	
 	
 }

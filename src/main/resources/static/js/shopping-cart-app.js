@@ -76,7 +76,6 @@ app.controller("shopping-cart-ctrl", function($scope, $rootScope, $http) {
 				}
 			}
 
-
 			if (this.checkLogin()) {
 				saveCart(this.saveToDatabase);
 			} else {
@@ -104,7 +103,7 @@ app.controller("shopping-cart-ctrl", function($scope, $rootScope, $http) {
 		},
 		saveToDatabase() {
 			$http.post('/rest/cart/list', $rootScope.cart.listCarts).then(resp => {
-				$rootScope.cart.loadCart()
+				$rootScope.cart.loadFromDatabase();
 			})
 		},
 		loadFromDatabase() {
@@ -129,8 +128,24 @@ app.controller("shopping-cart-ctrl", function($scope, $rootScope, $http) {
 		},
 		loadCart() {
 			if (this.checkLogin()) {
-				this.loadFromDatabase();
-			} else { this.loadFromLocalStorage(); }
+				var json = localStorage.getItem("cart");
+				if(json == '[]'){
+					this.loadFromDatabase();
+				}else{
+					var data = json ? JSON.parse(json) : [];
+					data.map(cart => {
+						cart.account.username = username;
+					})
+					this.listCarts = data;
+					localStorage.setItem("cart", '[]');
+					$http.delete(`/rest/cart/delbyuser/${username}`).then(resp => {
+						this.saveToDatabase();
+					})
+					
+				}
+			} else { 
+				this.loadFromLocalStorage();
+			}
 		},
 		saveCart() {
 			if (this.checkLogin()) {
@@ -408,7 +423,7 @@ app.controller("address-ctrl", function($scope, $rootScope, $http) {
 	
 
 	$rootScope.loadAddress = function() {
-		$http.get("/rest/address").then(resp => {
+		$http.get(`/rest/address/username/${$("#userremost").text()}`).then(resp => {
 			$rootScope.Addresses = resp.data;
 			$rootScope.addressIsSelect = $rootScope.Addresses.find(function(address) {
 				if (address.isdefault) {

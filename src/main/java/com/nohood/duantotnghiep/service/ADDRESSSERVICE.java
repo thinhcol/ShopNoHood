@@ -10,4 +10,5 @@ public interface ADDRESSSERVICE {
     void delete(ADDRESS address);
 	ADDRESS findOne(int addressId);
 	void deleteById(int addressid);
+	List<ADDRESS> findByUserName(String username);
 }

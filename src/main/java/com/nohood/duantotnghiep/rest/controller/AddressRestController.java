@@ -27,13 +27,18 @@ public class AddressRestController {
 		return addressService.findall();
     }
 	
+	@GetMapping("username/{username}")
+    public List<ADDRESS> getByUsername(@PathVariable String username){
+		return addressService.findByUserName(username);
+    }
+	
 	@GetMapping("{addressId}")
     public ADDRESS getOne(@PathVariable int addressId){
 		return addressService.findOne(addressId);
     }
 	
 	@PostMapping("")
-    public void postaddress(@RequestBody ADDRESS address){
+    public void postAddress(@RequestBody ADDRESS address){
 		addressService.create(address);
     }
 	@DeleteMapping("{addressid}")

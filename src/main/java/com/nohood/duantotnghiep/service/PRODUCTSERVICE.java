@@ -18,7 +18,5 @@ public interface PRODUCTSERVICE {
 
 	List<PRODUCT> findByCategoryId(String id);
 
-	List<String> getAllColor();
-
 	NOTID getNotId();
 }

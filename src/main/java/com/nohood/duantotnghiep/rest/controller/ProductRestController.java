@@ -24,7 +24,7 @@ public class ProductRestController {
     public PRODUCT getOne(@PathVariable("id") long id) {
         return service.findone(id);
     }
-
+    
     @PostMapping()  
     public PRODUCT create(@RequestBody PRODUCT product) {
         return service.create(product);

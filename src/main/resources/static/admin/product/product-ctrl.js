@@ -2,7 +2,6 @@ app.controller("product-ctrl", function ($scope, $http) {
 	$scope.items = [];
 	$scope.cates = [];
 	$scope.form = {};
-	$scope.listColors = [];
 	$scope.initialize = function () {
 		$scope.nutupdate = false;
 		$scope.nutthem = false;
@@ -16,10 +15,6 @@ app.controller("product-ctrl", function ($scope, $http) {
 			$scope.cates = resp.data;
 
 		});
-		$http.get("/rest/system/color").then(resp => {
-			$scope.listColors = resp.data;
-			console.log($scope.listColors);
-		})
 	}
 
 	$scope.initialize();
@@ -192,9 +187,4 @@ app.controller("product-ctrl", function ($scope, $http) {
 		}
 
 	}
-
-	$scope.changeColor = function (color) {
-		$scope.form.colorid = color;
-	}
-
 })

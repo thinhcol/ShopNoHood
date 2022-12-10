@@ -45,12 +45,6 @@ public class PRODUCTSERVICEIMPL implements PRODUCTSERVICE {
     public List<PRODUCT> findByCategoryId(String id) {
         return dao.findByCategoryId(id);
     }
-
-	@Override
-	public List<String> getAllColor() {
-		return dao.getAllColor();
-	}
-
 	@Override
 	public NOTID getNotId() {
 		// TODO Auto-generated method stub

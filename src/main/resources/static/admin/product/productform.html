@@ -103,52 +103,7 @@
 										</div><br>
 									</div>
 								</div>
-								<div class="row mb-4">
-									<div class="col-10">
-										<label><img class="how-pos4" src="/images/icons/account_24px.png" alt="ICON">
-											Màu sắc</label>
-										<div class="dropdown form-control" data-toggle="dropdown" aria-expanded="false">
-											<div class="color"
-												style="background-color: {{form.colorid}}; width: 100%; height: 15px">
-											</div>
-											<div class="dropdown-menu">
-												<div ng-repeat="c in listColors" class="dropdown-item" href="#">
-													<div ng-click="changeColor(c)"
-														style="background-color: {{c}}; width: 100%; height: 15px">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-2">
-										<label>Chọn màu mới</label>
-										<input ng-model="form.colorid" type="color" placeholder="Nhập số lượng"
-											class="form-control" />
-									</div>
-								</div>
 							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group">
-									<label><img class="how-pos4 pointer-none" src="/images/icons/Email Sign_24px.png"
-											alt="ICON">Size</label>
-									<select ng-model="form.size" class="form-control" name="kichthuoc" required>
-										<option>S</option>
-										<option>M</option>
-										<option>L</option>
-										<option>XL</option>
-										<option>XXL</option>
-									</select><br>
-									<div ng-show="formdulieu.kichthuoc.$dirty  || formdulieu.$submitted">
-										<span class="badge badge-danger font-italic"
-											ng-show="formdulieu.kichthuoc.$error.required">
-											Vui lòng chọn size</span>
-									</div><br>
-								</div>
-							</div>
-	
 						</div>
 						<input hidden class="form-control file-upload-info" type="file" id="id_img_product" name="anh1" ng-model="anh1"
 							onchange="angular.element(this).scope().imageChanged(this.files)" accept=".png" multiple >
@@ -179,9 +134,8 @@
 								<th scope="col">Giá</th>
 								<th scope="col">Số lượng</th>
 								<th scope="col">Ngày sản xuất</th>
+								<th scope="col">Hình ảnh</th>
 								<th scope="col">Thể loại</th>
-								<th scope="col">Màu</th>
-								<th scope="col">Size</th>
 
 							</tr>
 						</thead>
@@ -191,9 +145,8 @@
 								<td>{{item.price | number: 0}}</td>
 								<td>{{item.quantity}}</td>
 								<td>{{item.datecreate | date: 'dd-MM-yyyy'}}</td>
+								<td>{{item.image}}</td>
 								<td>{{item.categories.catename}}</td>
-								<td>{{item.colorid}}</td>
-								<td>{{item.size}}</td>
 								<td class="column-8">
 									<div class="btn-group btn-group-xs">
 										<button ng-click="edit(item)"

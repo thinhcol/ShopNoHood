@@ -29,7 +29,7 @@ public class PRODUCT {
     private CATEGORY categories;
     private String IMAGE;
     @Temporal(TemporalType.TIMESTAMP) 
-    private Date DATECREATE;
+    private Date DATECREATE = new Date();
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<COMMENT> comments;

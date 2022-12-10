@@ -50,4 +50,8 @@ public class SecurityController {
     public String logoff() {
         return "/forget-pass/forget-pass.html";
     }
+    @RequestMapping("/security/register")
+    public String dangky() {
+        return "/register/register.html";
+    }
 }

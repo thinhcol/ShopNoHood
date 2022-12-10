@@ -1,23 +1,65 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
-
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
 
 <head>
-	<title>Quên mật khẩu</title>
+	<title>Đăng nhập</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
 </head>
 
 <body class="animsition" ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
-	<main ng-controller="forget-pass-ctrl">
+	<main>
 		<!-- Sidebar -->
-		<header class="header_area">
-			<!-- Top menu -->
-			<div th:replace="/layout/header.html">
-	
+		<aside class="wrap-sidebar js-sidebar">
+			<div class="s-full js-hide-sidebar"></div>
+
+			<div class="sidebar flex-col-l p-t-22 p-b-25">
+				<div class="flex-r w-full p-b-30 p-r-27">
+					<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-sidebar">
+						<i class="zmdi zmdi-close"></i>
+					</div>
+				</div>
+
+				<div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
+					<ul class="sidebar-link w-full">
+						<li class="p-b-13" th:each="c:${cates}">
+							<a aria-current="true" th:href="@{|/product/list?cid=${c.CATEID}|}"
+								class="stext-102 cl2 hov-cl1 trans-04">
+								[[${c.CATENAME}]]
+							</a>
+						</li>
+					</ul>
+
+					<div class="sidebar-gallery w-full p-tb-30">
+						<span class="mtext-101 cl5">
+							@ NoHoodStore
+						</span>
+
+						<!-- <div class="flex-w flex-sb p-t-36 gallery-lb">
+						
+						<div class="wrap-item-gallery m-b-10">
+							<a class="item-gallery bg-img1" th:href="images/gallery-01.jpg" data-lightbox="gallery" 
+							style="background-image: url('images/gallery-01.jpg');"></a>
+						</div>
+					</div> -->
+					</div>
+
+					<div class="sidebar-gallery w-full">
+						<span class="mtext-101 cl5">
+							Về chúng tôi
+						</span>
+
+						<p class="stext-108 cl6 p-t-27">
+							Chúng mình xuất hiện để đem tới mọi người một chất lượng áo tốt nhất, với giá thành hấp dẫn nhất 
+							để đưa NoHood đến với tất cả lứa tuổi và khắp mọi vùng miền đất nước
+					</p>
+						</p>
+					</div>
+				</div>
 			</div>
-		</header>
+		</aside>
+
 
 		<!-- Cart -->
 		<div th:replace="/layout/cart.html"></div>
@@ -27,82 +69,48 @@
         <div class="container">
             <div class="">
                 <div class="size-210 bor10 m-auto p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    <form ng-if="!isDoneCheckCode" method="post" name="formdulieu">
+                    <form th:action="@{/security/login}" method="post">
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
                             Quên mật khẩu
                         </h4>
 
                         <div class="d-flex justify-content-between">
                             <div style="width: -webkit-fill-available;" class="bor8 m-b-20 how-pos4-parent">
-                                <input ng-model="password.emailSend" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" type="email" name="diachi" placeholder="Nhập email" required>
+                                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" required placeholder="Nhập email">
                                 <img class="how-pos4 pointer-none" src="/images/icons/icon-email.png" alt="ICON">
                             </div>
-							
-                            <button ng-if="!isSended" ng-disabled="formdulieu.$invalid" ng-click="sendCode()" style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi mã xác nhận</button>
-                            <button ng-if="isSended" ng-disabled="formdulieu.$invalid" ng-click="sendCode()" style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi lại mã</button>
+                            <button hidden style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi mã xác nhận</button>
+                            <button style="width:190px ;" class="m-b-20 cl0 bg3 hov-btn3 trans-04 pointer">Gửi lại mã</button>
                         </div>
-						<div ng-show="formdulieu.diachi.$dirty  || formdulieu.$submitted">
-							<span class="badge badge-danger font-italic" ng-show="formdulieu.diachi.$error.pattern">
-								Vui lòng nhập đúng định dạng email (VD: user@gmail.com)</span>
-							<span class="badge badge-danger"
-								ng-show="formdulieu.diachi.$error.required">
-								Email không được rỗng
-							</span>
-						</div><br>
-                        <div ng-if="isSended" class="bor8 m-b-20 how-pos4-parent">
-                            <input ng-model="password.codeFromClient" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="maxn" placeholder="Nhập mã xác nhận" required>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Nhập mã xác nhận">
                             <img class="how-pos4 pointer-none" src="/images/icons/favicon.png" alt="ICON">
                         </div>
-                        
-                        <button ng-if="isSended" ng-disabled="formdulieu.$invalid" ng-click="checkCode()" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                             Tiếp tục
                         </button>
-						<div ng-show="formdulieu.maxn.$dirty  || formdulieu.$submitted">
-							<span class="badge badge-danger"
-								ng-show="formdulieu.maxn.$error.required">
-								Mã xác nhận không được rỗng
-							</span>
-						</div><br>
                     </form>
-                    <form ng-if="isDoneCheckCode" method="post" name="formmatkhau">
+                    <!-- <form th:action="@{/security/login}" method="post">
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
                             Nhập lại mật khẩu
                         </h4>
 
                         <div class="d-flex justify-content-between">
                             <div style="width: -webkit-fill-available;" class="bor8 m-b-20 how-pos4-parent">
-                                <input ng-model="password.newPass" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" ng-minlength="6" name="mk1" required placeholder="Nhập mật khẩu mới">
+                                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" required placeholder="Nhập mật khẩu mới">
                                 <img class="how-pos4 pointer-none" src="/images/icons/icon-email.png" alt="ICON">
                             </div>
                         </div>
-						<div ng-show="formmatkhau.mk1.$dirty  || formdulieu.$submitted">
-							<span class="badge badge-danger"
-								ng-show="formmatkhau.mk1.$error.required">
-								Mật khẩu không được rỗng
-							</span>
-							<span class="badge badge-danger"
-								ng-show="formmatkhau.mk1.$error.minlength">
-								Mật khẩu phải từ 6 kí tự trở lên
-							</span>
-						</div><br>
+
                         <div class="bor8 m-b-20 how-pos4-parent">
-                            <input ng-model="password.confirmPass" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" ng-minlength="6" name="mk2" required placeholder="Nhập mã lại mật khẩu">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Nhập mã lại mật khẩu">
                             <img class="how-pos4 pointer-none" src="/images/icons/favicon.png" alt="ICON">
                         </div>
-						<div ng-show="formmatkhau.mk2.$dirty  || formmatkhau.$submitted">
-							<span class="badge badge-danger"
-								ng-show="formmatkhau.mk2.$error.required">
-								Xác nhận mật khẩu không được rỗng
-							</span>
-							<span class="badge badge-danger"
-								ng-show="formmatkhau.mk2.$error.minlength">
-								Xác nhận mật khẩu phải từ 6 kí tự trở lên
-							</span>
-						</div><br>
-                        <button ng-disabled="formmatkhau.$invalid" ng-click="checkNewPass()" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                             Hoàn thành
                         </button>
-                    </form>
+                    </form> -->
                 </div>
 
             </div>

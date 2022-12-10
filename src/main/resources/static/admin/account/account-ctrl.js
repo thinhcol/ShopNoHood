@@ -2,15 +2,18 @@ app.controller("account-ctrl", function($scope, $http) {
 	$scope.items = [];
 	$scope.form = {};
 	$scope.initialize = function() {
+		$scope.nutupdate = false;
+		$scope.nutthem = false;
 		$http.get("/rest/users").then(resp => {
 			$scope.items = resp.data;
-			
 		});
 		
 	}
 
 	$scope.initialize();
 	$scope.reset = function() {
+		$scope.nutthem = false;
+		$scope.nutupdate = false;
 		$scope.form = {
 			datecreate: new Date(),
 			gender: ""
@@ -18,6 +21,8 @@ app.controller("account-ctrl", function($scope, $http) {
 	}
 
 	$scope.edit = function(item) {
+		$scope.nutthem = true;
+		$scope.nutupdate = true;
 		$scope.form = angular.copy(item);
 		$(".nav-tabs button:eq(0)").tab('show')
 	}
@@ -56,6 +61,7 @@ app.controller("account-ctrl", function($scope, $http) {
 				icon: "success",
 				button: "OK!",
 			});
+			$scope.reset();
 			$scope.initialize();
 		}).catch(error => {
 			swal({

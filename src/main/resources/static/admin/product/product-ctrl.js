@@ -4,6 +4,8 @@ app.controller("product-ctrl", function ($scope, $http) {
 	$scope.form = {};
 	$scope.listColors = [];
 	$scope.initialize = function () {
+		$scope.nutupdate = false;
+		$scope.nutthem = false;
 		$http.get("/rest/products").then(resp => {
 			$scope.items = resp.data;
 			$scope.items.forEach(item => {
@@ -22,15 +24,17 @@ app.controller("product-ctrl", function ($scope, $http) {
 
 	$scope.initialize();
 	$scope.reset = function () {
+		$scope.nutthem = false;
+		$scope.nutupdate = false;
 		$scope.form = {
-			datecreate: new Date(),
 			image: ""
 		}
 	}
 
 	$scope.edit = function (item) {
 		$scope.form = angular.copy(item);
-		console.log($scope.form)
+		$scope.nutthem = true;
+		$scope.nutupdate = true;
 		$(".nav-tabs button:eq(0)").tab('show')
 	}
 
@@ -46,12 +50,11 @@ app.controller("product-ctrl", function ($scope, $http) {
 				button: "OK!",
 			});
 			$scope.reset();
-
 			$scope.initialize();
 		}).catch(error => {
 			swal({
 				title: "Thao tác",
-				text: "Thêm thất bại",
+				text: "Thêm thất bại vui lòng nhập thông tin đầy đủ",
 				icon: "error",
 				button: "OK!",
 			});
@@ -70,6 +73,7 @@ app.controller("product-ctrl", function ($scope, $http) {
 				icon: "success",
 				button: "OK!",
 			});
+			$scope.reset();
 			$scope.initialize();
 		}).catch(error => {
 			swal({

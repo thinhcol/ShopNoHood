@@ -16,26 +16,39 @@
 			</p>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<form class="forms-sample">
+					<form class="forms-sample" name="formdulieu">
 
 						<div class="form-group">
 							<label for="exampleSelectGender"><img class="how-pos4 pointer-none"
 									src="/images/icons/Email Sign_24px.png" alt="ICON"> Loại sản phẩm</label>
 
-							<input class="form-control" type="text" ng-model="form.cateid"
-								placeholder="Nhập mã thể loại">
+							<input class="form-control" ng-minlength="4" ng-maxlength="10" pattern="[A-Za-z]{1,}"
+								type="text" name="macate" ng-model="form.cateid" placeholder="Nhập mã thể loại"
+								required>
+							<br>
+							<div ng-show="formdulieu.macate.$dirty || formdulieu.$submitted">
+								<span class="badge badge-danger font-italic" ng-show="formdulieu.macate.$error.min || formdulieu.macate.$error.max "> Nhập
+									tên thể loại từ 4 đến 10 ký tự</span>
+								<span class="badge badge-danger font-italic" ng-show="formdulieu.macate.$error.pattern">
+									Chỉ nhập được kí tự chữ (A-Z)</span>
+							</div>
 						</div>
 						<div class="form-group">
-							<label><img class="how-pos4 pointer-none"
-								src="/images/icons/password_24px.png" alt="ICON"> Tên sản phẩm</label>
-								<input class="form-control" type="text" ng-model="form.catename"
-								placeholder="Nhập tên thể loại">
+							<label><img class="how-pos4 pointer-none" src="/images/icons/password_24px.png" alt="ICON">
+								Tên sản phẩm</label>
+							<input class="form-control" type="text" ng-minlength="4" ng-maxlength="50" ng-model="form.catename" name="tentl"
+								placeholder="Nhập tên thể loại" required><br>
+							<div ng-show="formdulieu.tentl.$dirty || formdulieu.$submitted">
+								<span class="badge badge-danger font-italic" ng-show="formdulieu.tentl.$error.min || formdulieu.tentl.$error.max "> Nhập
+									tên thể loại từ 4 đến 50 ký tự</span>
 							
+							</div>
+
 						</div>
 						<div class="flex-w flex-r p-t-18 p-b-15 p-lr-15-sm">
-							<button ng-click="create()" class="btn btn-primary mr-2">
+							<button ng-click="create()" ng-disabled="formdulieu.$invalid" ng-show="nutupdate == false" class="btn btn-primary mr-2">
 								<i class="fa fa-plus m-r-5" aria-hidden="true"></i>Thêm</button>
-							<button ng-click="update()" class="btn btn-primary mr-2">
+							<button ng-click="update()" ng-disabled="formdulieu.$invalid" ng-show="nutupdate == true" class="btn btn-primary mr-2">
 								<i class="fa fa-pencil m-r-5" aria-hidden="true"></i>Cập nhật</button>
 							<button ng-click="reset()" class="btn btn-light">
 								<i class="fa fa-refresh m-r-5" aria-hidden="true"></i>Bỏ qua</button>

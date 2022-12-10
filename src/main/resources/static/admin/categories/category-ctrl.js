@@ -3,6 +3,8 @@ app.controller("category-ctrl", function($scope, $http) {
 	$scope.cates = [];
 	$scope.form = {};
 	$scope.initialize = function() {
+		$scope.nutupdate = false;
+		$scope.nutthem = false;
 		$http.get("/rest/categories").then(resp => {
 			$scope.items = resp.data;
 			
@@ -10,12 +12,17 @@ app.controller("category-ctrl", function($scope, $http) {
 	}
 
 	$scope.initialize();
+
 	$scope.reset = function() {
+		$scope.nutthem = false;
+		$scope.nutupdate = false;
 		$scope.form = {
 		}
 	}
 
 	$scope.edit = function(item) {
+		$scope.nutthem = true;
+		$scope.nutupdate = true;
 		$scope.form = angular.copy(item);
 		$(".nav-tabs button:eq(0)").tab('show')
 	}
@@ -25,13 +32,14 @@ app.controller("category-ctrl", function($scope, $http) {
 		$http.post('/rest/categories', item).then(resp => {
 			$scope.items.push(resp.data);
 			$scope.reset();
+			$scope.initialize();
 			swal({
 				title: "Thao tác",
 				text: "Thêm thành công",
 				icon: "success",
 				button: "OK!",
 			});
-			$scope.initialize();
+			
 		}).catch(error => {
 			swal({
 				title: "Thao tác",
@@ -48,13 +56,15 @@ app.controller("category-ctrl", function($scope, $http) {
 		$http.put(`/rest/categories/${item.cateid}`, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.cateid == item.cateid);
 			$scope.items[index] = item;
+			$scope.reset();
+			$scope.initialize();
 			swal({
 				title: "Thao tác",
 				text: "Cập nhật thành công",
 				icon: "success",
 				button: "OK!",
 			});
-			$scope.initialize();
+			
 		}).catch(error => {
 			swal({
 				title: "Thao tác",

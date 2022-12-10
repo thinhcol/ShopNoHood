@@ -35,7 +35,7 @@
 							<th:block th:if="${#request.remoteUser}">
 								<li
 									th:if="${#request.isUserInRole('ADMN') or #request.isUserInRole('STAF') or #request.isUserInRole('SPST')}">
-									<a th:href="@{/admin/home/index}">Quản trị</a>
+									<a th:href="@{/admin/home/index}">Administration</a>
 								</li>
 							</th:block>
 						</ul>

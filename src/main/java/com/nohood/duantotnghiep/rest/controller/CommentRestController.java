@@ -1,10 +1,13 @@
 package com.nohood.duantotnghiep.rest.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,11 @@ import com.nohood.duantotnghiep.service.FAVORITESERVICE;
 public class CommentRestController {
 	@Autowired
     COMMENTSERVICE service;
+	
+	@GetMapping()  
+    public List<COMMENT> getAll() {
+        return service.findall();
+    }
 	
 	@PostMapping()  
     public COMMENT create(@RequestBody COMMENT comment) {

@@ -296,6 +296,15 @@ app.controller("detail-ctrl", function($scope, $http) {
 	$scope.favorite.checkLike()
 
 	$scope.comment = {
+		listComments : [],
+		getListComments : function(){
+			$http.get(`/rest/comment`).then(resp => {
+			console.log( resp.data);
+				this.listComments = resp.data;
+				this.countComment = this.listComments.length;
+			})
+		},
+		countComment : 0,
 		add(productid, username) {
 			cmt = {
 				content: $scope.content,
@@ -303,14 +312,17 @@ app.controller("detail-ctrl", function($scope, $http) {
 				product: { productid: productid },
 				account: { username: username },
 			}
-			$http.post(`/rest/comment?p=${productid}&u=${username}`, cmt)
-			this.clear();
+			$http.post(`/rest/comment?p=${productid}&u=${username}`, cmt).then(resp => {
+				this.clear();
+				this.getListComments();
+			})
 		},
 		clear() {
 			$scope.content = "";
 		}
 	}
-
+	
+	$scope.comment.getListComments();
 
 	$scope.account = {
 		update(username) {

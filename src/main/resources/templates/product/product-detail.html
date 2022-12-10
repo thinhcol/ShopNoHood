@@ -7,9 +7,9 @@
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 </head>
-<body class="animsition">
-	<main>
-		<div ng-controller="detail-ctrl">
+<body class="animsition" ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+	<main  ng-controller="detail-ctrl" >
+		<div >
 		
 		<!-- Cart -->
 		<div th:replace="/layout/cart.html"></div>	
@@ -94,67 +94,17 @@
 							
 							<!--  -->
 							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-	
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-	
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-	
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-	
-								<div class="flex-w flex-r-m p-b-10">
+								<div class="p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-	
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-	
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-	
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
+										<button th:attr="ng-click=@{|cart.add(*{PRODUCTID})|}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+											Thêm vào giỏ hàng
 										</button>
 									</div>
 								</div>	
 							</div>
 		
 							<!--  -->
-							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+							<div class="flex-w mt-3 respon7">
 								<div class="flex-m bor9 p-r-10 m-r-11">
 									<a th:attr="ng-click=@{|favorite.triggle()|}" ng-if=!favorite.isLike href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Thêm vào yêu thích">
 										<i class="zmdi zmdi-favorite"></i>
@@ -196,15 +146,15 @@
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="nav-item p-b-10">
-								<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+								<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Mô tả</a>
 							</li>
 	
 							<li class="nav-item p-b-10">
-								<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
+								<a class="nav-link" data-toggle="tab" href="#information" role="tab">Thông tin chi tiết</a>
 							</li>
 	
 							<li class="nav-item p-b-10">
-								<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+								<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Đánh giá ({{comment.countComment}})</a>
 							</li>
 						</ul>
 	
@@ -224,53 +174,24 @@
 								<div class="row">
 									<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 										<ul class="p-lr-28 p-lr-15-sm">
-											<li class="flex-w flex-t p-b-7">
-												<span class="stext-102 cl3 size-205">
-													Weight
-												</span>
-	
-												<span class="stext-102 cl6 size-206">
-													0.79 kg
-												</span>
-											</li>
 	
 											<li class="flex-w flex-t p-b-7">
 												<span class="stext-102 cl3 size-205">
-													Dimensions
-												</span>
-	
-												<span class="stext-102 cl6 size-206">
-													110 x 33 x 100 cm
-												</span>
-											</li>
-	
-											<li class="flex-w flex-t p-b-7">
-												<span class="stext-102 cl3 size-205">
-													Materials
+													Chất liệu
 												</span>
 	
 												<span class="stext-102 cl6 size-206">
 													60% cotton
 												</span>
 											</li>
-	
+											
 											<li class="flex-w flex-t p-b-7">
 												<span class="stext-102 cl3 size-205">
-													Color
+													Màu
 												</span>
 	
 												<span class="stext-102 cl6 size-206">
-													Black, Blue, Grey, Green, Red, White
-												</span>
-											</li>
-	
-											<li class="flex-w flex-t p-b-7">
-												<span class="stext-102 cl3 size-205">
-													Size
-												</span>
-	
-												<span class="stext-102 cl6 size-206">
-													XL, L, M, S
+													Xanh lục
 												</span>
 											</li>
 										</ul>
@@ -284,28 +205,20 @@
 									<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 										<div class="p-b-30 m-lr-15-sm">
 											<!-- Review -->
-											<div th:each="c:${listComment}" class="flex-w flex-t p-b-68">
+											<div ng-repeat="c in comment.listComments" class="flex-w flex-t p-b-68">
 												<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-													<img src="images/avatar-01.jpg" alt="AVATAR">
+													<img src="../../images/avatar/{{c.account.photo}}" alt="AVATAR">
 												</div>
 	
 												<div class="size-207">
 													<div class="flex-w flex-sb-m p-b-17">
 														<span class="mtext-107 cl2 p-r-20">
-															[[${c.account.USERNAME}]]
-														</span>
-	
-														<span class="fs-18 cl11">
-															<i class="zmdi zmdi-star"></i>
-															<i class="zmdi zmdi-star"></i>
-															<i class="zmdi zmdi-star"></i>
-															<i class="zmdi zmdi-star"></i>
-															<i class="zmdi zmdi-star-half"></i>
+															{{c.account.username}}
 														</span>
 													</div>
 	
 													<p class="stext-102 cl6">
-														[[${c.CONTENT}]]
+														{{c.content}}
 													</p>
 												</div>
 											</div>
@@ -313,32 +226,13 @@
 											<!-- Add review -->
 											<form class="w-full">
 												<h5 class="mtext-108 cl2 p-b-7">
-													Add a review
+													Thêm đánh giá
 												</h5>
-	
-												<p class="stext-102 cl6">
-													Your email address will not be published. Required fields are marked *
-												</p>
-	
-												<div class="flex-w flex-m p-t-50 p-b-23">
-													<span class="stext-102 cl3 m-r-16">
-														Your Rating
-													</span>
-	
-													<span class="wrap-rating fs-18 cl11 pointer">
-														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-														<input class="dis-none" type="number" name="rating">
-													</span>
-												</div>
 	
 												<div class="row p-b-25">
 													<div class="col-12 p-b-5">
-														<label class="stext-102 cl3" for="review">Your review</label>
-														<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" ng-model="content" name="content"></textarea>
+														<label class="stext-102 cl3" for="review">Đánh giá của bạn</label>
+														<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" ng-model="content"></textarea>
 													</div>
 												</div>
 	
@@ -410,7 +304,7 @@
 											<a ng-click="actionfav(item,account)"
 												class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
 												data-tooltip="Thêm vào yêu thích">
-												<img src="../images/icons/icon-heart-01.png" alt="ICON">
+												<img src="../../images/icons/icon-heart-01.png" alt="ICON">
 											</a>
 										</div>
 
@@ -427,7 +321,7 @@
 									<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
 										<button class="how-pos3 hov3 trans-04 js-hide-modal1">
 											<a href="/product/detail/{{view.productid}}"><img
-													src="images/icons/Full Screen_24px.png" alt="FULL"></a>
+													src="../../images/icons/Full Screen_24px.png" alt="FULL"></a>
 										</button>
 
 										<div class="row">
@@ -478,87 +372,33 @@
 													</h4>
 
 													<span class="mtext-106 cl2">
-														${{view.price}}
+														{{view.price | number : 0}}đ
 													</span>
-
-													<p class="stext-102 cl3 p-t-23">
-														Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus
-														ligula. Mauris
-														consequat ornare feugiat.
-													</p>
-
 													<!--  -->
 													<div class="p-t-33">
-														<div class="flex-w flex-r-m p-b-10">
-															<div class="size-203 flex-c-m respon6">
-																Size
-															</div>
-
-															<div class="size-204 respon6-next">
-																<div class="rs1-select2 bor8 bg0">
-																	<select class="js-select2" name="time">
-																		<option>Choose an option</option>
-																		<option>Size S</option>
-																		<option>Size M</option>
-																		<option>Size L</option>
-																		<option>Size XL</option>
-																	</select>
-																	<div class="dropDownSelect2"></div>
-																</div>
-															</div>
-														</div>
-
-														<div class="flex-w flex-r-m p-b-10">
-															<div class="size-203 flex-c-m respon6">
-																Color
-															</div>
-
-															<div class="size-204 respon6-next">
-																<div class="rs1-select2 bor8 bg0">
-																	<select class="js-select2" name="time">
-																		<option>Choose an option</option>
-																		<option>Red</option>
-																		<option>Blue</option>
-																		<option>White</option>
-																		<option>Grey</option>
-																	</select>
-																	<div class="dropDownSelect2"></div>
-																</div>
-															</div>
-														</div>
-
-														<div class="flex-w flex-r-m p-b-10">
-															<div class="size-204 flex-w flex-m respon6-next">
-
-
+														<div class="p-b-10">
+															<div class="respon6-next">
 																<button th:attr="ng-click=@{|cart.add(view.productid)|}"
-																	class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-																	Add to cart
+																	class="stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+																	Thêm vào giỏ hàng
 																</button>
 															</div>
 														</div>
 													</div>
 
 													<!--  -->
-													<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+													<div class="flex-w mt-3 respon7">
 														<div class="flex-m bor9 p-r-10 m-r-11">
 															<div ng-if="!account">
 															</div>
 															<div ng-if="account">
-																<div ng-if="checkfav(view,account)==true">
-																	<a ng-click="actionfav(view,account)"
-																		class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-																		data-tooltip="Xóa khỏi yêu thích">
-																		<img src="images/icons/icon-heart-02.png"
-																			alt="ICON">
+																<div>
+																	<a th:attr="ng-click=@{|favorite.triggle()|}" ng-if=!favorite.isLike href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Thêm vào yêu thích">
+																		<i class="zmdi zmdi-favorite"></i>
 																	</a>
-																</div>
-																<div ng-if="checkfav(view,account)==false">
-																	<a ng-click="actionfav(view,account)"
-																		class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-																		data-tooltip="Thêm vào yêu thích">
-																		<img src="images/icons/icon-heart-01.png"
-																			alt="ICON">
+																	
+																	<a th:attr="ng-click=@{|favorite.triggle()|}" ng-if=favorite.isLike href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100 js-addedwish-detail" data-tooltip="Xóa khỏi yêu thích">
+																		<i class="zmdi zmdi-favorite"></i>
 																	</a>
 																</div>
 															</div>

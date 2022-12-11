@@ -11,14 +11,14 @@
             <table class="table table-border">
                 <thead class="bg-succes" style="font-variant: small-caps;">
                     <tr>
-                        <th>Họ và tên</th>
-                        <th ng-repeat="role in roles" class="text-center">{{role.rolename}}</th>
+                        <th>HỌ VÀ TÊN</th>
+                        <th ng-repeat="role in roles" class="text-center text-uppercase">{{role.rolename}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="acc in admins">
                         <td>{{acc.username}}</td>
-                        <th ng-repeat="role in roles" class="text-center">
+                        <th ng-repeat="role in roles" class="text-center ">
                             <input class="form-check-input m-auto" ng-checked="authority_of(acc,role)"
                                 ng-click="authority_changed(acc,role)" type="checkbox">
                         </th>

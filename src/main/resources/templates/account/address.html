@@ -92,18 +92,24 @@
 							<hr>
 
 						</div>
-						<p class="text-center"> <a class="btn btn-danger" ng-click="pager.first()"> <i
-									class="fa fa-angle-double-left"></i></a>
-							<a class="btn btn-success" ng-click="pager.prev()"> <i class="fa fa-angle-left"></i></a>
-							{{pager.page + 1}} - {{pager.count}} đến
-							{{pager.count}} <a class="btn btn-success" ng-click="pager.next()"> <i
-									class="fa fa-angle-right"></i></a>
-							<a class="btn btn-danger" ng-click="pager.last()"> <i
-									class="fa fa-angle-double-right"></i></a>
-						</p>
-
-
-
+						<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+  							<ul class="pagination">
+  								<li class="page-item"><a class="page-link" ng-click="pager.first()"> << </a></li>
+  							</ul>
+  							<ul class="pagination">
+  								<li class="page-item"><a class="page-link" ng-click="pager.prev()"> < </a></li>
+  							</ul>
+  							<ul class="pagination">
+  								<li class="page-item"><a style="padding: 0.5rem 0.75rem;display: block; cursor: default;" ng-click="pager.prev()"> {{pager.page + 1}} - {{pager.count}} đến {{pager.count}} </a></li>
+  							</ul>
+  							
+  							<ul class="pagination">
+  								<li class="page-item"><a class="page-link" ng-click="pager.next()"> > </a></li>
+  							</ul>
+  							<ul class="pagination">
+  								<li class="page-item"><a class="page-link" ng-click="pager.last()"> >> </a></li>
+  							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>

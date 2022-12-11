@@ -7,8 +7,13 @@ app.filter('productHomeFilter', function () {
 			if (i.productname.includes(`${searchKey}`) || searchKey == undefined) {
 				if (priceKey == undefined) {
 					listResult.push(i)
-				} else {
-					if (i.price >= priceKey[0] && i.price <= priceKey[1]) {
+				}else {
+					console.log(priceKey[0]);
+					if(priceKey[0] == 0 && priceKey[1] == undefined){
+						listResult.push(i);
+					}else if(i.price >= priceKey[0] && priceKey[1] == undefined){
+						listResult.push(i);
+					}else if (i.price >= priceKey[0] && i.price <= priceKey[1]) {
 						listResult.push(i)
 					}
 				}

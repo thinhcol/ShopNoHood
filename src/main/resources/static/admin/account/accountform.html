@@ -94,7 +94,7 @@
 							<input type="tel" ng-model="form.phone" name="sdt" class="form-control" ng-minlength="10"
 								ng-maxlength="10" placeholder="Nhập số điện thoại" required /><br>
 							<div ng-show="formdulieu.sdt.$dirty || formdulieu.$submitted">
-								<span class="badge badge-danger font-italic" ng-show="formdulieu.sdt.$error.minlength">
+								<span class="badge badge-danger font-italic" ng-show="formdulieu.sdt.$error.minlength || formdulieu.sdt.$error.maxlength">
 									Nhập số điện thoại với 10 ký tự</span>
 								<span class="badge badge-danger font-italic" ng-show="formdulieu.sdt.$error.required">
 									Số điện thoại không được rỗng</span>
@@ -144,7 +144,6 @@
 								<th scope="col">Tài khoản</th>
 								<th scope="col">Họ và tên</th>
 								<th scope="col">Giới tính</th>
-								<th scope="col">Số điện thoại</th>
 								<th scope="col">Email</th>
 								
 
@@ -156,7 +155,6 @@
 								<th scope="row">{{item.username}}</th>
 								<td>{{item.fullname}}</td>
 								<td>{{item.gender?'Nam':'Nữ'}}</td>
-								<td>{{item.phone}}</td>
 								<td>{{item.email}}</td>
 								
 								<td class="column-8">
@@ -171,6 +169,25 @@
 
 						</tbody>
 					</table>
+					<br>
+					<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.first()"> << </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.prev()"> < </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a style="padding: 0.5rem 0.75rem;display: block; cursor: default;"> {{pager.page + 1}} - {{pager.count}} đến {{pager.count}} </a></li>
+						</ul>
+						
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.next()"> > </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.last()"> >> </a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 

@@ -27,4 +27,7 @@ public interface BILLDAO extends JpaRepository<BILL,Long> {
 	@Query("Select new com.nohood.duantotnghiep.entity.chart.TIME(MONTH(b.BILLDATE)) from BILL b where YEAR(b.BILLDATE) = ?1 group by MONTH(b.BILLDATE)")
 	List<TIME> getMonth(int year);
 	
+	@Query("Select b from BILL b where b.STATUS = ?1")
+	List<BILL> findStatus(int status);
+	
 }

@@ -87,6 +87,12 @@ public class BILLSERVICEIMPL implements BILLSERVICE {
 		return dao.getMonth(year);
 	}
 
+	@Override
+	public List<BILL> findStatus(int status) {
+		// TODO Auto-generated method stub
+		return dao.findStatus(status);
+	}
+
 
 
 }

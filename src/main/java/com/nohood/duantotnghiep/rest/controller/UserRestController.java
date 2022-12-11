@@ -17,7 +17,7 @@ public class UserRestController {
 
     @GetMapping()
     public List<ACCOUNT> getAll() {
-        return service.getUser(); 
+        return service.findall(); 
     }
 
     @GetMapping("{id}")

@@ -6,6 +6,7 @@ app.controller("account-ctrl", function($scope, $http) {
 		$scope.nutthem = false;
 		$http.get("/rest/users").then(resp => {
 			$scope.items = resp.data;
+			console.log(resp.data);
 		});
 		
 	}

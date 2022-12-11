@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,10 @@ public class CommentRestController {
     public List<COMMENT> getAll() {
         return service.findall();
     }
-	
+	@GetMapping("/getpid/{productid}")  
+    public List<COMMENT> getProductid(@PathVariable("productid") long productid) {
+        return service.getByProductId(productid);
+    }
 	@PostMapping()  
     public COMMENT create(@RequestBody COMMENT comment) {
         return service.create(comment);

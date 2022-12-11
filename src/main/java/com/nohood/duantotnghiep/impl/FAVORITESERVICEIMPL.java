@@ -3,6 +3,7 @@ package com.nohood.duantotnghiep.impl;
 import com.nohood.duantotnghiep.dao.COMMENTDAO;
 import com.nohood.duantotnghiep.dao.FAVORITEDAO;
 import com.nohood.duantotnghiep.entity.FAVORITE;
+import com.nohood.duantotnghiep.entity.chart.SOLUONG;
 import com.nohood.duantotnghiep.service.COMMENTSERVICE;
 import com.nohood.duantotnghiep.service.FAVORITESERVICE;
 
@@ -53,6 +54,12 @@ public class FAVORITESERVICEIMPL implements FAVORITESERVICE {
 	public List<FAVORITE> findByUsername(String username) {
 		List<FAVORITE> lf = dao.findByUser(username);
 		return lf;
+	}
+
+	@Override
+	public List<SOLUONG> soluongfav() {
+		// TODO Auto-generated method stub
+		return dao.soluongfav(); 
 	}
 
 

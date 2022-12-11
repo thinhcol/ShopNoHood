@@ -35,7 +35,10 @@ public class AccountRestController {
 			return null;
 		}
 	}
-
+	@PostMapping()
+	 public ACCOUNT create(@RequestBody ACCOUNT ACCOUNT) {
+        return dao.create(ACCOUNT);
+    }
 	@GetMapping("soluong")
 	public long getsoluong() {
 		return dao.sluser();

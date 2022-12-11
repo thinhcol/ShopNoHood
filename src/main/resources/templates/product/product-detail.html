@@ -145,6 +145,7 @@
 					<div class="tab01">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" role="tablist">
+							
 							<li class="nav-item p-b-10">
 								<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Mô tả</a>
 							</li>
@@ -155,6 +156,9 @@
 	
 							<li class="nav-item p-b-10">
 								<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Đánh giá ({{comment.countComment}})</a>
+							</li>
+							<li class="nav-item p-b-10">
+								<a class="nav-link" data-toggle="tab" role="tab">Số lượng yêu thích ({{favorite.countLike}})</a>
 							</li>
 						</ul>
 	
@@ -216,14 +220,18 @@
 															{{c.account.username}}
 														</span>
 													</div>
-	
+													<div class="flex-w flex-sb-m p-b-17">
+														<span class="mtext-107 cl2 p-r-20">
+															{{c.cmtdate}}
+														</span>
+													</div>
 													<p class="stext-102 cl6">
 														{{c.content}}
 													</p>
 												</div>
 											</div>
 											
-											<!-- Add review -->
+											
 											<form class="w-full">
 												<h5 class="mtext-108 cl2 p-b-7">
 													Thêm đánh giá
@@ -237,7 +245,7 @@
 												</div>
 	
 												<button th:attr="ng-click=@{|comment.add(${item.PRODUCTID}, '${#request.remoteUser}')|}" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-													 Submit
+													 Đánh giá
 												</button>
 											</form>
 										</div>

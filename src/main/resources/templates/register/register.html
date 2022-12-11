@@ -42,7 +42,7 @@
 							</h4>
 
 							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" ng-model="username" ng-minlength="4" name="taikhoan"
+								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" id="username" ng-model="username" ng-minlength="4" name="taikhoan"
 									placeholder="Nhập tài khoản" required>
 								<img class="how-pos4 pointer-none" src="/images/icons/icon-email.png" alt="ICON">
 							</div>
@@ -57,7 +57,7 @@
 								</span>
 							</div><br>
 							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" ng-model="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" name="email"
+								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" id="email" ng-model="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" name="email"
 									placeholder="Nhập email" required>
 								<img class="how-pos4 pointer-none" src="/images/icons/icon-email.png" alt="ICON">
 							</div>
@@ -69,16 +69,34 @@
 									Email không được rỗng
 								</span>
 							</div><br>
-
 							<div class="bor8 m-b-20 how-pos4-parent">
-								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" ng-model="pass" name="matkhau" ng-minlength="6"
+								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="tel" id="phone" ng-model="phone" ng-minlength="10" ng-maxlength="10" name="number"
+									placeholder="Nhập số điện thoại" required>
+								<img class="how-pos4 pointer-none" src="/images/icons/icon-email.png" alt="ICON">
+							</div>
+							<div ng-show="formdulieu.number.$dirty  || formdulieu.$submitted">
+								<span class="badge badge-danger"
+									ng-show="formdulieu.number.$error.required">
+									Số điện thoại không được rỗng
+								</span>
+								<span class="badge badge-danger"
+									ng-show="formdulieu.number.$error.minlength || formdulieu.number.$error.maxlength">
+									Số điện thoại chỉ được 10 kí tự
+								</span>
+							</div><br>
+							<div class="bor8 m-b-20 how-pos4-parent">
+								<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" id="matkhau" ng-model="pass" name="matkhau" ng-minlength="6"
 									placeholder="Nhập mật khẩu" required>
 								<img class="how-pos4 pointer-none" src="/images/icons/favicon.png" alt="ICON">
 							</div>
 							<div ng-show="formdulieu.matkhau.$dirty  || formdulieu.$submitted">
 								<span class="badge badge-danger"
-									ng-show="formdulieu.matkhau.$error.required">
+									ng-show="formdulieu.matkhau.$error.minlength">
 									Mật khẩu phải 6 kí tự trở lên
+								</span>
+								<span class="badge badge-danger"
+									ng-show="formdulieu.matkhau.$error.required">
+									Mật khẩu không được rỗng
 								</span>
 							</div><br>
 							<div class="bor8 m-b-20 how-pos4-parent">
@@ -86,15 +104,19 @@
 									placeholder="Xác nhận lại mật khẩu" required>
 								<img class="how-pos4 pointer-none" src="/images/icons/favicon.png" alt="ICON">
 							</div>
-							<div ng-show="formdulieu.matkhau1.$dirty  || formdulieu.$submitted">
+							<div ng-show="formdulieu.matkhau1.$dirty || formdulieu.$submitted">
+								<span class="badge badge-danger"
+									ng-show="formdulieu.matkhau1.$error.minlength">
+									Mật khẩu phải 6 kí tự trở lên
+								</span>
 								<span class="badge badge-danger"
 									ng-show="formdulieu.matkhau1.$error.required">
-									Mật khẩu phải 6 kí tự trở lên
+									Mật khẩu không được rỗng
 								</span>
 							</div><br>
 							
 							<i class="pull-left text-danger" th:text="${message}"></i>
-							<button ng-disabled="formmatkhau.$invalid" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+							<button ng-disabled="formmatkhau.$invalid" ng-click="register()" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
 								Đăng ký
 							</button>
 							<div class="m-t-40 text-center">

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nohood.duantotnghiep.entity.ACCOUNT;
 import com.nohood.duantotnghiep.entity.FAVORITE;
 import com.nohood.duantotnghiep.entity.PRODUCT;
+import com.nohood.duantotnghiep.entity.chart.SOLUONG;
 import com.nohood.duantotnghiep.service.FAVORITESERVICE;
 
 @CrossOrigin("*")
@@ -56,8 +57,16 @@ public class FavoriteRestController {
     public FAVORITE create(@RequestBody FAVORITE favorite) {
         return service.create(favorite);
     }
+	@GetMapping("/finduser/{username}")  
+    public List<FAVORITE> finduser(@PathVariable("username") String username) {
+        return service.findByUsername(username);
+    }
 	@DeleteMapping("{id}")
     public void delete(@PathVariable("id") long id) {
         service.deletebyid(id);
+    }
+	@GetMapping("/yeuthich")
+	public List<SOLUONG> soluong() {
+       return service.soluongfav();
     }
 }

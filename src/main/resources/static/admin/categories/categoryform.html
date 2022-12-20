@@ -98,6 +98,7 @@
 					<br>
 					<nav aria-label="Page navigation example" class="d-flex justify-content-center">
 						<ul class="pagination">
+<<<<<<< HEAD
 							<li class="page-item"><a class="page-link" ng-click="pager.first()">
 									<< </a>
 							</li>
@@ -117,6 +118,22 @@
 						</ul>
 						<ul class="pagination">
 							<li class="page-item"><a class="page-link" ng-click="pager.last()"> >> </a></li>
+=======
+						  <li class="page-item"><a class="page-link" ng-click="pager.first()"> << </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.prev()"> < </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a style="padding: 0.5rem 0.75rem;display: block; cursor: default;"> {{pager.page + 1}} - {{pager.count}} đến {{pager.count}} </a></li>
+						</ul>
+						
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.next()"> > </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.last()"> >> </a></li>
+>>>>>>> e3aec8210b585782a42122bde262f66d8076c7d1
 						</ul>
 					</nav>
 				</div>

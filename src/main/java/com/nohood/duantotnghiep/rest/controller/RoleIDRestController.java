@@ -15,6 +15,14 @@ import java.util.Optional;
 public class RoleIDRestController {
     @Autowired
     ROLEACCSERVICE service;
+    @PostMapping
+    public ROLEACC post(@RequestBody ROLEACC auth) {
+        return service.create(auth);
+    }
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") Integer id) {
+        service.deletebyid(id);
+    }
     @GetMapping
     public List<ROLEACC> getAll(@RequestParam("admin") Optional<Boolean> admin){
         if(admin.orElse(false)) { 
@@ -22,14 +30,9 @@ public class RoleIDRestController {
         }
         return service.findall();
     }
+    
 
-    @PostMapping
-    public ROLEACC post(@RequestBody ROLEACC auth) {
-        return service.create(auth);
-    }
+    
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Integer id) {
-        service.deletebyid(id);
-    }
+  
 }

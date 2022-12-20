@@ -10,4 +10,5 @@ public interface ROLESERVICE {
     void deletebyid(String ROLEID);
     void delete(ROLE ROLE);
     ROLE findone(String ROLEID);
+    List<ROLE> getAdmin();
 }

@@ -61,6 +61,9 @@ public class UPLOADSERVICEIMPL implements UPLOADSERVICE {
 	
 	@Override
 	public void updateproduct(MultipartFile[] files, String namefolder) {
+		String folder = "..\\ShopQuanAoNam\\src\\main\\resources\\static\\images\\products\\" + namefolder;
+		File dir = new File(folder);
+		dir.mkdirs();
 		try {
 			int i = 1;
 			for(MultipartFile file : files) {

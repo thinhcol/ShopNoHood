@@ -87,4 +87,8 @@ public class BillRestController {
 	public List<TIME> getMonth(@PathVariable("year") int year) {
 		return service.getMonth(year);
 	}
+	@GetMapping("status/{id}")
+	public List<BILL> getStatus(@PathVariable("id") int id) {
+		return service.findStatus(id);
+	}
 }

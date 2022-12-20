@@ -105,8 +105,7 @@
 								</div>
 							</div>
 						</div>
-						<input hidden class="form-control file-upload-info" type="file" id="id_img_product" name="anh1" ng-model="anh1"
-							onchange="angular.element(this).scope().imageChanged(this.files)" accept=".png" multiple >
+						<input hidden class="form-control file-upload-info" type="file" id="id_img_product" name="anh1" accept=".png" multiple >
 							
 							
 							
@@ -116,17 +115,25 @@
 							
 						<div class="flex-w flex-r p-t-18 p-b-15 p-lr-15-sm"> 
 							<button ng-disabled="formdulieu.$invalid" ng-show="nutthem == false" ng-click="create()" class="btn btn-primary mr-2">
-								<i class="fa fa-plus m-r-5" aria-hidden="true"></i>Thêm</button>
+								Thêm</button>
 							<button type="submit" ng-disabled="formdulieu.$invalid" ng-show="nutupdate == true"  ng-click="update()" class="btn btn-primary mr-2">
-								<i class="fa fa-pencil m-r-5" aria-hidden="true"></i>Cập nhật</button>
+								Cập nhật</button>
 							<button ng-click="reset()" class="btn btn-light">
-								<i class="fa fa-refresh m-r-5" aria-hidden="true"></i>Bỏ qua</button>
+								Bỏ qua</button>
 						</div>
 					</form>
 
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<h4 class="mtext-105 cl2 txt-center p-b-30">Dữ liệu</h4>
+					<div class="row">
+						<div class="col-9">
+							<h4 class="mtext-105 cl2 txt-center p-b-30">Dữ liệu</h4>
+						</div>
+						<div class="col-3">
+							<input type="text" class="form-control" placeholder="Tìm kiếm" ng-model="searchProduct">
+						</div>
+					</div>
+					<br>
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -134,18 +141,16 @@
 								<th scope="col">Giá</th>
 								<th scope="col">Số lượng</th>
 								<th scope="col">Ngày sản xuất</th>
-								<th scope="col">Hình ảnh</th>
 								<th scope="col">Thể loại</th>
 
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="item in pager.items">
+							<tr ng-repeat="item in pager.items | filter: searchProduct">
 								<td>{{item.productname}}</td>
 								<td>{{item.price | number: 0}}</td>
 								<td>{{item.quantity}}</td>
 								<td>{{item.datecreate | date: 'dd-MM-yyyy'}}</td>
-								<td>{{item.image}}</td>
 								<td>{{item.categories.catename}}</td>
 								<td class="column-8">
 									<div class="btn-group btn-group-xs">
@@ -159,6 +164,25 @@
 
 						</tbody>
 					</table>
+					<br>
+					<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.first()"> << </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.prev()"> < </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a style="padding: 0.5rem 0.75rem;display: block; cursor: default;"> {{pager.page + 1}} - {{pager.count}} đến {{pager.count}} </a></li>
+						</ul>
+						
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.next()"> > </a></li>
+						</ul>
+						<ul class="pagination">
+						  <li class="page-item"><a class="page-link" ng-click="pager.last()"> >> </a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 

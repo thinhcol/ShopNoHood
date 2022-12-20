@@ -18,6 +18,12 @@ public class ROLEACCSERVICEIMPL implements ROLEACCSERVICE {
     @Autowired
     ACCOUNTDAO acdao;
     @Override
+    public List<ROLEACC> Authorityof() {
+        List<ACCOUNT> accounts = acdao.getAdministrators();
+        return dao.Authorityof(accounts);
+    }
+
+    @Override
     public List<ROLEACC> findall() {
         return dao.findAll();
     }
@@ -42,11 +48,6 @@ public class ROLEACCSERVICEIMPL implements ROLEACCSERVICE {
         return dao.findById(ROLEACCID).get();
     }
 
-    @Override
-    public List<ROLEACC> Authorityof() {
-        List<ACCOUNT> accounts = acdao.getAdministrators();
-        return dao.Authorityof(accounts);
-    }
 
 
 }

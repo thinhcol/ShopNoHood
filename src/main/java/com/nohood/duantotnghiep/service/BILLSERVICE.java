@@ -17,5 +17,5 @@ public interface BILLSERVICE {
 	int Updatepre(int status,Date billdate, long BILLID);
 	List<TIME> getYear();
 	List<TIME> getMonth(int year);
-
+	List<BILL> findStatus(int status);
 }

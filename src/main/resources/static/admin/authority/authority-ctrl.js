@@ -3,6 +3,8 @@ app.controller("authority-ctrl",function($scope,$http,$location){
     $scope.admins = [];
     $scope.authorities = [];
 
+
+    //Hiện danh sách nhân viên
     $scope.intialize = function (){
         $http.get("/rest/roles").then(resp => {
             $scope.roles = resp.data;
@@ -18,6 +20,7 @@ app.controller("authority-ctrl",function($scope,$http,$location){
         })
     }
 
+    //Check tài khoản có trong dữ liệu có trong $scope.authorities không nếu có sẽ check 
     $scope.authority_of = function(acc,role){
         if($scope.authorities){
             return $scope.authorities.find(ur => 
@@ -74,5 +77,6 @@ app.controller("authority-ctrl",function($scope,$http,$location){
             console.log("Error",error);
         })
     }
+    
     $scope.intialize();
 });

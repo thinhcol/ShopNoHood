@@ -22,4 +22,9 @@ public class RoleRestController {
     public List<ROLE> getAll(){ 
         return dao.findall();
     }
+    @GetMapping("nhanvien")
+    public List<ROLE> getAdmin(){
+    	return dao.getAdmin();
+    }
+    
 }

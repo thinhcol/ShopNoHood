@@ -102,7 +102,7 @@ app.controller("category-ctrl", function($scope, $http) {
 
 	$scope.pager = {
 		page: 0,
-		size: 10,
+		size: 5,
 		get items() {
 			var start = this.page * this.size;
 			return $scope.items.slice(start, start + this.size);
@@ -128,5 +128,19 @@ app.controller("category-ctrl", function($scope, $http) {
 		last() {
 			this.page = this.count - 1;
 		}
+	}
+
+	$scope.sortColumn = "name";
+	$scope.sort = false;
+
+	$scope.sortdata = function(column){
+		$scope.sort = ($scope.sortColumn == column) ? !$scope.sort : false;
+		$scope.sortColumn = column;
+	}
+	$scope.getSortclass = function(column){
+		if($scope.sortColumn == column){
+			return $scope.sort ? 'fas fa-sort-amount-down' : 'fas fa-sort-amount-up'
+		}
+		return '';
 	}
 })

@@ -17,6 +17,10 @@ app.config(function($routeProvider) {
 			templateUrl: "../admin/account/accountform.html",
 			controller: "account-ctrl"
 		})
+		.when("/accountvip", {
+			templateUrl: "../admin/accountvip/accountformvip.html",
+			controller: "accountvip-ctrl"
+		})
 		.when("/category", {
 			templateUrl: "../admin/categories/categoryform.html",
 			controller: "category-ctrl"
@@ -39,7 +43,13 @@ app.controller("admin-ctrl", function ($rootScope, $http,$location) {
     $rootScope.slcate = {};
 	$rootScope.sumdt = {};
 	$rootScope.slbanra = {};
+	$rootScope.account = {};
     $rootScope.all = function () {
+		$http.get("/rest/accounts/getone").then(resp => {
+			$rootScope.account = resp.data;
+		}).catch(error => {
+			$rootScope.account = null;
+		});
         $http.get("/rest/accounts/soluong").then(resp => {
             $rootScope.sluser = resp.data;
         });

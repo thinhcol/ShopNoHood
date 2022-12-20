@@ -2,6 +2,8 @@ package com.nohood;
 
 
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +14,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.nohood.duantotnghiep.entity.ACCOUNT;
+import com.nohood.duantotnghiep.service.ACCOUNTSERVICE;
 
 @Configuration
 @EnableWebSecurity
@@ -22,20 +29,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	BCryptPasswordEncoder pe;
 	@Autowired
 	UserDetail service;
+	@Autowired
+	ACCOUNTSERVICE dao;
 	@Override
 	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers(HttpMethod.OPTIONS);
 	}
 	@Bean
 	public BCryptPasswordEncoder getPasswordEnCoder() {
-		return new BCryptPasswordEncoder();
+		 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+	       return bCryptPasswordEncoder;
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(service);
 	}
-
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

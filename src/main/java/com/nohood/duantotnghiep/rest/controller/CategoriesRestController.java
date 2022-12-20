@@ -13,8 +13,16 @@ import java.util.List;
 @RequestMapping("/rest/categories")
 public class CategoriesRestController {
     @Autowired
-    CATEGORYSERVICE service; 
-
+    CATEGORYSERVICE service;
+    @PostMapping()
+    public CATEGORY post(@RequestBody CATEGORY Category){
+        service.create(Category);
+        return Category;
+    }
+    @DeleteMapping("{names}")
+    public void delete(@PathVariable("names") String names){
+        service.deletebyid(names);
+    }
     @GetMapping() 
     public List<CATEGORY> getAll() {
         return service.findall(); 
@@ -24,21 +32,14 @@ public class CategoriesRestController {
     public CATEGORY getOne(@PathVariable("names") String names){
         return service.findone(names);
     }
-    @PostMapping("")
-    public CATEGORY post(@RequestBody CATEGORY Category){
-        service.create(Category);
-        return Category;
-    }
+    
     @PutMapping("{names}")
     public CATEGORY put(@PathVariable("names") String names,@RequestBody CATEGORY Category){
         service.create(Category);
         return Category;
     }
 
-    @DeleteMapping("{names}")
-    public void delete(@PathVariable("names") String names){
-        service.deletebyid(names);
-    }
+   
     @GetMapping("soluong") 
     public long getsoluong(){
         return service.slcate();

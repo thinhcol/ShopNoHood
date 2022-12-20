@@ -40,5 +40,11 @@ public class ROLESERVICEIMPL implements ROLESERVICE {
         return dao.findById(ROLEID).get();
     }
 
+	@Override
+	public List<ROLE> getAdmin() {
+		// TODO Auto-generated method stub
+		return dao.getAdmin();
+	}
+
 
 }

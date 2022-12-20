@@ -31,10 +31,10 @@ public class UploadRestController {
         node.put("size", savedFile.length());
         return node;
     }
-    @PostMapping("/rest/upload/product")
-	public void uploadproduct(@PathVariable("file") MultipartFile[] file) {
-		String folder = String.valueOf(proservice.getNotId().getId());
-		service.saveproduct(file, folder);
+    @PostMapping("/rest/upload/product/{folder}")
+	public void uploadproduct(@PathVariable("file") MultipartFile[] file,@PathVariable("folder") long folder) {
+		String folder1 = String.valueOf(folder);
+		service.saveproduct(file, folder1);
 	}
 	@PostMapping("/rest/upload/update/{productid}")
 	public void update(@PathVariable("file") MultipartFile[] file,@PathVariable("productid") long productid) {

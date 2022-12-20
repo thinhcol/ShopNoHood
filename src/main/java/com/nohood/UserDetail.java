@@ -15,7 +15,11 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Service;
 
 import com.nohood.duantotnghiep.entity.ACCOUNT;
+import com.nohood.duantotnghiep.entity.ROLE;
+import com.nohood.duantotnghiep.entity.ROLEACC;
 import com.nohood.duantotnghiep.service.ACCOUNTSERVICE;
+import com.nohood.duantotnghiep.service.ROLEACCSERVICE;
+import com.nohood.duantotnghiep.service.ROLESERVICE;
 
 
 @Service
@@ -24,6 +28,10 @@ public class UserDetail  implements UserDetailsService {
 	BCryptPasswordEncoder pe;
 	@Autowired
 	ACCOUNTSERVICE service;
+	@Autowired
+	ROLEACCSERVICE accservice;
+	@Autowired
+	ROLESERVICE roleservice;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
@@ -41,12 +49,17 @@ public class UserDetail  implements UserDetailsService {
 	 
 	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
 		ACCOUNT account = new ACCOUNT();
+		ROLEACC accrole = new ROLEACC();
+		ROLE role = roleservice.findone("CUST");
 		String email = oauth2.getPrincipal().getAttribute("email");
 		String password = Long.toHexString(System.currentTimeMillis());
 		account.setEMAIL(email);
 		account.setPASSWORD(password);
 		account.setUSERNAME(email);
 		service.create(account);
+		accrole.setRole(role);
+		accrole.setAccount(account);
+		accservice.create(accrole);
 		UserDetails user = User.withUsername(email).password(pe.encode(password)).roles("CUST").build();
 		Authentication auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);

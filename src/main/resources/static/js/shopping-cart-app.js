@@ -7,13 +7,13 @@ app.filter('productHomeFilter', function () {
 			if (i.productname.includes(`${searchKey}`) || searchKey == undefined) {
 				if (priceKey == undefined) {
 					listResult.push(i)
-				}else {
+				} else {
 					console.log(priceKey[0]);
-					if(priceKey[0] == 0 && priceKey[1] == undefined){
+					if (priceKey[0] == 0 && priceKey[1] == undefined) {
 						listResult.push(i);
-					}else if(i.price >= priceKey[0] && priceKey[1] == undefined){
+					} else if (i.price >= priceKey[0] && priceKey[1] == undefined) {
 						listResult.push(i);
-					}else if (i.price >= priceKey[0] && i.price <= priceKey[1]) {
+					} else if (i.price >= priceKey[0] && i.price <= priceKey[1]) {
 						listResult.push(i)
 					}
 				}
@@ -174,11 +174,12 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 		}
 	}
 	$rootScope.cart.loadCart();
+	console.log($rootScope.cart.listCarts)
 
 
 	$scope.checkfav = function (pro, acc) {
 		var chfav = $scope.favorite.find(ur => ur.account.username == acc.username && ur.product.productid == pro.productid);
-	
+
 		if (chfav) {
 			return true;
 
@@ -221,9 +222,33 @@ app.controller("shopping-cart-ctrl", function ($scope, $rootScope, $http) {
 			password: password,
 			phone: phone
 		}
-		$http.post("/rest/accounts", re).then(resp => {
-			swal("Tài khoản", "Đăng ký tài khoản thành công", "success");
-			window.location.href = '/security/login/form';
+		$http.post("/rest/accounts/dangky", re).then(resp => {
+			// swal("Tài khoản", "Đăng ký tài khoản thành công", "success");
+			swal({
+				title: "Tài khoản",
+				text: "Đăng ký tài khoản thành công",
+				icon: "success",
+				buttons: "Đồng ý",
+				dangerMode: true,
+			})
+				.then((willDelete) => {
+					if (willDelete) {
+						window.location.href = '/';
+					}
+				});
+			// swal({
+			// 	title: "Tài khoản",
+			// 	text: "Đăng ký tài khoản thành công",
+			// 	icon: "success",
+			// 	confirmButtonColor: '#3085d6',
+			// 	cancelButtonColor: '#d33',
+			// 	confirmButtonText: 'Đồng ý'
+			// }).then((result) => {
+			// 	if (result.isConfirmed) {
+			// 		window.location.href = '/';
+			// 	}
+			// })
+
 		}).catch(error => {
 			console.log("Error", error);
 		})
@@ -252,9 +277,9 @@ app.controller("home-ctrl", function ($scope, $http) {
 			$scope.accounts = null;
 			console.log(error);
 		});
-		
-		
-		
+
+
+
 	}
 	$scope.get()
 })
@@ -284,14 +309,14 @@ app.controller("productlist-ctrl", function ($scope, $http) {
 
 
 // Điều khiển trang chi tiết sản phẩm////////////////////////////////////////////////////////////////
-app.controller("detail-ctrl", function ($scope, $http,$rootScope) {
+app.controller("detail-ctrl", function ($scope, $http, $rootScope) {
 	$scope.favorite = {
 		user: $("#username").text(),
 		proid: $("#productid").text(),
 		isLike: false,
 		countLike: 0,
 		ListLike: [],
-		Likeone:{},
+		Likeone: {},
 		checkLike() {
 			$http.get(`/rest/favorite/checkexist?p=${this.proid}&u=${this.user}`).then(resp => {
 				this.isLike = resp.data;
@@ -299,17 +324,17 @@ app.controller("detail-ctrl", function ($scope, $http,$rootScope) {
 			$http.get("/rest/favorite/yeuthich").then(resp => {
 				this.ListLike = resp.data;
 				this.Likeone = this.ListLike.find(ur => ur.productid == this.proid);
-				if(this.Likeone != undefined){
+				if (this.Likeone != undefined) {
 					this.countLike = this.Likeone.number;
 				}
-				
+
 			});
 		},
 		triggle() {
 			$http.get(`/rest/favorite?p=${this.proid}&u=${this.user}`).then(resp => {
 				if (resp.data != "") {
 					$http.delete(`/rest/favorite/${resp.data.favid}`)
-					
+
 					this.isLike = false;
 					this.countLike -= 1;
 				} else {
@@ -326,8 +351,8 @@ app.controller("detail-ctrl", function ($scope, $http,$rootScope) {
 		}
 	}
 	$scope.favorite.checkLike()
-	
-	
+
+
 	$scope.comment = {
 		user: $("#username").text(),
 		proid: $("#productid").text(),
@@ -691,8 +716,20 @@ app.controller("order-ctrl", function ($scope, $rootScope, $http) {
 					title: "Thanh toán",
 					text: "Thanh toán thành công",
 					icon: "success",
-					button: "Đồng ý",
+					buttons: "Đồng ý",
+					dangerMode: true,
+				}).then((willDelete) => {
+					if (willDelete) {
+						window.location.href = '/';
+					}
 				});
+
+				// swal({
+				// 	title: "Thanh toán",
+				// 	text: "Thanh toán thành công",
+				// 	icon: "success",
+				// 	button: "Đồng ý",
+				// });
 			});
 		},
 		onCancel: function (data) {
@@ -754,8 +791,19 @@ app.controller("order-ctrl", function ($scope, $rootScope, $http) {
 				$http.post("/rest/orderdetail", orderDetails).then(resp => {
 					$rootScope.cart.clearCart($("#userremost").text())
 					$rootScope.cart.loadCart()
-					swal("Cảm ơn", "Đặt hàng thành công", "success");
-					window.location.href = '/';
+					swal({
+						title: "Thanh toán",
+						text: "Đặt hàng thành công",
+						icon: "success",
+						buttons: "Đồng ý",
+						dangerMode: true,
+					})
+						.then((willDelete) => {
+							if (willDelete) {
+								window.location.href = '/';
+							}
+						});
+
 				})
 			})
 

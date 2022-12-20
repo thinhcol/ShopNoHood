@@ -34,9 +34,11 @@ app.controller("product-ctrl", function ($scope, $http) {
 	}
 
 	$scope.create = function () {
+		$scope.form.image = 'index1';
 		var item = angular.copy($scope.form);
 		$http.post('/rest/products', item).then(resp => {
-			resp.data.datecreate = new Date(resp.data.datecreate)
+			resp.data.datecreate = new Date(resp.data.datecreate);
+			$scope.imageChanged(resp.data.productid);
 			$scope.items.push(resp.data);
 			swal({
 				title: "Thao tác",
@@ -107,7 +109,7 @@ app.controller("product-ctrl", function ($scope, $http) {
 
 	$scope.pager = {
 		page: 0,
-		size: 10,
+		size: 5,
 		get items() {
 			var start = this.page * this.size;
 			return $scope.items.slice(start, start + this.size);
@@ -135,7 +137,8 @@ app.controller("product-ctrl", function ($scope, $http) {
 		}
 	}
 
-	$scope.imageChanged = function (files) {
+	$scope.imageChanged = function (folder) {
+		var  files = document.formdulieu.anh1.files ;
 		if (files.length > 3) {
 			swal({
 				title: "Hình ảnh",
@@ -145,12 +148,10 @@ app.controller("product-ctrl", function ($scope, $http) {
 			});
 		} else {
 			var data = new FormData();
-			console.log(files);
 			for (let i = 0; i < files.length; i++) {
 				data.append('file', files[i]);
 			}
-			console.log("ok")
-			$http.post('/rest/upload/product', data, {
+			$http.post(`/rest/upload/product/${folder}`, data, {
 				transformRequest: angular.identity, headers: { 'Content-Type': undefined }
 			}).then(resp => {
 				$scope.form.image = 'index1';

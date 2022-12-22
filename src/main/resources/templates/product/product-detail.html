@@ -45,31 +45,31 @@
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 	
 								<div class="slick3 gallery-lb">
-									<div class="item-slick3" th:data-thumb="@{|/images/products/*{PRODUCTID}/index1.jpg|}">
+									<div class="item-slick3" th:data-thumb="@{|/images/products/*{PRODUCTID}/index1.png|}">
 										<div class="wrap-pic-w pos-relative">
-											<img style="height: 513px;object-fit: contain;" th:src="@{|/images/products/*{PRODUCTID}/index1.jpg|}" alt="IMG-PRODUCT">
+											<img style="height: 513px;object-fit: contain;" th:src="@{|/images/products/*{PRODUCTID}/index1.png|}" alt="IMG-PRODUCT">
 	
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" th:href="@{|/images/products/*{PRODUCTID}/index1.jpg|}">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" th:href="@{|/images/products/*{PRODUCTID}/index1.png|}">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
 									</div>
 	
-									<div class="item-slick3" th:data-thumb="@{|/images/products/*{PRODUCTID}/index2.jpg|}">
+									<div class="item-slick3" th:data-thumb="@{|/images/products/*{PRODUCTID}/index2.png|}">
 										<div class="wrap-pic-w pos-relative">
-											<img style="height: 513px;object-fit: contain;" th:src="@{|/images/products/*{PRODUCTID}/index2.jpg|}" alt="IMG-PRODUCT">
+											<img style="height: 513px;object-fit: contain;" th:src="@{|/images/products/*{PRODUCTID}/index2.png|}" alt="IMG-PRODUCT">
 	
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" th:href="@{|/images/products/*{PRODUCTID}/index2.jpg|}">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" th:href="@{|/images/products/*{PRODUCTID}/index2.png|}">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
 									</div>
 	
-									<div class="item-slick3" th:data-thumb="@{|/images/products/*{PRODUCTID}/index3.jpg|}">
+									<div class="item-slick3" th:data-thumb="@{|/images/products/*{PRODUCTID}/index3.png|}">
 										<div class="wrap-pic-w pos-relative">
-											<img style="height: 513px;object-fit: contain;" th:src="@{|/images/products/*{PRODUCTID}/index3.jpg|}" alt="IMG-PRODUCT">
+											<img style="height: 513px;object-fit: contain;" th:src="@{|/images/products/*{PRODUCTID}/index3.png|}" alt="IMG-PRODUCT">
 	
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" th:href="@{|/images/products/*{PRODUCTID}/index3.jpg|}">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" th:href="@{|/images/products/*{PRODUCTID}/index3.png|}">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
@@ -168,7 +168,7 @@
 							<div class="tab-pane fade show active" id="description" role="tabpanel">
 								<div class="how-pos2 p-lr-15-md">
 									<p class="stext-102 cl6">
-										Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+										Tiếng nói của street style là tiếng nói của một thế hệ tự do, tôn thờ chủ nghĩa cá nhân, nơi mà mỗi người sẽ cất lên tiếng nói riêng của mình, khẳng định chất riêng qua những bộ đồ ấn tượng. Bởi lẽ đó mà street style thuở ban đầu xuất phát từ nước Anh, nhưng đã nhanh chóng len lỏi vào từng ngóc ngách của thời trang với sức lan tỏa mạnh mẽ. Street style đã biến đường phố thành sàn diễn thời trang!									
 									</p>
 								</div>
 							</div>
@@ -222,11 +222,11 @@
 													</div>
 													<div class="flex-w flex-sb-m p-b-17">
 														<span class="mtext-107 cl2 p-r-20">
-															{{c.cmtdate}}
+															{{c.content}}
 														</span>
 													</div>
 													<p class="stext-102 cl6">
-														{{c.content}}
+															{{c.cmtdate | date : 'dd-MM-yyyy'}}
 													</p>
 												</div>
 											</div>
@@ -270,7 +270,7 @@
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="/images/products/{{item.productid}}/index1.jpg" alt="IMG-PRODUCT">
+								<img src="/images/products/{{item.productid}}/index1.png" alt="IMG-PRODUCT">
 								<a href="#"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
 									data-toggle="modal" data-target="#exampleModal" ng-click="findone(item)">
@@ -346,15 +346,15 @@
 													</ol>
 													<div class="carousel-inner">
 														<div class="carousel-item active">
-															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index1.jpg"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index1.png"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index2.jpg"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index2.png"
 																class="d-block w-100" alt="...">
 														</div>
 														<div class="carousel-item">
-															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index3.jpg"
+															<img style="height: 436px;object-fit: contain;" src="/images/products/{{view.productid}}/index3.png"
 																class="d-block w-100" alt="...">
 														</div>
 													</div>
